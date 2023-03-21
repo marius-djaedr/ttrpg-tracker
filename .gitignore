@@ -1,0 +1,18 @@
+
+# Java related
+*.jar
+*.war
+*.ear
+*.class
+
+# eclipse specific
+*/.project
+*/.classpath
+*/target/**
+*/bin/**
+*/.settings/**
+
+# google io
+*/tokens-sheets/**
+*/tokens-docs/**
+*/tokens-drive/**

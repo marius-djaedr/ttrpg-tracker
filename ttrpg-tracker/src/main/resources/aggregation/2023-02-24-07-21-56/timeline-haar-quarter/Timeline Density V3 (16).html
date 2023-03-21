@@ -1,0 +1,51 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(1991, 3, 1),0E-10,0E-10,0E-10],
+[new Date(1995, 2, 31),0E-10,0E-10,0E-10],
+[new Date(1995, 3, 1),0E-10,0E-10,0E-10],
+[new Date(1999, 2, 31),0E-10,0E-10,0E-10],
+[new Date(1999, 3, 1),0E-10,0E-10,0E-10],
+[new Date(2003, 2, 31),0E-10,0E-10,0E-10],
+[new Date(2003, 3, 1),0E-10,0.2500000000,0.2500000000],
+[new Date(2007, 2, 31),0E-10,0.2500000000,0.2500000000],
+[new Date(2007, 3, 1),2.3125000000,0.6250000000,2.9375000000],
+[new Date(2011, 2, 31),2.3125000000,0.6250000000,2.9375000000],
+[new Date(2011, 3, 1),4.7500000000,5.8125000000,10.5625000000],
+[new Date(2015, 2, 31),4.7500000000,5.8125000000,10.5625000000],
+[new Date(2015, 3, 1),6.4375000000,13.3437500000,19.7812500000],
+[new Date(2019, 2, 31),6.4375000000,13.3437500000,19.7812500000],
+[new Date(2019, 3, 1),4.1875000000,10.5937500000,14.7812500000],
+[new Date(2023, 1, 24),4.1875000000,10.5937500000,14.7812500000]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V3 (16)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

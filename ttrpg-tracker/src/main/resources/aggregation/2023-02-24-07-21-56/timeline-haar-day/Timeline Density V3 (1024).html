@@ -1,0 +1,51 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(2000, 8, 16),0E-10,0.0009765625,0.0009765625],
+[new Date(2003, 6, 6),0E-10,0.0009765625,0.0009765625],
+[new Date(2003, 6, 7),0E-10,0.0029296875,0.0029296875],
+[new Date(2006, 3, 25),0E-10,0.0029296875,0.0029296875],
+[new Date(2006, 3, 26),0.0078125000,0E-10,0.0078125000],
+[new Date(2009, 1, 12),0.0078125000,0E-10,0.0078125000],
+[new Date(2009, 1, 13),0.0468750000,0.0205078125,0.0673828125],
+[new Date(2011, 11, 3),0.0468750000,0.0205078125,0.0673828125],
+[new Date(2011, 11, 4),0.0556640625,0.0683593750,0.1240234375],
+[new Date(2014, 8, 22),0.0556640625,0.0683593750,0.1240234375],
+[new Date(2014, 8, 23),0.0693359375,0.1191406250,0.1884765625],
+[new Date(2017, 6, 12),0.0693359375,0.1191406250,0.1884765625],
+[new Date(2017, 6, 13),0.0537109375,0.1406250000,0.1943359375],
+[new Date(2020, 4, 1),0.0537109375,0.1406250000,0.1943359375],
+[new Date(2020, 4, 2),0.0429687500,0.1259765625,0.1689453125],
+[new Date(2023, 1, 19),0.0429687500,0.1259765625,0.1689453125]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V3 (1024)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

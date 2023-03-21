@@ -1,0 +1,81 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Name');
+data.addColumn('number', 'Characters');
+data.addRows([
+['Artificer',1.0000000000],
+['Assassin',1.0000000000],
+['Barbarian',2.0000000000],
+['Bard',4.5000000000],
+['Beacon',1.0000000000],
+['Bloodrager',1.0000000000],
+['Cavalier',2.0000000000],
+['Cleric',6.5000000000],
+['Decker',1.0000000000],
+['Devastator',1.0000000000],
+['Druid',4.0000000000],
+['Envoy',2.0000000000],
+['Expert',1.0000000000],
+['Fighter',6.0000000000],
+['Gambler',1.0000000000],
+['General',1.0000000000],
+['Hunter',1.0000000000],
+['Investigator',2.5000000000],
+['Invoker',1.0000000000],
+['Lab Assistant',1.0000000000],
+['Magus',1.0000000000],
+['Mechanic',3.0000000000],
+['Medic',1.0000000000],
+['Mentalist',1.0000000000],
+['Paladin',0.5000000000],
+['Pathfinder Chronicler',0.5000000000],
+['Religious Leader',1.0000000000],
+['Researcher',2.0000000000],
+['Rogue',4.5000000000],
+['Shaman',1.0000000000],
+['Sorcerer',1.0000000000],
+['Swordmage',1.0000000000],
+['Thief',1.0000000000],
+['Vigilante',1.0000000000],
+['Warlock',2.0000000000],
+['Warpriest',1.0000000000],
+['Whore',1.0000000000],
+['Wizard',3.0000000000],
+['advisor',1.0000000000],
+['anthropologist',2.0000000000],
+['crazy hermit',1.0000000000],
+['death mage',2.0000000000],
+['diversity recruit',1.0000000000],
+['ex-SADGAIJG',1.0000000000],
+['innocent',1.0000000000],
+['senator',1.0000000000],
+['valedictorian',1.0000000000],
+['wizened advisor',1.0000000000]
+]);
+
+// Set chart options
+var options = {"title":"Characters (Pie) - Character - Class or Role","width":1000,"height":600,"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"}}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(2001, 9, 1),0E-10,0E-10,0E-10],
+[new Date(2003, 0, 31),0E-10,0E-10,0E-10],
+[new Date(2003, 1, 1),0E-10,0.0040994624,0.0040994624],
+[new Date(2004, 4, 31),0E-10,0.0040994624,0.0040994624],
+[new Date(2004, 5, 1),0E-10,0.0040994624,0.0040994624],
+[new Date(2005, 8, 30),0E-10,0.0040994624,0.0040994624],
+[new Date(2005, 9, 1),0E-10,0E-10,0E-10],
+[new Date(2007, 0, 31),0E-10,0E-10,0E-10],
+[new Date(2007, 1, 1),0.0081989247,0E-10,0.0081989247],
+[new Date(2008, 4, 31),0.0081989247,0E-10,0.0081989247],
+[new Date(2008, 5, 1),0.0081989247,0E-10,0.0081989247],
+[new Date(2009, 8, 30),0.0081989247,0E-10,0.0081989247],
+[new Date(2009, 9, 1),0.0496399769,0.0205645161,0.0702044930],
+[new Date(2011, 0, 31),0.0496399769,0.0205645161,0.0702044930],
+[new Date(2011, 1, 1),0.0724361394,0.0453768076,0.1178129469],
+[new Date(2012, 4, 31),0.0724361394,0.0453768076,0.1178129469],
+[new Date(2012, 5, 1),0.0679051460,0.0762528802,0.1441580261],
+[new Date(2013, 8, 30),0.0679051460,0.0762528802,0.1441580261],
+[new Date(2013, 9, 1),0.0270593318,0.0597878264,0.0868471582],
+[new Date(2015, 0, 31),0.0270593318,0.0597878264,0.0868471582],
+[new Date(2015, 1, 1),0.0635173340,0.0843313006,0.1478486347],
+[new Date(2016, 4, 31),0.0635173340,0.0843313006,0.1478486347],
+[new Date(2016, 5, 1),0.0965413787,0.1868999616,0.2834413403],
+[new Date(2017, 8, 30),0.0965413787,0.1868999616,0.2834413403],
+[new Date(2017, 9, 1),0.0471390169,0.1591109831,0.2062500000],
+[new Date(2019, 0, 31),0.0471390169,0.1591109831,0.2062500000],
+[new Date(2019, 1, 1),0.0516412084,0.1039739923,0.1556152008],
+[new Date(2020, 4, 31),0.0516412084,0.1039739923,0.1556152008],
+[new Date(2020, 5, 1),0.0246783794,0.1086981567,0.1333765360],
+[new Date(2021, 8, 30),0.0246783794,0.1086981567,0.1333765360],
+[new Date(2021, 9, 1),0.0607394873,0.1443284370,0.2050679244],
+[new Date(2023, 0, 24),0.0607394873,0.1443284370,0.2050679244]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V4 (16)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

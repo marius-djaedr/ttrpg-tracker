@@ -1,0 +1,51 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(2000, 9, 7),0E-10,0.0019531250,0.0019531250],
+[new Date(2003, 6, 27),0E-10,0.0019531250,0.0019531250],
+[new Date(2003, 6, 28),0E-10,0.0019531250,0.0019531250],
+[new Date(2006, 4, 16),0E-10,0.0019531250,0.0019531250],
+[new Date(2006, 4, 17),0.0078125000,0E-10,0.0078125000],
+[new Date(2009, 2, 5),0.0078125000,0E-10,0.0078125000],
+[new Date(2009, 2, 6),0.0478515625,0.0214843750,0.0693359375],
+[new Date(2011, 11, 24),0.0478515625,0.0214843750,0.0693359375],
+[new Date(2011, 11, 25),0.0546875000,0.0683593750,0.1230468750],
+[new Date(2014, 9, 13),0.0546875000,0.0683593750,0.1230468750],
+[new Date(2014, 9, 14),0.0712890625,0.1210937500,0.1923828125],
+[new Date(2017, 7, 2),0.0712890625,0.1210937500,0.1923828125],
+[new Date(2017, 7, 3),0.0517578125,0.1376953125,0.1894531250],
+[new Date(2020, 4, 22),0.0517578125,0.1376953125,0.1894531250],
+[new Date(2020, 4, 23),0.0439453125,0.1298828125,0.1738281250],
+[new Date(2023, 2, 12),0.0439453125,0.1298828125,0.1738281250]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V3 (1024)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

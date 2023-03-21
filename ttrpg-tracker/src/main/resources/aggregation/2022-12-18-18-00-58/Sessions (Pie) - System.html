@@ -1,0 +1,63 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Name');
+data.addColumn('number', 'Sessions');
+data.addRows([
+['A Quiet Year',3.5000000000],
+['Anima',6.0000000000],
+['Avatar Legends',3.0000000000],
+['BESM 4',13.0000000000],
+['Big Eyes Small Mouth',30.0000000000],
+['Blades in the Dark',11.0000000000],
+['Burning Wheel',6.0000000000],
+['D&D 3.5',29.0000000000],
+['D&D 4',255.0000000000],
+['D&D 5',194.0000000000],
+['Deathwatch',1.0000000000],
+['Dread',1.0000000000],
+['Dungeon World',27.0000000000],
+['FATE',15.0000000000],
+['Feng Shui',1.0000000000],
+['Fiasco',5.0000000000],
+['Follow',5.0000000000],
+['Godbound',5.0000000000],
+['Kingdom',15.0000000000],
+['Lasers & Felines',0.5000000000],
+['Microscope',10.0000000000],
+['Mutants and Masterminds',17.0000000000],
+['Paranoia',1.0000000000],
+['Pathfinder',142.0000000000],
+['Pathfinder 2e',1.0000000000],
+['Scum and Villainy',16.0000000000],
+['Serenity',7.0000000000],
+['Shadowrun',10.0000000000],
+['Starfinder',5.0000000000],
+['Stars Without Number',2.5000000000]
+]);
+
+// Set chart options
+var options = {"title":"Sessions (Pie) - System","width":1000,"height":600,"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"}}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

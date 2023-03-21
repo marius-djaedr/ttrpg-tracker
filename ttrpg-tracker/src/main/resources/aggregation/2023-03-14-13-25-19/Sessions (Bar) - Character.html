@@ -1,0 +1,109 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Name');
+data.addColumn('number', 'Sessions');
+data.addRows([
+['Amathal Freanighymn',2.00000000000000000000],
+['Arad Ira\'kidiam',1.00000000000000000000],
+['Astraf I\'bezebeze',15.00000000000000000000],
+['Auneari',10.00000000000000000000],
+['Balyax',7.00000000000000000000],
+['Breag Ferguson',1.00000000000000000000],
+['Brugbip',1.00000000000000000000],
+['Corisar',6.50000000000000000000],
+['Daemoira Wolfkin',5.00000000000000000000],
+['Damien "The Rampart" Drake',1.00000000000000000000],
+['Darang Perunggular\'aga',9.00000000000000000000],
+['Delgril Hornbringer',25.00000000000000000000],
+['Desakallu',7.00000000000000000000],
+['Die Waschbaer',8.00000000000000000000],
+['Dinendal',47.00000000000000000000],
+['Disenengu',2.50000000000000000000],
+['Dr Francis DuPoint',1.00000000000000000000],
+['Eamilia',10.00000000000000000000],
+['Eli\'kanini',10.00000000000000000000],
+['Envavius Qhordae',2.00000000000000000000],
+['Eugene',1.00000000000000000000],
+['Gardle Blegstendt Gon-Blurglesvick IV (Gar)',2.00000000000000000000],
+['General Seere Ohtar',2.00000000000000000000],
+['Geni',16.50000000000000000000],
+['Glarblug',5.00000000000000000000],
+['Heianoupqrf',2.00000000000000000000],
+['Ira Nyscu',11.00000000000000000000],
+['Istan Ansrisar',22.00000000000000000000],
+['Jaxtom Atticus',2.00000000000000000000],
+['Jeb Ming-wei, Jr',6.00000000000000000000],
+['Jerent Durpton',1.00000000000000000000],
+['Kaiho Muchinoshidai',1.50000000000000000000],
+['Karine Durant',4.00000000000000000000],
+['Kavacam Atimai',6.00000000000000000000],
+['Kazmuk Blackaxe',9.00000000000000000000],
+['Kecil',12.00000000000000000000],
+['Kepenguinan',7.00000000000000000000],
+['Krunk',2.00000000000000000000],
+['Kuma',1.00000000000000000000],
+['Kyoko Notori',3.00000000000000000000],
+['Linobi',2.00000000000000000000],
+['Lucas Antigonus Linwood',3.00000000000000000000],
+['Lyarkai of Freyalise',5.50000000000000000000],
+['Lyras Hydromech',18.50000000000000000000],
+['Maedh\'shti Akul\'li kon Ach\'ali',6.00000000000000000000],
+['Maidika Ridara',4.00000000000000000000],
+['Malruil Hieron IV',2.00000000000000000000],
+['Mardred',2.00000000000000000000],
+['Marius D\'jaed\'r',14.00000000000000000000],
+['Mathas',3.00000000000000000000],
+['Meidhbhin Mhic Cahan',3.00000000000000000000],
+['Mekeleya of Vulriel',4.00000000000000000000],
+['Missy Dubouis',1.00000000000000000000],
+['Munru',5.00000000000000000000],
+['Nafsi from Aleaql',2.00000000000000000000],
+['Nemial',1.00000000000000000000],
+['Niomoii "Screws" Kor',16.00000000000000000000],
+['Parnasse Eldon Gerbo Leaffound Scheppen-Pock',1.50000000000000000000],
+['Qahr Aetaq',3.00000000000000000000],
+['Quierk',12.00000000000000000000],
+['Remorin Wolfkin',11.00000000000000000000],
+['Ruri Tiaryl Itryn\'tyrghymn',5.00000000000000000000],
+['Sennof-re',3.00000000000000000000],
+['Spheniscidae',2.00000000000000000000],
+['Tek I\'bezebeze',1.00000000000000000000],
+['Thezier "Aid" Miller',14.50000000000000000000],
+['Thravrox the Wizened',2.00000000000000000000],
+['Tinchentafanalophous',6.00000000000000000000],
+['Treytarmi-R-NOT-1',1.00000000000000000000],
+['UNKNOWN - fiasco arctic cruise',1.00000000000000000000],
+['UNKNOWN - fiasco wild west',1.00000000000000000000],
+['UNKNOWN - fiasco work arctic',1.00000000000000000000],
+['UNKNOWN - my first',2.00000000000000000000],
+['UNKNOWN - oscar\'s work campaign',8.00000000000000000000],
+['Uthatril',9.50000000000000000000],
+['Valara Kailar',17.00000000000000000000]
+]);
+
+// Set chart options
+var options = {"title":"Sessions (Bar) - Character","width":1200,"height":2000,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50}}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

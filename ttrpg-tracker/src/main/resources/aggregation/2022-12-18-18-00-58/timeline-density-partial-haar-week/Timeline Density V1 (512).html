@@ -1,0 +1,43 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(2002, 11, 29),0E-10,0E-10,0E-10],
+[new Date(2003, 0, 11),0E-10,0E-10,0E-10],
+[new Date(2003, 0, 12),0E-10,0E-10,0E-10],
+[new Date(2003, 4, 3),0E-10,0E-10,0E-10],
+[new Date(2003, 4, 4),0.0323660714,0.0237165178,0.0560825893],
+[new Date(2013, 1, 23),0.0323660714,0.0237165178,0.0560825893],
+[new Date(2013, 1, 24),0.0542689732,0.1233258928,0.1775948660],
+[new Date(2022, 11, 18),0.0542689732,0.1233258928,0.1775948660]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V1 (512)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

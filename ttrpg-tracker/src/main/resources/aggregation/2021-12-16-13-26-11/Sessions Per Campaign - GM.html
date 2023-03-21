@@ -1,0 +1,46 @@
+<html>
+<head>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Name');
+data.addColumn('number', 'Sessions/Campaign');
+data.addRows([
+['Bruce Brown',26.6666666667],
+['Colby Woods',2.0000000000],
+['David Hobson',3.7500000000],
+['Josh Horner',9.3750000000],
+['Katie Peterson',2.0000000000],
+['Kyle Warrick',21.0000000000],
+['ME',11.9166666667],
+['Oscar Medina',8.0000000000],
+['Richard ???',15.0000000000],
+['Ryan Boenigk',12.0000000000],
+['Ryan Womack',2.0000000000],
+['Sean Faulkner',3.5000000000],
+['Thomas Villareal',9.0000000000],
+['none',2.0625000000]
+]);
+
+// Set chart options
+var options = {"title":"Sessions Per Campaign - GM","width":700,"height":600,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50}}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
