@@ -16,3 +16,6 @@
 */tokens-sheets/**
 */tokens-docs/**
 */tokens-drive/**
+
+# node related
+*/node_modules/**
