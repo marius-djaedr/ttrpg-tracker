@@ -23,7 +23,7 @@ const init = async () => {
     await server.register({
         plugin: require('hapi-mongodb'),
         options: {
-          url: 'mongodb+srv://mongo_app_user:KzhLwMB9Xe9kRaSV@cluster0.ur7ycf3.mongodb.net/TtrpgTracker?retryWrites=true&w=majority',
+          url: 'MONGO URL',
           settings: {
               useUnifiedTopology: true
           },
