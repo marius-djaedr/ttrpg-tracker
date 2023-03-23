@@ -12,7 +12,9 @@
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.1",
+    "boom": "^7.3.0",
     "hapi-mongodb": "^9.0.0",
-    "joi-objectid": "^3.0.1"
+    "joi-objectid": "^3.0.1",
+    "properties-reader": "^2.2.0"
   }
 }

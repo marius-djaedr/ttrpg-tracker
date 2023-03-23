@@ -1,6 +1,7 @@
 const Hapi = require('@hapi/hapi');
-const Path = require('path');
-const Hoek = require('@hapi/hoek');
+const Boom = require('boom');
+const PropertiesReader = require('properties-reader');
+const prop = PropertiesReader('./mongodb.properties');
 
 const init = async () => {
 
@@ -8,12 +9,11 @@ const init = async () => {
         port: 3300,
         host: 'localhost'
     });   
-    server.realm.modifiers.route.prefix = '/api';
 
     await server.register({
         plugin: require('hapi-mongodb'),
         options: {
-          url: 'MONGO URL',
+          url: prop.get('mongodb.url'),
           settings: {
               useUnifiedTopology: true
           },
@@ -21,7 +21,16 @@ const init = async () => {
         }
     });
 
-    await server.register([require('./controllers/campaignController'), require('./controllers/characterController'), require('./controllers/sessionController')]);
+    await server.register(require('./controllers/crudController'));
+
+    
+    server.route({
+        method: '*',
+        path: '/{any*}',
+        handler: function (request, h) {
+            throw Boom.notFound();
+        }
+    });
 
     await server.start();
     console.log('Server running on %s', server.info.uri);

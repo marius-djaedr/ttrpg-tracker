@@ -19,3 +19,4 @@
 
 # node related
 */node_modules/**
+nodejs/ttrpg-tracker-api/mongodb.properties
