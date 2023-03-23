@@ -1,5 +1,5 @@
 {
-  "name": "ttrpg-tracker-nodejs",
+  "name": "ttrpg-tracker-ui",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,8 @@
     "@hapi/joi": "^17.1.1",
     "@hapi/vision": "^6.0.0",
     "handlebars": "^4.7.7",
-    "hapi-mongodb": "^9.0.0",
-    "joi-objectid": "^3.0.1"
+    "joi-objectid": "^3.0.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   }
 }

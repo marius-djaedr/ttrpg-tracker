@@ -20,17 +20,6 @@ const init = async () => {
         layoutPath: 'templates/layout'
     });
 
-    await server.register({
-        plugin: require('hapi-mongodb'),
-        options: {
-          url: 'MONGO URL',
-          settings: {
-              useUnifiedTopology: true
-          },
-          decorate: true
-        }
-    });
-
     await server.register([require('./controllers/campaignController'), require('./controllers/characterController'), require('./controllers/sessionController')]);
     
     server.route({
