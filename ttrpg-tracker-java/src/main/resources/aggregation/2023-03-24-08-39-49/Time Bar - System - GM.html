@@ -1,0 +1,155 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['timeline']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Row Label');
+data.addColumn('string', 'Bar Label');
+data.addColumn('date', 'Start');
+data.addColumn('date', 'End');
+data.addRows([
+['A Quiet Year','none',new Date(2020, 2, 3),new Date(2020, 2, 18)],
+['A Quiet Year','none',new Date(2022, 8, 14),new Date(2022, 8, 29)],
+['Anima','David Hobson',new Date(2017, 7, 12),new Date(2017, 9, 25)],
+['Avatar Legends','ME',new Date(2022, 9, 26),new Date(2022, 11, 6)],
+['BESM 4','Josh Horner',new Date(2022, 4, 22),new Date(2022, 5, 6)],
+['BESM 4','Josh Horner',new Date(2022, 6, 17),new Date(2023, 2, 13)],
+['Big Eyes Small Mouth','Josh Horner',new Date(2019, 4, 16),new Date(2019, 4, 31)],
+['Big Eyes Small Mouth','Josh Horner',new Date(2019, 6, 18),new Date(2019, 7, 9)],
+['Big Eyes Small Mouth','Josh Horner',new Date(2019, 9, 31),new Date(2019, 10, 15)],
+['Big Eyes Small Mouth','Josh Horner',new Date(2020, 1, 20),new Date(2020, 2, 6)],
+['Big Eyes Small Mouth','Bruce Brown',new Date(2019, 1, 21),new Date(2019, 2, 22)],
+['Big Eyes Small Mouth','Bruce Brown',new Date(2019, 5, 13),new Date(2019, 6, 12)],
+['Big Eyes Small Mouth','Bruce Brown',new Date(2019, 8, 12),new Date(2019, 9, 25)],
+['Big Eyes Small Mouth','Bruce Brown',new Date(2020, 2, 26),new Date(2020, 3, 10)],
+['Big Eyes Small Mouth','ME',new Date(2019, 3, 18),new Date(2019, 3, 25)],
+['Big Eyes Small Mouth','ME',new Date(2019, 7, 22),new Date(2019, 8, 6)],
+['Big Eyes Small Mouth','ME',new Date(2020, 0, 16),new Date(2020, 2, 20)],
+['Blades in the Dark','ME',new Date(2018, 9, 18),new Date(2018, 9, 19)],
+['Blades in the Dark','ME',new Date(2018, 10, 29),new Date(2018, 11, 14)],
+['Blades in the Dark','ME',new Date(2019, 8, 12),new Date(2020, 3, 25)],
+['Burning Wheel','ME',new Date(2018, 6, 12),new Date(2018, 9, 5)],
+['D&D 3.5','Ryan Womack',new Date(2003, 5, 16),new Date(2003, 6, 16)],
+['D&D 3.5','Colby Woods',new Date(2004, 5, 15),new Date(2004, 6, 16)],
+['D&D 3.5','ME',new Date(2007, 5, 15),new Date(2007, 8, 16)],
+['D&D 3.5','ME',new Date(2013, 8, 8),new Date(2013, 11, 9)],
+['D&D 3.5','ME',new Date(2014, 0, 24),new Date(2014, 2, 25)],
+['D&D 4','Katie Peterson',new Date(2012, 5, 25),new Date(2012, 6, 26)],
+['D&D 4','Ryan Boenigk',new Date(2013, 9, 12),new Date(2013, 10, 25)],
+['D&D 4','Ryan Boenigk',new Date(2014, 1, 24),new Date(2014, 2, 13)],
+['D&D 4','Josh Horner',new Date(2012, 5, 8),new Date(2012, 6, 26)],
+['D&D 4','Josh Horner',new Date(2012, 9, 8),new Date(2012, 9, 9)],
+['D&D 4','Josh Horner',new Date(2012, 10, 16),new Date(2012, 11, 9)],
+['D&D 4','Josh Horner',new Date(2013, 0, 24),new Date(2013, 0, 25)],
+['D&D 4','Josh Horner',new Date(2013, 2, 8),new Date(2013, 2, 9)],
+['D&D 4','Josh Horner',new Date(2013, 8, 8),new Date(2013, 8, 9)],
+['D&D 4','Josh Horner',new Date(2013, 9, 16),new Date(2013, 10, 9)],
+['D&D 4','Josh Horner',new Date(2014, 4, 24),new Date(2014, 6, 25)],
+['D&D 4','Josh Horner',new Date(2020, 4, 27),new Date(2020, 6, 23)],
+['D&D 4','Sean Faulkner',new Date(2011, 5, 25),new Date(2011, 6, 26)],
+['D&D 4','Bruce Brown',new Date(2010, 8, 8),new Date(2010, 11, 9)],
+['D&D 4','Bruce Brown',new Date(2011, 8, 8),new Date(2011, 11, 9)],
+['D&D 4','Bruce Brown',new Date(2012, 0, 24),new Date(2012, 11, 9)],
+['D&D 4','Bruce Brown',new Date(2013, 0, 24),new Date(2013, 4, 25)],
+['D&D 4','Bruce Brown',new Date(2014, 6, 12),new Date(2014, 6, 25)],
+['D&D 4','Bruce Brown',new Date(2015, 6, 12),new Date(2015, 6, 25)],
+['D&D 4','ME',new Date(2008, 9, 15),new Date(2008, 10, 21)],
+['D&D 4','ME',new Date(2009, 9, 8),new Date(2009, 11, 9)],
+['D&D 4','ME',new Date(2010, 0, 24),new Date(2010, 8, 25)],
+['D&D 4','ME',new Date(2011, 0, 24),new Date(2011, 11, 9)],
+['D&D 4','ME',new Date(2012, 0, 24),new Date(2012, 11, 9)],
+['D&D 4','ME',new Date(2013, 0, 24),new Date(2013, 4, 25)],
+['D&D 5','John Meyers',new Date(2022, 8, 11),new Date(2022, 9, 10)],
+['D&D 5','Josh Horner',new Date(2018, 8, 12),new Date(2018, 10, 26)],
+['D&D 5','Josh Horner',new Date(2019, 0, 15),new Date(2019, 4, 26)],
+['D&D 5','Josh Horner',new Date(2020, 9, 28),new Date(2021, 7, 5)],
+['D&D 5','Thomas Villareal',new Date(2021, 7, 2),new Date(2022, 1, 11)],
+['D&D 5','Kyle Warrick',new Date(2016, 10, 12),new Date(2017, 6, 13)],
+['D&D 5','Oscar Medina',new Date(2018, 6, 24),new Date(2018, 10, 14)],
+['D&D 5','Bruce Brown',new Date(2018, 7, 11),new Date(2018, 7, 12)],
+['D&D 5','Bruce Brown',new Date(2018, 8, 22),new Date(2018, 10, 11)],
+['D&D 5','Bruce Brown',new Date(2019, 0, 26),new Date(2019, 2, 25)],
+['D&D 5','Bruce Brown',new Date(2019, 4, 5),new Date(2019, 4, 19)],
+['D&D 5','Bruce Brown',new Date(2019, 6, 13),new Date(2019, 9, 21)],
+['D&D 5','Bruce Brown',new Date(2020, 0, 25),new Date(2020, 0, 26)],
+['D&D 5','Bruce Brown',new Date(2022, 1, 23),new Date(2022, 5, 2)],
+['D&D 5','Bruce Brown',new Date(2022, 6, 13),new Date(2023, 2, 23)],
+['D&D 5','ME',new Date(2015, 5, 12),new Date(2018, 2, 26)],
+['D&D 5','ME',new Date(2018, 9, 15),new Date(2018, 9, 16)],
+['D&D 5','ME',new Date(2019, 10, 15),new Date(2019, 10, 16)],
+['Deathwatch','Josh Horner',new Date(2016, 6, 15),new Date(2016, 6, 16)],
+['Dread','Bruce Brown',new Date(2017, 9, 15),new Date(2017, 9, 16)],
+['Dungeon World','ME',new Date(2018, 11, 12),new Date(2019, 7, 25)],
+['Dungeon World','ME',new Date(2021, 0, 19),new Date(2021, 3, 12)],
+['Dungeon World','ME',new Date(2022, 4, 25),new Date(2022, 7, 4)],
+['Dungeon World','Josh Horner',new Date(2018, 4, 24),new Date(2018, 7, 31)],
+['Dungeon World','Josh Horner',new Date(2020, 2, 10),new Date(2020, 2, 11)],
+['FATE','Josh Horner',new Date(2020, 9, 20),new Date(2021, 6, 14)],
+['Feng Shui','David Hobson',new Date(2017, 10, 15),new Date(2017, 10, 16)],
+['Fiasco','none',new Date(2017, 8, 15),new Date(2017, 9, 25)],
+['Fiasco','none',new Date(2018, 3, 26),new Date(2018, 3, 27)],
+['Fiasco','none',new Date(2022, 4, 13),new Date(2022, 4, 14)],
+['Follow','none',new Date(2020, 2, 12),new Date(2020, 3, 25)],
+['Follow','none',new Date(2020, 7, 19),new Date(2020, 8, 3)],
+['Follow','none',new Date(2022, 9, 12),new Date(2022, 9, 13)],
+['Godbound','ME',new Date(2022, 6, 29),new Date(2022, 6, 30)],
+['Godbound','ME',new Date(2022, 9, 1),new Date(2022, 9, 23)],
+['Godbound','ME',new Date(2022, 11, 16),new Date(2023, 2, 16)],
+['Golden Sky Stories','Josh Horner',new Date(2023, 1, 12),new Date(2023, 1, 13)],
+['Kingdom','none',new Date(2016, 5, 12),new Date(2016, 5, 25)],
+['Kingdom','none',new Date(2016, 11, 12),new Date(2016, 11, 25)],
+['Kingdom','none',new Date(2018, 3, 5),new Date(2018, 4, 18)],
+['Kingdom','none',new Date(2020, 7, 5),new Date(2020, 7, 20)],
+['Kingdom','none',new Date(2021, 9, 12),new Date(2021, 9, 20)],
+['Lasers & Felines','ME',new Date(2022, 5, 19),new Date(2022, 5, 20)],
+['Masks','Josh Horner',new Date(2023, 0, 14),new Date(2023, 0, 15)],
+['Microscope','none',new Date(2018, 4, 12),new Date(2018, 5, 25)],
+['Microscope','none',new Date(2020, 1, 11),new Date(2020, 1, 26)],
+['Microscope','none',new Date(2020, 8, 8),new Date(2020, 9, 7)],
+['Mutants and Masterminds','ME',new Date(2021, 5, 25),new Date(2021, 9, 2)],
+['Mutants and Masterminds','ME',new Date(2021, 11, 3),new Date(2022, 4, 9)],
+['Paranoia','Bruce Brown',new Date(2016, 2, 15),new Date(2016, 2, 16)],
+['Pathfinder','Josh Horner',new Date(2014, 8, 12),new Date(2014, 10, 13)],
+['Pathfinder','Josh Horner',new Date(2015, 3, 25),new Date(2017, 5, 9)],
+['Pathfinder','Josh Horner',new Date(2017, 7, 31),new Date(2017, 8, 1)],
+['Pathfinder','Josh Horner',new Date(2017, 9, 26),new Date(2018, 4, 11)],
+['Pathfinder','Bruce Brown',new Date(2015, 9, 12),new Date(2018, 1, 23)],
+['Pathfinder','ME',new Date(2017, 10, 12),new Date(2018, 0, 25)],
+['Pathfinder','ME',new Date(2022, 4, 14),new Date(2022, 5, 18)],
+['Pathfinder','Richard Rudd',new Date(2014, 10, 8),new Date(2014, 11, 9)],
+['Pathfinder','Richard Rudd',new Date(2015, 0, 24),new Date(2015, 2, 25)],
+['Pathfinder','Sean Faulkner',new Date(2017, 5, 22),new Date(2017, 6, 28)],
+['Pathfinder','Sean Faulkner',new Date(2017, 8, 14),new Date(2017, 8, 29)],
+['Pathfinder 2e','ME',new Date(2022, 6, 23),new Date(2022, 6, 24)],
+['Scum and Villainy','Josh Horner',new Date(2021, 7, 23),new Date(2022, 3, 28)],
+['Serenity','ME',new Date(2016, 3, 15),new Date(2016, 3, 16)],
+['Serenity','Josh Horner',new Date(2014, 0, 12),new Date(2014, 2, 25)],
+['Shadowrun','ME',new Date(2018, 1, 20),new Date(2018, 2, 14)],
+['Shadowrun','David Hobson',new Date(2017, 10, 25),new Date(2018, 3, 25)],
+['Starfinder','Josh Horner',new Date(2019, 5, 12),new Date(2019, 9, 25)],
+['Stars Without Number','Josh Horner',new Date(2018, 10, 12),new Date(2018, 11, 19)]
+]);
+
+// Set chart options
+var options = {"title":"Time Bar - System - GM","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

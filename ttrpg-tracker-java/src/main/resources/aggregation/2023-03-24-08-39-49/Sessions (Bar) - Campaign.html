@@ -1,0 +1,132 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Name');
+data.addColumn('number', 'Sessions');
+data.addRows([
+['Bruce Brown-Aesondar - Chainbreakers (D&D 5)',26.0000000000],
+['Bruce Brown-Aesondar - Stormsong Isles (D&D 5)',7.0000000000],
+['Bruce Brown-Forgotten Gods (D&D 5)',15.0000000000],
+['Bruce Brown-House in the Bayou (Dread)',1.0000000000],
+['Bruce Brown-Lor Ka (Pathfinder)',58.0000000000],
+['Bruce Brown-Masters (D&D 4)',57.0000000000],
+['Bruce Brown-PARTY CANON!! (Paranoia)',1.0000000000],
+['Bruce Brown-Planes of Kalawea (Big Eyes Small Mouth)',12.0000000000],
+['Colby Woods-weird dream (D&D 3.5)',2.0000000000],
+['David Hobson-Time Travelling Party Crashers (Feng Shui)',1.0000000000],
+['David Hobson-crashed blimp (Anima)',4.0000000000],
+['David Hobson-the one that made me hate shadowrun (Shadowrun)',8.0000000000],
+['David Hobson-zombie pit (Anima)',2.0000000000],
+['John Meyers-Curse of Strahd (John\'s) (D&D 5)',3.0000000000],
+['Josh Horner-Astral Trials (D&D 4)',7.0000000000],
+['Josh Horner-Chronicles of the Korpolis Sector (Scum and Villainy)',16.0000000000],
+['Josh Horner-Curse of the Fire Penguin (Serenity)',6.0000000000],
+['Josh Horner-Dr Moreau\'s Revenge (Masks)',1.0000000000],
+['Josh Horner-Kill Dem Bugs (Deathwatch)',1.0000000000],
+['Josh Horner-Midgard (D&D 5)',13.0000000000],
+['Josh Horner-Peisaj - Merchants Guild (BESM 4)',17.0000000000],
+['Josh Horner-Peisaj - School Trip (FATE)',15.0000000000],
+['Josh Horner-Peisaj - take 1 (Dungeon World)',1.0000000000],
+['Josh Horner-Planes of Kalawea (Big Eyes Small Mouth)',9.0000000000],
+['Josh Horner-Skyfell (D&D 5)',16.0000000000],
+['Josh Horner-Veridia - Foundations (Pathfinder)',39.0000000000],
+['Josh Horner-Veridia - Horizons (Pathfinder)',12.0000000000],
+['Josh Horner-Veridia - That Which Is Done (Pathfinder)',2.0000000000],
+['Josh Horner-Veridia - Undone (Dungeon World)',7.0000000000],
+['Josh Horner-Veridia - take I (Pathfinder)',3.0000000000],
+['Josh Horner-abandoned station (Stars Without Number)',2.5000000000],
+['Josh Horner-newbs (D&D 4)',5.0000000000],
+['Josh Horner-one shot (Golden Sky Stories)',1.0000000000],
+['Josh Horner-prison break (D&D 4)',6.0000000000],
+['Josh Horner-ravnica (D&D 4)',3.0000000000],
+['Josh Horner-seven sins (D&D 4)',5.0000000000],
+['Josh Horner-the ancients (Starfinder)',5.0000000000],
+['Katie Peterson-boxed 4e example (D&D 4)',2.0000000000],
+['Kyle Warrick-forgotten realms (D&D 5)',21.0000000000],
+['ME-Adventures in Talamh (Dungeon World)',5.0000000000],
+['ME-Cats in Disney (Lasers & Felines)',0.5000000000],
+['ME-Curse of Strahd (D&D 5)',23.0000000000],
+['ME-Ddaear - After the Fog (Dungeon World)',9.0000000000],
+['ME-Ddaear - Age of Nation (D&D 5)',50.0000000000],
+['ME-Ddaear - Cleanup Crew (D&D 5)',10.0000000000],
+['ME-Ddaear - End of Isolation (Pathfinder)',2.0000000000],
+['ME-Ddaear - Into the Fog (Burning Wheel)',4.0000000000],
+['ME-Ddaear - Struggle over Ricyning (Blades in the Dark)',3.0000000000],
+['ME-Ddaear - World Definers (Dungeon World)',5.0000000000],
+['ME-Earth & Root (Avatar Legends)',3.0000000000],
+['ME-Firefly Crew (Serenity)',1.0000000000],
+['ME-Fleshpounders (Blades in the Dark)',8.0000000000],
+['ME-Just Here for the Money (Shadowrun)',2.0000000000],
+['ME-Nakaram - S1, The Mystics (Mutants and Masterminds)',8.0000000000],
+['ME-Nakaram - S2, The Kavalari (Mutants and Masterminds)',9.0000000000],
+['ME-Night, Day, and the Path Between (Godbound)',5.5000000000],
+['ME-Planes of Kalawea (Big Eyes Small Mouth)',9.0000000000],
+['ME-Ren Fest - Forge of Fury (D&D 5)',1.0000000000],
+['ME-Ren Fest - Sunless Citadel (D&D 5)',1.0000000000],
+['ME-Sea Trek (D&D 3.5)',6.0000000000],
+['ME-Shackled City (college) (D&D 3.5)',10.0000000000],
+['ME-Shackled City (high school) (D&D 3.5)',4.0000000000],
+['ME-The Deciders (Godbound)',7.0000000000],
+['ME-Twilight in the Duchy Verdorben (Burning Wheel)',2.0000000000],
+['ME-Under Darkness (D&D 4)',3.0000000000],
+['ME-We Be Goblins (Pathfinder)',3.0000000000],
+['ME-We Be Goblins Too (Pathfinder 2e)',1.0000000000],
+['ME-avandra insane (D&D 4)',54.0000000000],
+['ME-epic evil (D&D 4)',9.0000000000],
+['ME-melora take 1 (D&D 4)',4.0000000000],
+['ME-melora take 2 (D&D 4)',23.0000000000],
+['Oscar Medina-sunless citadel (D&D 5)',8.0000000000],
+['Richard Rudd-low level pathfinder evil (Pathfinder)',1.0000000000],
+['Richard Rudd-the one I came in at the end (Pathfinder)',9.0000000000],
+['Ryan Boenigk-In the Halls of the Mountain King (D&D 4)',6.0000000000],
+['Ryan Womack-thieves guild and hobo camp (D&D 3.5)',2.0000000000],
+['Sean Faulkner-Mukedet (Pathfinder)',5.0000000000],
+['Sean Faulkner-something with spiders (D&D 4)',2.0000000000],
+['Thomas Villareal-Endless Sky (D&D 5)',12.0000000000],
+['none-A little fall of Floafluka (Microscope)',3.0000000000],
+['none-Between Forest and Cliffs (A Quiet Year)',2.0000000000],
+['none-Da Bomb (Follow)',1.0000000000],
+['none-Ddaear - End of Nations (Kingdom)',2.0000000000],
+['none-Ddaear - Rise of the Fog (Microscope)',4.0000000000],
+['none-Failing Upwards (Follow)',2.0000000000],
+['none-Fiasco: arctic cruise (Fiasco)',1.0000000000],
+['none-Fiasco: arctic monster (Fiasco)',1.0000000000],
+['none-Fiasco: arctic research (Fiasco)',1.0000000000],
+['none-Fiasco: suburbia (Fiasco)',1.0000000000],
+['none-Fiasco: wild west town (Fiasco)',1.0000000000],
+['none-Golden Valley Prefecture (Kingdom)',3.0000000000],
+['none-Lor Ka - Androsan Aftermath (Kingdom)',2.0000000000],
+['none-Lor Ka - Draconic Aftermath (Kingdom)',2.0000000000],
+['none-Nakaram - S1.5, Transitions (Kingdom)',2.0000000000],
+['none-Peisaj - Creation (Microscope)',3.0000000000],
+['none-Sci Fi Rebellion (Follow)',2.0000000000],
+['none-Veridia - Elven Foundations (Kingdom)',2.0000000000],
+['none-Veridia - Foundations Downtime (Kingdom)',2.0000000000],
+['none-Work Quiet Year (A Quiet Year)',1.5000000000]
+]);
+
+// Set chart options
+var options = {"title":"Sessions (Bar) - Campaign","width":1200,"height":2000,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50}}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

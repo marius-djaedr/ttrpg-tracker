@@ -1,0 +1,53 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(2002, 11, 27),0E-10,0.0089285714,0.0089285714],
+[new Date(2003, 7, 7),0E-10,0.0089285714,0.0089285714],
+[new Date(2003, 7, 8),0E-10,0.0022321428,0.0022321428],
+[new Date(2006, 0, 19),0E-10,0.0022321428,0.0022321428],
+[new Date(2006, 0, 20),0.0044642857,0E-10,0.0044642857],
+[new Date(2008, 6, 3),0.0044642857,0E-10,0.0044642857],
+[new Date(2008, 6, 4),0.0301339286,0.0111607143,0.0412946428],
+[new Date(2010, 11, 16),0.0301339286,0.0111607143,0.0412946428],
+[new Date(2010, 11, 17),0.0736607143,0.0647321429,0.1383928571],
+[new Date(2013, 4, 30),0.0736607143,0.0647321429,0.1383928571],
+[new Date(2013, 4, 31),0.0301339286,0.0524553571,0.0825892857],
+[new Date(2015, 10, 12),0.0301339286,0.0524553571,0.0825892857],
+[new Date(2015, 10, 13),0.0870535714,0.1729910714,0.2600446429],
+[new Date(2018, 3, 26),0.0870535714,0.1729910714,0.2600446429],
+[new Date(2018, 3, 27),0.0412946428,0.1138392857,0.1551339286],
+[new Date(2020, 9, 8),0.0412946428,0.1138392857,0.1551339286],
+[new Date(2020, 9, 9),0.0513392857,0.1339285714,0.1852678571],
+[new Date(2023, 2, 24),0.0513392857,0.1339285714,0.1852678571]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V3 (128)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
