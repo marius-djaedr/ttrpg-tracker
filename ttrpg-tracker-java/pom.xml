@@ -6,7 +6,7 @@
 		<groupId>com.me</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0</version>
-		<relativePath>../parent</relativePath>
+		<relativePath>../../java-projects/parent</relativePath>
 	</parent>
 	<artifactId>ttrpg.tracker</artifactId>
 	<dependencies>
