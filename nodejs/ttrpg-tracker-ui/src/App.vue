@@ -1,22 +1,5 @@
 <script setup>
 import { ref, computed } from 'vue'
-import TheWelcome from './components/TheWelcome.vue'
-import Campaigns from './components/crud/Campaigns.vue'
-import NotFound from './components/NotFound.vue'
-
-const routes = {
-  '/': TheWelcome,
-  '/campaigns': Campaigns,
-}
-
-const currentPath = ref(window.location.hash)
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
-
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
-})
 
 </script>
 
@@ -25,20 +8,22 @@ const currentView = computed(() => {
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#/">TTRPG Tracker</a>
+              <router-link class="navbar-brand" to="/">TTRPG Tracker</router-link>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="#/campaigns">Campaigns</a></li>
-                <li><a href="#/characters">Characters</a></li>
-                <li><a href="#/sessions">Sessions</a></li>
-                <li><a href="#/aggregation">Aggregation</a></li>
+                <li><router-link to="/campaigns">Campaigns</router-link></li>
+                <li><router-link to="/characters">Characters</router-link></li>
+                <li><router-link to="/sessions">Sessions</router-link></li>
+<!--                <li><router-link to="/aggregation">Aggregation</router-link></li> -->
             </ul>
         </div>
     </nav>
   </header>
 
   <main class="box">
-    <component :is="currentView" />
+    <Suspense>
+      <router-view></router-view>
+    </Suspense>
   </main>
 </template>
 
