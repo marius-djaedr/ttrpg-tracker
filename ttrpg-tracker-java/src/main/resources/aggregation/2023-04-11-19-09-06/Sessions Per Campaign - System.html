@@ -1,0 +1,65 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Name');
+data.addColumn('number', 'Sessions/Campaign');
+data.addRows([
+['A Quiet Year',1.7500000000],
+['Anima',3.0000000000],
+['Avatar Legends',2.0000000000],
+['BESM 4',19.0000000000],
+['Big Eyes Small Mouth',10.0000000000],
+['Blades in the Dark',5.5000000000],
+['Burning Wheel',3.0000000000],
+['D&D 3.5',4.8000000000],
+['D&D 4',12.4333333333],
+['D&D 5',14.8571428571],
+['Deathwatch',1.0000000000],
+['Dread',1.0000000000],
+['Dungeon World',5.4000000000],
+['FATE',15.0000000000],
+['Feng Shui',1.0000000000],
+['Fiasco',1.0000000000],
+['Follow',1.6666666667],
+['Godbound',6.7500000000],
+['Golden Sky Stories',1.0000000000],
+['Kingdom',2.1428571429],
+['Lasers & Felines',0.5000000000],
+['Masks',1.0000000000],
+['Microscope',3.3333333333],
+['Mutants and Masterminds',8.5000000000],
+['Paranoia',1.0000000000],
+['Pathfinder',13.4000000000],
+['Pathfinder 2e',1.0000000000],
+['Scum and Villainy',16.0000000000],
+['Serenity',3.5000000000],
+['Shadowrun',5.0000000000],
+['Starfinder',5.0000000000],
+['Stars Without Number',2.5000000000]
+]);
+
+// Set chart options
+var options = {"title":"Sessions Per Campaign - System","width":700,"height":600,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50}}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
