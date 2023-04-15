@@ -1,0 +1,55 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['annotationchart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number', 'Ran');
+data.addColumn('number', 'Played');
+data.addColumn('number', 'Total');
+data.addRows([
+[new Date(2003, 5, 16),0,1.0000000000,1.0000000000],
+[new Date(2003, 5, 16),0,1.0000000000,1.0000000000],
+[new Date(2003, 5, 17),0E-10,0E-10,0E-10],
+[new Date(2003, 5, 24),0E-10,0E-10,0E-10],
+[new Date(2003, 5, 25),0E-10,0.0156250000,0.0156250000],
+[new Date(2003, 7, 27),0E-10,0.0156250000,0.0156250000],
+[new Date(2003, 7, 28),0E-10,0.0019531250,0.0019531250],
+[new Date(2006, 5, 16),0E-10,0.0019531250,0.0019531250],
+[new Date(2006, 5, 17),0.0078125000,0E-10,0.0078125000],
+[new Date(2009, 3, 5),0.0078125000,0E-10,0.0078125000],
+[new Date(2009, 3, 6),0.0488281250,0.0224609375,0.0712890625],
+[new Date(2012, 0, 24),0.0488281250,0.0224609375,0.0712890625],
+[new Date(2012, 0, 25),0.0537109375,0.0693359375,0.1230468750],
+[new Date(2014, 10, 13),0.0537109375,0.0693359375,0.1230468750],
+[new Date(2014, 10, 14),0.0737304688,0.1250000000,0.1987304688],
+[new Date(2017, 8, 2),0.0737304688,0.1250000000,0.1987304688],
+[new Date(2017, 8, 3),0.0493164062,0.1357421875,0.1850585938],
+[new Date(2020, 5, 22),0.0493164062,0.1357421875,0.1850585938],
+[new Date(2020, 5, 23),0.0473632812,0.1328125000,0.1801757812],
+[new Date(2023, 3, 12),0.0473632812,0.1328125000,0.1801757812]
+]);
+
+// Set chart options
+var options = {"title":"Timeline Density V2 (1024)","height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
