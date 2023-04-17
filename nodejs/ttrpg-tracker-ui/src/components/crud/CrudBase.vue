@@ -11,22 +11,34 @@
 </script>
 
 <template>
-    <h3>Campaign List</h3>
-    <a class="btn btn-secondary" href="#">Create New</a>
+    <!-- TODO this actually doesn't do anything right now -->
+    <a class="btn btn-success btn-sm" href="#/Data" onclick="return confirm('this will eventually create a new record ?');">Create New</a>
     <table class="table table-striped">
         <thead>
             <tr>
+                <th></th>
                 <slot name="header-th"></slot>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="datum in data">
+                <td>
+                    <!-- TODO this actually doesn't do anything right now -->
+                    <a class="btn btn-info btn-sm" href="#/Data"
+                        onclick="return confirm('this will eventually filter the lower records ?');">Select</a>
+                </td>
                 <slot name="table-data" v-bind="datum"></slot>
                 <td>
-                    <router-link class="btn btn-primary btn-sm" v-bind:to="`/${singleUrlEnd}/${datum._id}`">Details</router-link>
-                    <a class="btn btn-danger btn-sm" href="#"
-                        onclick="return confirm('Are you sure you want to delete this record ?');">Delete</a>
+                    <!-- TODO this actually doesn't do anything right now -->
+                    <a class="btn btn-warning btn-sm" href="#/Data"
+                        onclick="return confirm('this will eventually update this record ?');">Update</a>
+                </td>
+                <td>
+                    <!-- TODO this actually doesn't do anything right now -->
+                    <a class="btn btn-danger btn-sm" href="#/Data"
+                        onclick="return confirm('this will eventually delete this record ?');">Delete</a>
                 </td>
             </tr>
         </tbody>
