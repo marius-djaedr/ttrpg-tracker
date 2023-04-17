@@ -5,7 +5,7 @@ exports.plugin = {
     version: '1.0.0',
     register: async function (server, options) {
 
-        const typeMap = {'campaigns':'CAMPAIGN','characters':'CHARACTER','sessions':'SESSION'};
+        const typeMap = {'frameworks':'FRAMEWORK','systems':'SYSTEM','campaigns':'CAMPAIGN','characters':'CHARACTER','sessions':'SESSION'};
         function convertType(rawType){
             if(!Object.keys(typeMap).includes(rawType)){
                 throw Boom.notFound('Invalid type ['+rawType+']');
@@ -19,8 +19,8 @@ exports.plugin = {
             path: '/api/{type}',
             handler: async (req, h) => {
                 const rawType = req.params.type;
-                const campaigns = await req.mongo.db.collection('TtrpgTracker').find({Type:convertType(rawType)}).toArray();
-                return campaigns;
+                const entities = await req.mongo.db.collection('TtrpgTracker').find({Type:convertType(rawType)}).toArray();
+                return entities;
             }
         });
 
@@ -32,8 +32,8 @@ exports.plugin = {
                 const rawType = req.params.type;
                 const id = req.params.id
                 const ObjectID = req.mongo.ObjectID;
-                const campaign = await req.mongo.db.collection('TtrpgTracker').findOne({_id: new ObjectID(id),Type:convertType(rawType)});
-                return campaign;
+                const entity = await req.mongo.db.collection('TtrpgTracker').findOne({_id: new ObjectID(id),Type:convertType(rawType)});
+                return entity;
             }
         });
 
@@ -45,8 +45,8 @@ exports.plugin = {
                 const rawType = req.params.childType;
                 const id = req.params.id
                 const ObjectID = req.mongo.ObjectID;
-                const campaigns = await req.mongo.db.collection('TtrpgTracker').find({Type:convertType(rawType),ParentId: new ObjectID(id)}).toArray();
-                return campaigns;
+                const entities = await req.mongo.db.collection('TtrpgTracker').find({Type:convertType(rawType),ParentId: new ObjectID(id)}).toArray();
+                return entities;
             }
         });
 
