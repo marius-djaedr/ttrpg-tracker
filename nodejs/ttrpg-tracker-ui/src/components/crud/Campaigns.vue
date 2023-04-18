@@ -3,8 +3,7 @@ import CrudBase from './CrudBase.vue'
 </script>
 
 <template>
-    <h3>Campaign List</h3>
-    <CrudBase api-url-end="campaigns" single-url-end="campaign">
+    <CrudBase api-url-end="campaigns" header-text="Campaign List">
         <template v-slot:header-th>
             <th>Name</th>
             <th>System</th>

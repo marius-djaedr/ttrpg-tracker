@@ -1,17 +1,17 @@
 <script setup>
-import CrudBase from './CrudBase.vue'
+    import CrudBase from './CrudBase.vue'
+    import moment from 'moment'
 </script>
 
 <template>
-    <h3>Session List</h3>
-    <CrudBase api-url-end="sessions" single-url-end="session">
+    <CrudBase api-url-end="sessions" header-text="Session List">
         <template v-slot:header-th>
             <th>Date</th>
             <th>Short Session</th>
             <th>Play or Ran?</th>
         </template>
         <template v-slot:table-data="{ParentId, Date, ShortSession, PlayedWithoutCharacter}">
-            <td>{{Date}}</td>
+            <td>{{moment(Date).format("YYYY-MM-DD")}}</td>
             <td>{{ShortSession}}</td>
             <td>
                 <!-- TODO double check logic-->

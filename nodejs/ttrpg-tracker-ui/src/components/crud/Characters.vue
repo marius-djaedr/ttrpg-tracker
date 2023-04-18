@@ -3,8 +3,7 @@ import CrudBase from './CrudBase.vue'
 </script>
 
 <template>
-    <h3>Character List</h3>
-    <CrudBase api-url-end="characters" single-url-end="character">
+    <CrudBase api-url-end="characters" header-text="Character List">
         <template v-slot:header-th>
             <th>Name</th>
             <th>Race</th>
