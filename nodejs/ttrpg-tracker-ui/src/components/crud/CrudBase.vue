@@ -2,12 +2,46 @@
     import { ref } from 'vue'
     const props = defineProps(['apiUrlEnd','headerText']);
     const data = ref([]);
+    const sortedData = ref([]);
+    const currentSort = ref('');
+    const currentSortDir = ref('asc');
     const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
 
+    //TODO loading icon
+    fetch(apiUrl.value)
+        .then(res => res.json())
+        .then(res => {
+            data.value = res;
+            calculatePageData();
+        })
 
-    //TODO currently this is all still sync-loaded, including the <Suspense> tag on the child. Need to make it async with a loading icon
-    data.value = await (await fetch(apiUrl.value)).json();
+    function sort(s){
+        console.info("sort");
+        //if s == current sort, reverse
+        if(s === currentSort.value) {
+            currentSortDir.value = currentSortDir.value==='asc'?'desc':'asc';
+        }
+        currentSort.value = s;
 
+        calculatePageData();
+    }
+
+    function calculatePageData(){
+        //https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
+        //https://www.raymondcamden.com/2021/03/11/adding-filtering-to-my-vuejs-table-sorting-and-pagination-demo
+        //TODO paginate
+        sortedData.value = data.value;
+        //sort
+        sortedData.value.sort((a,b)=>{
+            let modifier=1;
+            if(currentSortDir.value === 'desc') modifier = -1;
+            if(a[currentSort.value] < b[currentSort.value]) return -1 * modifier;
+            if(a[currentSort.value] > b[currentSort.value]) return 1 * modifier;
+            return 0;
+        }); 
+    }
+
+    defineExpose({sort})
 </script>
 
 <template>
@@ -25,7 +59,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="datum in data">
+                <tr v-for="datum in sortedData">
                     <td>
                         <!-- TODO this actually doesn't do anything right now -->
                         <a class="btn btn-info btn-sm" href="#/Data"

@@ -19,8 +19,6 @@ import { ref, computed } from 'vue'
   </header>
 
   <main>
-    <Suspense>
-      <router-view></router-view>
-    </Suspense>
+    <router-view></router-view>
   </main>
 </template>

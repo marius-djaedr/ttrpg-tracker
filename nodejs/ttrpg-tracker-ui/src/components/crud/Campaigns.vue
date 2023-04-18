@@ -1,12 +1,15 @@
 <script setup>
+import { ref } from 'vue'
 import CrudBase from './CrudBase.vue'
+const crudBaseRef = ref()
+
 </script>
 
 <template>
-    <CrudBase api-url-end="campaigns" header-text="Campaign List">
+    <CrudBase ref="crudBaseRef" api-url-end="campaigns" header-text="Campaign List">
         <template v-slot:header-th>
             <th>Name</th>
-            <th>System</th>
+            <th @click="crudBaseRef.sort('System')">System</th>
             <th>GM</th>
             <th>Completed</th>
         </template>
