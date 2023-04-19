@@ -1,16 +1,23 @@
 <script setup>
-import CrudBase from './CrudBase.vue'
+    import { ref } from 'vue'
+    import CrudBase from './CrudBase.vue'
+    import SortHeader from './SortHeader.vue'
+    const crudBaseRef = ref()
+
+    function sortOrSearch(obj){
+        crudBaseRef.value.sortOrSearch(obj);
+    }
 </script>
 
 <template>
-    <CrudBase api-url-end="characters" header-text="Character List">
+    <CrudBase ref="crudBaseRef" api-url-end="characters" header-text="Character List">
         <template v-slot:header-th>
-            <th>Name</th>
-            <th>Race</th>
-            <th>Class/Role</th>
-            <th>Gender</th>
-            <th>Tragic Backstory</th>
-            <th>Died in Game</th>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="Race">Race</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="ClassRole">Class/Role</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="Gender">Gender</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="TragicStory">Tragic Backstory</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="DiedInGame">Died in Game</SortHeader>
         </template>
         <template v-slot:table-data="{ParentId, Name, Race, ClassRole, Gender, TragicStory, DiedInGame}">
             <td>{{Name}}</td>

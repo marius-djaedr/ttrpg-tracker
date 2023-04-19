@@ -1,11 +1,17 @@
 <script setup>
     import { ref } from 'vue'
     const props = defineProps(['apiUrlEnd','headerText']);
+    const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
     const data = ref([]);
-    const sortedData = ref([]);
+
     const currentSort = ref('');
     const currentSortDir = ref('asc');
-    const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
+    const pageSize = ref(10);
+    const currentPage = ref(1);
+        
+    const filters = ref({});
+    const filteredData = ref([]);
+    const pagedData = ref([]);
 
     //TODO loading icon
     fetch(apiUrl.value)
@@ -14,34 +20,71 @@
             data.value = res;
             calculatePageData();
         })
-
-    function sort(s){
-        console.info("sort");
-        //if s == current sort, reverse
-        if(s === currentSort.value) {
-            currentSortDir.value = currentSortDir.value==='asc'?'desc':'asc';
+    
+    function sortOrSearch(obj){
+        let field = obj['field'];
+        if(obj['sort']){
+            if(field === currentSort.value) {
+                currentSortDir.value = currentSortDir.value==='asc'?'desc':'asc';
+            }
+            currentSort.value = field;
+        }else{
+            let search = obj['search'];
+            if(search==null){
+                search = '';
+            }
+            filters.value[field] = search;
         }
-        currentSort.value = s;
+        currentPage.value = 1;
+        calculatePageData();
+    }
 
+    function nextPage(){
+        if((currentPage.value*pageSize.value) < filteredData.value.length) currentPage.value++;
+        calculatePageData();
+    }
+
+    function prevPage(){
+        if(currentPage.value > 1) currentPage.value--;
         calculatePageData();
     }
 
     function calculatePageData(){
-        //https://www.raymondcamden.com/2018/02/08/building-table-sorting-and-pagination-in-vuejs
-        //https://www.raymondcamden.com/2021/03/11/adding-filtering-to-my-vuejs-table-sorting-and-pagination-demo
-        //TODO paginate
-        sortedData.value = data.value;
+        //filter
+        filteredData.value = data.value.filter((row, index) => {
+            for(let key in filters.value){
+                if(!row[key].includes(filters.value[key])) return false;
+            }
+            return true;
+        });
+
+
         //sort
-        sortedData.value.sort((a,b)=>{
+        pagedData.value = filteredData.value.sort((a,b) => {
             let modifier=1;
+            let aval = a[currentSort.value];
+            let bval = b[currentSort.value];
             if(currentSortDir.value === 'desc') modifier = -1;
-            if(a[currentSort.value] < b[currentSort.value]) return -1 * modifier;
-            if(a[currentSort.value] > b[currentSort.value]) return 1 * modifier;
+            if(aval!=null){
+                if(bval!=null){
+                    if(aval < bval) return -1 * modifier;
+                    if(aval > bval) return 1 * modifier;
+                }
+                return modifier;
+            }
+            if(bval!=null) return -1 * modifier
             return 0;
         }); 
+
+         //paginate
+         pagedData.value = pagedData.value.filter((row, index) => {
+            let start = (currentPage.value-1)*pageSize.value;
+            let end = currentPage.value*pageSize.value;
+            if(index >= start && index < end) return true;
+        });
     }
 
-    defineExpose({sort})
+    defineExpose({sortOrSearch})
 </script>
 
 <template>
@@ -49,6 +92,9 @@
         <h3>{{props.headerText}}</h3>
         <!-- TODO this actually doesn't do anything right now -->
         <a class="btn btn-success btn-sm" href="#/Data" onclick="return confirm('this will eventually create a new record ?');">Create New</a>
+        <button @click="prevPage">Previous</button> 
+        <button @click="nextPage">Next</button>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -59,7 +105,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="datum in sortedData">
+                <tr v-for="datum in pagedData">
                     <td>
                         <!-- TODO this actually doesn't do anything right now -->
                         <a class="btn btn-info btn-sm" href="#/Data"
