@@ -8,8 +8,15 @@
     })
 
     const searchValue = ref('')
+    const sortText = ref('--')
 
     function sortClick(){
+        //TODO reset other sort buttons as well
+        if(sortText.value === '/\\'){
+            sortText.value = '\\/'
+        }else{
+            sortText.value = '/\\'
+        }
         emit('submitField', {field:props.headerDataField, sort:true, search:null});
     }
     
@@ -21,7 +28,7 @@
 <template>
     <th>
         <input v-model="searchValue" @keyup.enter="searchEnter" size="5"/>
-        <button @click="sortClick">sort</button><br>
+        <button @click="sortClick">{{sortText}}</button><br>
         <slot />
     </th>
 </template>

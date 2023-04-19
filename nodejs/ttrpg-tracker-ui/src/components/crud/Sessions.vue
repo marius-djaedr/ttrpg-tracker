@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <CrudBase ref="crudBaseRef" api-url-end="sessions" header-text="Session List">
+    <CrudBase ref="crudBaseRef" api-url-end="sessions" header-text="Session">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Date">Date</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="ShortSession">Short Session</SortHeader>

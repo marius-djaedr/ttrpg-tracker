@@ -1,5 +1,6 @@
 <script setup>
     import { ref } from 'vue'
+    import Modal from '../Modal.vue'
     const props = defineProps(['apiUrlEnd','headerText']);
     const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
     const data = ref([]);
@@ -12,6 +13,9 @@
     const filters = ref({});
     const filteredData = ref([]);
     const pagedData = ref([]);
+
+    const isModalVisible = ref(false);
+    const modalTitle = ref('');
 
     //TODO loading icon
     fetch(apiUrl.value)
@@ -84,16 +88,40 @@
         });
     }
 
+    function modalCreate(){
+        console.log('START CREATE')
+        modalTitle.value = 'Create ' + props.headerText;
+        //TODO anything else with start create?
+        isModalVisible.value = true;
+    }
+
+    function modalUpdate(id){
+        console.log('START UPDATE '+id)
+        modalTitle.value = 'Update ' + props.headerText;
+        //TODO anything else with start update?
+        isModalVisible.value = true;
+    }
+
+    function cancelModal(){
+        console.log('CANCEL')
+        //TODO anything else with cancel?
+        isModalVisible.value = false;
+    }
+
+    function submitModal(){
+        console.log('SUBMIT')
+        //TODO anything else with submit?
+        isModalVisible.value = false;
+    }
+
     defineExpose({sortOrSearch})
 </script>
 
 <template>
     <div class="box">
-        <h3>{{props.headerText}}</h3>
-        <!-- TODO this actually doesn't do anything right now -->
-        <a class="btn btn-success btn-sm" href="#/Data" onclick="return confirm('this will eventually create a new record ?');">Create New</a>
-        <button @click="prevPage">Previous</button> 
-        <button @click="nextPage">Next</button>
+        <h3>{{props.headerText}} List</h3>
+        <button class="btn btn-basic btn-sm"  @click="prevPage">Previous</button> 
+        <button class="btn btn-basic btn-sm"  @click="nextPage">Next</button>
 
         <table class="table table-striped">
             <thead>
@@ -108,24 +136,31 @@
                 <tr v-for="datum in pagedData">
                     <td>
                         <!-- TODO this actually doesn't do anything right now -->
-                        <a class="btn btn-info btn-sm" href="#/Data"
-                            onclick="return confirm('this will eventually filter the lower records ?');">Select</a>
+                        <button class="btn btn-info btn-sm" 
+                            onclick="return confirm('this will eventually filter the lower records ?');">Select</button>
                     </td>
                     <slot name="table-data" v-bind="datum"></slot>
                     <td>
-                        <!-- TODO this actually doesn't do anything right now -->
-                        <a class="btn btn-warning btn-sm" href="#/Data"
-                            onclick="return confirm('this will eventually update this record ?');">Update</a>
+                        <button class="btn btn-warning btn-sm" @click="modalUpdate(datum._id)">Update</button>
                     </td>
                     <td>
                         <!-- TODO this actually doesn't do anything right now -->
-                        <a class="btn btn-danger btn-sm" href="#/Data"
-                            onclick="return confirm('this will eventually delete this record ?');">Delete</a>
+                        <button class="btn btn-danger btn-sm" 
+                            onclick="return confirm('this will eventually delete this record ?');">Delete</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <button class="btn btn-success btn-sm" @click="modalCreate">Create New</button>
     </div>
+
+    <Modal v-show="isModalVisible" @cancel="cancelModal" @submit="submitModal">
+        <template v-slot:header>{{modalTitle}}</template>
+        <template v-slot:body>
+            <slot name="modal-form"></slot>
+        </template>
+        <template v-slot:footer></template>
+    </Modal>
 </template>
 
 <style scoped>

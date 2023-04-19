@@ -10,7 +10,7 @@
 </script>
 
 <template>
-    <CrudBase ref="crudBaseRef" api-url-end="characters" header-text="Character List">
+    <CrudBase ref="crudBaseRef" api-url-end="characters" header-text="Character">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Race">Race</SortHeader>

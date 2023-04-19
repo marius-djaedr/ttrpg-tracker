@@ -15,7 +15,7 @@
 </script>
 
 <template>
-    <CrudBase ref="crudBaseRef" api-url-end="campaigns" header-text="Campaign List">
+    <CrudBase ref="crudBaseRef" api-url-end="campaigns" header-text="Campaign">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="System">System</SortHeader>
@@ -32,6 +32,9 @@
                 <span v-else-if="Completed == true">completed</span>
                 <span v-else>abandoned</span>
             </td>
+        </template>
+        <template v-slot:modal-form>
+            TEMP TODO
         </template>
     </CrudBase>
 </template>
