@@ -18,6 +18,7 @@ exports.plugin = {
             method: 'GET',
             path: '/api/{type}',
             handler: async (req, h) => {
+                console.log("GET");
                 const rawType = req.params.type;
                 const entities = await req.mongo.db.collection('TtrpgTracker').find({Type:convertType(rawType)}).toArray();
                 return entities;
@@ -55,6 +56,7 @@ exports.plugin = {
             method: 'POST',
             path: '/api/{type}',
             handler: async (req, h) => {
+                console.log("POST");
                 const rawType = req.params.type;
                 const payload = req.payload
                 payload.Type = convertType(rawType);

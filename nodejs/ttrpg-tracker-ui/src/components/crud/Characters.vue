@@ -1,7 +1,7 @@
 <script setup>
     import { ref } from 'vue'
     import CrudBase from './CrudBase.vue'
-    import SortHeader from './SortHeader.vue'
+    import SortHeader from '../tidbits/SortHeader.vue'
     const crudBaseRef = ref()
 
     function sortOrSearch(obj){

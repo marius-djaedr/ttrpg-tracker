@@ -29,6 +29,7 @@ const init = async () => {
         method: '*',
         path: '/{any*}',
         handler: function (request, h) {
+            console.log("not found");
             throw Boom.notFound();
         }
     });

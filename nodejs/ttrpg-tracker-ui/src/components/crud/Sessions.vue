@@ -2,7 +2,7 @@
     import { ref } from 'vue'
     import CrudBase from './CrudBase.vue'
     import moment from 'moment'
-    import SortHeader from './SortHeader.vue'
+    import SortHeader from '../tidbits/SortHeader.vue'
     const crudBaseRef = ref()
 
     function sortOrSearch(obj){

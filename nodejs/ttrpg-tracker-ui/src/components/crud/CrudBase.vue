@@ -1,9 +1,103 @@
 <script setup>
     import { ref } from 'vue'
-    import Modal from '../Modal.vue'
+    import Modal from '../tidbits/Modal.vue'
     const props = defineProps(['apiUrlEnd','headerText']);
+    const emit = defineEmits({
+        loadModal: ({obj}) => {
+            return true;
+        },
+        submitEmit: () => {
+            return true;
+        }
+    })
+
+    defineExpose({sortOrSearch, createOrUpdate})
+
     const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // Read
     const data = ref([]);
+
+    loadData();
+
+    function loadData(){
+        //TODO loading icon
+        fetch(apiUrl.value)
+            .then(res => res.json())
+            .then(res => {
+                data.value = res;
+                calculatePageData();
+            })
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // Create, Update, Delete
+
+    function create(obj){
+        //TODO loading icon
+        fetch(apiUrl.value,{
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        }).then(res => loadData())
+    }
+
+    function update(obj){
+        //TODO loading icon
+        fetch(apiUrl.value+'/'+obj._id,{
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        }).then(res => loadData())
+    }
+
+    const isModalVisible = ref(false);
+    const modalTitle = ref('');
+    const modalCreateOrUpdate = ref('')
+
+    function modalCreate(){
+        modalTitle.value = 'Create ' + props.headerText;
+        modalCreateOrUpdate.value = 'create'
+        emit('loadModal',{obj:{}})
+        isModalVisible.value = true;
+    }
+
+    function modalUpdate(datum){
+        modalTitle.value = 'Update ' + props.headerText;
+        modalCreateOrUpdate.value = 'update'
+        emit('loadModal',{obj:datum})
+        isModalVisible.value = true;
+    }
+
+    function cancelModal(){
+        modalCreateOrUpdate.value = null;
+        isModalVisible.value = false;
+    }
+
+    function submitModal(){
+        emit('submitEmit')
+        modalCreateOrUpdate.value = null;
+        isModalVisible.value = false;
+    }
+
+    function createOrUpdate(obj){
+        console.log('createOrUpdate')
+        if(modalCreateOrUpdate.value==='create'){
+            create(obj)
+        }else{
+            update(obj)
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // sort, filter, pagination
 
     const currentSort = ref('');
     const currentSortDir = ref('asc');
@@ -13,17 +107,6 @@
     const filters = ref({});
     const filteredData = ref([]);
     const pagedData = ref([]);
-
-    const isModalVisible = ref(false);
-    const modalTitle = ref('');
-
-    //TODO loading icon
-    fetch(apiUrl.value)
-        .then(res => res.json())
-        .then(res => {
-            data.value = res;
-            calculatePageData();
-        })
     
     function sortOrSearch(obj){
         let field = obj['field'];
@@ -87,34 +170,6 @@
             if(index >= start && index < end) return true;
         });
     }
-
-    function modalCreate(){
-        console.log('START CREATE')
-        modalTitle.value = 'Create ' + props.headerText;
-        //TODO anything else with start create?
-        isModalVisible.value = true;
-    }
-
-    function modalUpdate(id){
-        console.log('START UPDATE '+id)
-        modalTitle.value = 'Update ' + props.headerText;
-        //TODO anything else with start update?
-        isModalVisible.value = true;
-    }
-
-    function cancelModal(){
-        console.log('CANCEL')
-        //TODO anything else with cancel?
-        isModalVisible.value = false;
-    }
-
-    function submitModal(){
-        console.log('SUBMIT')
-        //TODO anything else with submit?
-        isModalVisible.value = false;
-    }
-
-    defineExpose({sortOrSearch})
 </script>
 
 <template>
@@ -141,7 +196,7 @@
                     </td>
                     <slot name="table-data" v-bind="datum"></slot>
                     <td>
-                        <button class="btn btn-warning btn-sm" @click="modalUpdate(datum._id)">Update</button>
+                        <button class="btn btn-warning btn-sm" @click="modalUpdate(datum)">Update</button>
                     </td>
                     <td>
                         <!-- TODO this actually doesn't do anything right now -->
