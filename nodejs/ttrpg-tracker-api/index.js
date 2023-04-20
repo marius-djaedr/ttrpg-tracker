@@ -1,41 +1,30 @@
-const Hapi = require('@hapi/hapi');
-const Boom = require('boom');
+const restify = require('restify');
 const PropertiesReader = require('properties-reader');
 const prop = PropertiesReader('./mongodb.properties');
+const mongodb = require('mongodb').MongoClient;
 
-const init = async () => {
+const server = restify.createServer({
+    name    : 'ttrpg-tracker-api',
+    version : '1.0.0'
+})
 
-    const server = Hapi.server({
-        port: 3300,
-        host: 'localhost',
-        routes: { cors: true }
-    });   
+server.use(restify.plugins.jsonBodyParser({ mapParams: true }))
+server.use(restify.plugins.acceptParser(server.acceptable))
+server.use(restify.plugins.queryParser({ mapParams: true }))
+server.use(restify.plugins.fullResponse())
 
-    await server.register({
-        plugin: require('hapi-mongodb'),
-        options: {
-          url: prop.get('mongodb.url'),
-          settings: {
-              useUnifiedTopology: true
-          },
-          decorate: true
-        }
-    });
-
-    await server.register(require('./controllers/crudController'));
-
+console.log('setup start')
+// establish connection to mongodb atlas
+mongodb.connect(prop.get('mongodb.url'))
+    .then(client => {
+        console.log('mongo done')
+        require('./routes')({ client, server })
     
-    server.route({
-        method: '*',
-        path: '/{any*}',
-        handler: function (request, h) {
-            console.log("not found");
-            throw Boom.notFound();
-        }
-    });
-
-    await server.start();
-    console.log('Server running on %s', server.info.uri);
-}
-
-init();
+        server.listen(3300, function() {
+            console.log('%s listening at %s', server.name, server.url);
+        })
+    })
+    .catch(err =>{
+        console.log('An error occurred while attempting to connect to MongoDB', err)
+        process.exit(1)
+    })
