@@ -32,7 +32,20 @@
     }
 
     ///////////////////////////////////////////////////////////////////////////////
-    // Create, Update, Delete
+    // Delete
+
+    function deleteRecord(obj){
+        let del = confirm('Are you sure you want to delete this record?');
+        if(del){
+            //TODO loading icon
+            fetch(apiUrl.value+'/'+obj._id,{
+                method: 'DELETE',
+            }).then(res => loadData())
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // Create, Update
 
     function create(obj){
         //TODO loading icon
@@ -199,9 +212,7 @@
                         <button class="btn btn-warning btn-sm" @click="modalUpdate(datum)">Update</button>
                     </td>
                     <td>
-                        <!-- TODO this actually doesn't do anything right now -->
-                        <button class="btn btn-danger btn-sm" 
-                            onclick="return confirm('this will eventually delete this record ?');">Delete</button>
+                        <button class="btn btn-danger btn-sm" @click="deleteRecord(datum)">Delete</button>
                     </td>
                 </tr>
             </tbody>

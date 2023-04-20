@@ -93,7 +93,7 @@ module.exports = function(ctx) {
 
         collection.insertOne(data)
             .then(doc => {
-                res.send(201, {_id:doc.insertedId});
+                res.send(200, {_id:doc.insertedId});
                 next();
             })
             .catch(err => {
@@ -102,6 +102,7 @@ module.exports = function(ctx) {
             });
     })
 
+    //Update an entity
     server.put('/api/:type/:id', (req, res, next) => {
         const type = convertType(req.params.type, res, next);
         if(!type)return;
@@ -112,11 +113,12 @@ module.exports = function(ctx) {
         delete data._id;
         delete data.Type;
         
+        console.log(data)
 
         // find and update document based on passed in id (via route)
         collection.updateOne({_id: id, Type: type}, { $set: data })
             .then(doc => {
-                res.send(204);
+                res.send(200);
                 next();
             })
             .catch(err => {
@@ -135,7 +137,7 @@ module.exports = function(ctx) {
         // remove one document based on passed in id (via route)
         collection.deleteOne({ _id: id,Type: type })
             .then(doc => {
-                res.send(204);
+                res.send(200);
                 next();
             })
             .catch(err => {

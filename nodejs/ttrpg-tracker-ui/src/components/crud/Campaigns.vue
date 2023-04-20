@@ -53,8 +53,8 @@
             <td>{{Gm}}</td>
             <td>
                 <!-- TODO double check logic-->
-                <span v-if="Completed == null">ongoing</span>
-                <span v-else-if="Completed == true">completed</span>
+                <span v-if="Completed == null || Completed == ''">ongoing</span>
+                <span v-else-if="Completed == true || Completed == 'true'">completed</span>
                 <span v-else>abandoned</span>
             </td>
         </template>
