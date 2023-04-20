@@ -113,8 +113,6 @@ module.exports = function(ctx) {
         delete data._id;
         delete data.Type;
         
-        console.log(data)
-
         // find and update document based on passed in id (via route)
         collection.updateOne({_id: id, Type: type}, { $set: data })
             .then(doc => {

@@ -11,7 +11,7 @@
         }
     })
 
-    defineExpose({sortOrSearch, createOrUpdate})
+    defineExpose({sortOrSearch, createOrUpdate, cancelModal})
 
     const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
 
@@ -78,15 +78,15 @@
     function modalCreate(){
         modalTitle.value = 'Create ' + props.headerText;
         modalCreateOrUpdate.value = 'create'
-        emit('loadModal',{obj:{}})
         isModalVisible.value = true;
+        emit('loadModal',{obj:{}})
     }
 
     function modalUpdate(datum){
         modalTitle.value = 'Update ' + props.headerText;
         modalCreateOrUpdate.value = 'update'
-        emit('loadModal',{obj:datum})
         isModalVisible.value = true;
+        emit('loadModal',{obj:datum})
     }
 
     function cancelModal(){
