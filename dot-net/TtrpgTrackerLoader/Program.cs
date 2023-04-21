@@ -8,13 +8,13 @@ namespace TtrpgTrackerLoader;
 public class Program{
     private readonly static HttpClient _client= new HttpClient();
     public static async Task Main(string[] args){
-        _client.BaseAddress = new Uri("http://localhost:5138/");
+        _client.BaseAddress = new Uri("http://localhost:3300/");
         _client.DefaultRequestHeaders.Accept.Clear();
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         await ClearTable();
 
-        string inputFile = Path.Combine("input","campaigns-20230126-072349.json");
+        string inputFile = Path.Combine("input","campaigns-20230420-204202.json");
         string inputJson = File.ReadAllText(inputFile);
         
         TtrpgDataContainer? data = JsonConvert.DeserializeObject<TtrpgDataContainer?>(inputJson);
@@ -50,7 +50,7 @@ public class Program{
         }else{
             List<Task> taskList = new List<Task>();
             foreach(MongoEntity entity in list){
-                string? id = entity.Id;
+                string? id = entity._id;
                 if(id is null){
                     throw new NullReferenceException($"Somehow a null ID in type {type}");
                 }
@@ -130,13 +130,14 @@ public class Program{
         HttpResponseMessage response = await _client.PostAsJsonAsync($"api/{urlParam}", entity);
         response.EnsureSuccessStatusCode();
 
-        // return URI of the created resource.
-        Uri? location= response.Headers.Location;
+        string bodyString = await response.Content.ReadAsStringAsync();
+        dynamic? bodyObject = JsonConvert.DeserializeObject(bodyString);
 
-        if(location is null){
+        if(bodyObject is null){
             throw new NullReferenceException($"Unable to get id for created {urlParam}");
         }
-        return location.Segments[3];
+
+        return bodyObject._id;
     }
 }
 

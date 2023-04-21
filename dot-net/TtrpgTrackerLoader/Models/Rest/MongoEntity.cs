@@ -2,7 +2,7 @@ namespace TtrpgTrackerLoader.Models.Rest;
 
 public class MongoEntity
 {
-    public string? Id { get; set; }
+    public string? _id { get; set; }
 
     public string Type { get; set; } = null!;
 

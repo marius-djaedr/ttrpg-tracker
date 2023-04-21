@@ -26,31 +26,31 @@
     }
 
     function loadModal(obj){
-        if(obj.obj.ParentId==null || obj.obj.ParentId == ''){
+        if(obj.obj.parentId==null || obj.obj.parentId == ''){
             alert("You must select a parent first");
             crudBaseRef.value.cancelModal();
         }else{
             modalFormId.value = obj.obj._id
-            modalFormParentId.value = obj.obj.ParentId
-            modalFormName.value = obj.obj.Name
-            modalFormRace.value = obj.obj.Race
-            modalFormClassRole.value = obj.obj.ClassRole
-            modalFormGender.value = obj.obj.Gender
-            modalFormTragicStory.value = obj.obj.TragicStory
-            modalFormDiedInGame.value = obj.obj.DiedInGame
+            modalFormParentId.value = obj.obj.parentId
+            modalFormName.value = obj.obj.name
+            modalFormRace.value = obj.obj.race
+            modalFormClassRole.value = obj.obj.classRole
+            modalFormGender.value = obj.obj.gender
+            modalFormTragicStory.value = obj.obj.tragicStory
+            modalFormDiedInGame.value = obj.obj.diedInGame
         }
     }
 
     function submitModal(){
         let obj = {};
         obj._id = modalFormId.value
-        obj.ParentId = modalFormParentId.value
-        obj.Name = modalFormName.value
-        obj.Race = modalFormRace.value
-        obj.ClassRole = modalFormClassRole.value
-        obj.Gender = modalFormGender.value
-        obj.TragicStory = modalFormTragicStory.value
-        obj.DiedInGame = modalFormDiedInGame.value
+        obj.parentId = modalFormParentId.value
+        obj.name = modalFormName.value
+        obj.race = modalFormRace.value
+        obj.classRole = modalFormClassRole.value
+        obj.gender = modalFormGender.value
+        obj.tragicStory = modalFormTragicStory.value
+        obj.diedInGame = modalFormDiedInGame.value
         crudBaseRef.value.createOrUpdate(obj);
     }
 
@@ -63,12 +63,12 @@
         console.log('onCampaignSelected');
         crudBaseRef.value.deselect();
         let id = obj.obj==null? '' : obj.obj._id;
-        crudBaseRef.value.sortOrSearch({field:'ParentId', sort:false, search:id});
+        crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
     }
 
     function onSessionSelected(obj){
         console.log('onSessionSelected');
-        let id = obj.obj==null? '' : obj.obj.ParentId;
+        let id = obj.obj==null? '' : obj.obj.parentId;
         crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
     }
 </script>
@@ -77,20 +77,20 @@
     <CrudBase ref="crudBaseRef" api-url-end="characters" header-text="Character" 
             @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectCharacter">
         <template v-slot:header-th>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="Race">Race</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="ClassRole">Class/Role</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="Gender">Gender</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="TragicStory">Tragic Backstory</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="DiedInGame">Died in Game</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="name">Name</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="race">Race</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="classRole">Class/Role</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="gender">Gender</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="tragicStory">Tragic Backstory</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="diedInGame">Died in Game</SortHeader>
         </template>
-        <template v-slot:table-data="{ParentId, Name, Race, ClassRole, Gender, TragicStory, DiedInGame}">
-            <td>{{Name}}</td>
-            <td>{{Race}}</td>
-            <td>{{ClassRole}}</td>
-            <td>{{Gender}}</td>
-            <td>{{TragicStory}}</td>
-            <td>{{DiedInGame}}</td>
+        <template v-slot:table-data="{name, race, classRole, gender, tragicStory, diedInGame}">
+            <td>{{name}}</td>
+            <td>{{race}}</td>
+            <td>{{classRole}}</td>
+            <td>{{gender}}</td>
+            <td>{{tragicStory}}</td>
+            <td>{{diedInGame}}</td>
         </template>
         <template v-slot:modal-form>
             <input v-model="modalFormName" placeholder="Name">

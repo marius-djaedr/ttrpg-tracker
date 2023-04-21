@@ -29,20 +29,20 @@
 
     function loadModal(obj){
         modalFormId.value = obj.obj._id
-        modalFormName.value = obj.obj.Name
-        modalFormSystem.value = obj.obj.System
-        modalFormGm.value = obj.obj.Gm
+        modalFormName.value = obj.obj.name
+        modalFormSystem.value = obj.obj.system
+        modalFormGm.value = obj.obj.gm
         //TODO doesn't handle existing value of ongoing correctly, but that's probably fine
-        modalFormStatus.value = obj.obj.Completed
+        modalFormStatus.value = obj.obj.completed
     }
 
     function submitModal(){
         let obj = {};
         obj._id = modalFormId.value;
-        obj.Name = modalFormName.value;
-        obj.System = modalFormSystem.value;
-        obj.Gm = modalFormGm.value;
-        obj.Completed = modalFormStatus.value;
+        obj.name = modalFormName.value;
+        obj.system = modalFormSystem.value;
+        obj.gm = modalFormGm.value;
+        obj.completed = modalFormStatus.value;
         crudBaseRef.value.createOrUpdate(obj);
     }
 
@@ -53,13 +53,13 @@
 
     function onCharacterSelected(obj){
         console.log('onCharacterSelected');
-        let id = obj.obj==null? '' : obj.obj.ParentId;
+        let id = obj.obj==null? '' : obj.obj.parentId;
         crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
     }
 
     function onSessionSelected(obj){
         console.log('onSessionSelected');
-        let id = obj.obj==null? '' : obj.obj.ParentId;
+        let id = obj.obj==null? '' : obj.obj.parentId;
         crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
         //TODO this currently does not show the campaign associated with the character for the session, only campaigns I ran or played without character
         //which this leads to a problem when a session gets selected then deselected
@@ -70,19 +70,19 @@
     <CrudBase ref="crudBaseRef" api-url-end="campaigns" header-text="Campaign"
             @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectCampaign">
         <template v-slot:header-th>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="System">System</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="Gm">Gm</SortHeader>
-            <SortHeader @submit-field="statusSortOrSearch" header-data-field="Completed">Status</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="name">Name</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="system">System</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="gm">Gm</SortHeader>
+            <SortHeader @submit-field="statusSortOrSearch" header-data-field="completed">Status</SortHeader>
         </template>
-        <template v-slot:table-data="{Name, System, Gm, Completed}">
-            <td>{{Name}}</td>
-            <td>{{System}}</td>
-            <td>{{Gm}}</td>
+        <template v-slot:table-data="{name, system, gm, completed}">
+            <td>{{name}}</td>
+            <td>{{system}}</td>
+            <td>{{gm}}</td>
             <td>
                 <!-- TODO double check logic-->
-                <span v-if="Completed == null || Completed == ''">ongoing</span>
-                <span v-else-if="Completed == true || Completed == 'true'">completed</span>
+                <span v-if="completed == null || completed == ''">ongoing</span>
+                <span v-else-if="completed == true || completed == 'true'">completed</span>
                 <span v-else>abandoned</span>
             </td>
         </template>

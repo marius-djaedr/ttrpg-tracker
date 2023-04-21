@@ -31,25 +31,25 @@
     }
 
     function loadModal(obj){
-        if(obj.obj.ParentId==null || obj.obj.ParentId == ''){
+        if(obj.obj.parentId==null || obj.obj.parentId == ''){
             alert("You must select a parent first");
             crudBaseRef.value.cancelModal();
         }else{
             modalFormId.value = obj.obj._id
-            modalFormParentId.value = obj.obj.ParentId
-            modalFormDate.value = obj.obj.Date
-            modalFormShortSession.value = obj.obj.ShortSession
-            modalFormPlayedWithoutCharacter.value = obj.obj.PlayedWithoutCharacter
+            modalFormParentId.value = obj.obj.parentId
+            modalFormDate.value = obj.obj.date
+            modalFormShortSession.value = obj.obj.shortSession
+            modalFormPlayedWithoutCharacter.value = obj.obj.playedWithoutCharacter
         }
     }
 
     function submitModal(){
         let obj = {};
         obj._id = modalFormId.value
-        obj.ParentId = modalFormParentId.value
-        obj.Date = modalFormDate.value
-        obj.ShortSession = modalFormShortSession.value
-        obj.PlayedWithoutCharacter = modalFormPlayedWithoutCharacter.value
+        obj.parentId = modalFormParentId.value
+        obj.date = modalFormDate.value
+        obj.shortSession = modalFormShortSession.value
+        obj.playedWithoutCharacter = modalFormPlayedWithoutCharacter.value
         crudBaseRef.value.createOrUpdate(obj);
     }
 
@@ -62,7 +62,7 @@
         console.log('onCampaignSelected');
         crudBaseRef.value.deselect();
         let id = obj.obj==null? '' : obj.obj._id;
-        crudBaseRef.value.sortOrSearch({field:'ParentId', sort:false, search:id});
+        crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
         //TODO this currently does not show sessions associated with characters in the campaign, only sessions I ran or played without character
     }
 
@@ -70,7 +70,7 @@
         console.log('onCharacterSelected');
         crudBaseRef.value.deselect();
         let id = obj.obj==null? '' : obj.obj._id;
-        crudBaseRef.value.sortOrSearch({field:'ParentId', sort:false, search:id});
+        crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
     }
 </script>
 
@@ -78,16 +78,16 @@
     <CrudBase ref="crudBaseRef" api-url-end="sessions" header-text="Session" 
             @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectSession">
         <template v-slot:header-th>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="Date">Date</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="ShortSession">Short Session</SortHeader>
-            <SortHeader @submit-field="playedSortOrSearch" header-data-field="PlayedWithoutCharacter">Play or Ran?</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="date">Date</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="shortSession">Short Session</SortHeader>
+            <SortHeader @submit-field="playedSortOrSearch" header-data-field="playedWithoutCharacter">Play or Ran?</SortHeader>
         </template>
-        <template v-slot:table-data="{ParentId, Date, ShortSession, PlayedWithoutCharacter}">
-            <td>{{moment(Date).format("YYYY-MM-DD")}}</td>
-            <td>{{ShortSession}}</td>
+        <template v-slot:table-data="{date, shortSession, playedWithoutCharacter}">
+            <td>{{moment(date).format("YYYY-MM-DD")}}</td>
+            <td>{{shortSession}}</td>
             <td>
                 <!-- TODO double check logic-->
-                <span v-if="PlayedWithoutCharacter == null || PlayedWithoutCharacter == true">Played</span>
+                <span v-if="playedWithoutCharacter == null || playedWithoutCharacter == true">Played</span>
                 <span v-else>Ran</span>
             </td>
         </template>
