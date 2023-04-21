@@ -2,6 +2,14 @@
     import { ref } from 'vue'
     import CrudBase from './CrudBase.vue'
     import SortHeader from '../tidbits/SortHeader.vue'
+
+    const emit = defineEmits({
+        selectCampaign: ({obj}) => {
+            return true;
+        }
+    });
+    defineExpose({onCharacterSelected,onSessionSelected});
+
     const crudBaseRef = ref()
 
     const modalFormId = ref('')
@@ -37,10 +45,29 @@
         obj.Completed = modalFormStatus.value;
         crudBaseRef.value.createOrUpdate(obj);
     }
+
+    function selectCampaign(obj){
+        console.log('selectCampaign');
+        emit('selectCampaign',obj);
+    }
+
+    function onCharacterSelected(obj){
+        console.log('onCharacterSelected');
+        let id = obj.obj==null? '' : obj.obj.ParentId;
+        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
+    }
+
+    function onSessionSelected(obj){
+        console.log('onSessionSelected');
+        let id = obj.obj==null? '' : obj.obj.ParentId;
+        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
+        //TODO this currently does not show the campaign associated with the character for the session, only campaigns I ran or played without character
+    }
 </script>
 
 <template>
-    <CrudBase ref="crudBaseRef" api-url-end="campaigns" header-text="Campaign" @load-modal="loadModal" @submit-emit="submitModal">
+    <CrudBase ref="crudBaseRef" api-url-end="campaigns" header-text="Campaign"
+            @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectCampaign">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="System">System</SortHeader>

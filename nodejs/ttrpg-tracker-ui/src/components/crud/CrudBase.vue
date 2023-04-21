@@ -8,10 +8,13 @@
         },
         submitEmit: () => {
             return true;
+        },
+        selectRow: ({obj}) => {
+            return true;
         }
     })
 
-    defineExpose({sortOrSearch, createOrUpdate, cancelModal})
+    defineExpose({sortOrSearch, createOrUpdate, cancelModal, deselect})
 
     const apiUrl = ref(`http://localhost:3300/api/`+props.apiUrlEnd);
 
@@ -183,6 +186,31 @@
             if(index >= start && index < end) return true;
         });
     }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // select
+    const noSelect = ref(true);
+
+    function select(obj){
+        console.log('select');
+        filters.value._id = obj._id;
+        calculatePageData();
+        noSelect.value = false;
+        emit('selectRow',{obj:obj});
+    }
+
+    function deselect(){
+        console.log('deselect');
+        delete filters.value._id;
+        calculatePageData();
+        noSelect.value = true;
+    }
+
+    function deselectButton(){
+        console.log('deselectButton');
+        deselect()
+        emit('selectRow',{obj:null});
+    }
 </script>
 
 <template>
@@ -203,9 +231,8 @@
             <tbody>
                 <tr v-for="datum in pagedData">
                     <td>
-                        <!-- TODO this actually doesn't do anything right now -->
-                        <button class="btn btn-info btn-sm" 
-                            onclick="return confirm('this will eventually filter the lower records ?');">Select</button>
+                        <button v-show="noSelect" class="btn btn-info btn-sm" @click="select(datum)">Select</button>
+                        <button v-show="!noSelect" class="btn btn-info btn-sm" @click="deselectButton">Deselect</button>
                     </td>
                     <slot name="table-data" v-bind="datum"></slot>
                     <td>
@@ -217,7 +244,7 @@
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-success btn-sm" @click="modalCreate">Create New</button>
+        <button v-show="noSelect" class="btn btn-success btn-sm" @click="modalCreate">Create New</button>
     </div>
 
     <Modal v-show="isModalVisible" @cancel="cancelModal" @submit="submitModal">

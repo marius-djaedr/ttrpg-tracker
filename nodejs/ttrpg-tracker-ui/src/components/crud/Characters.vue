@@ -2,6 +2,14 @@
     import { ref } from 'vue'
     import CrudBase from './CrudBase.vue'
     import SortHeader from '../tidbits/SortHeader.vue'
+
+    const emit = defineEmits({
+        selectCharacter: ({obj}) => {
+            return true;
+        }
+    });
+    defineExpose({onCampaignSelected,onSessionSelected});
+
     const crudBaseRef = ref()
 
     const modalFormId = ref('')
@@ -45,10 +53,29 @@
         obj.DiedInGame = modalFormDiedInGame.value
         crudBaseRef.value.createOrUpdate(obj);
     }
+
+    function selectCharacter(obj){
+        console.log('selectCharacter');
+        emit('selectCharacter',obj);
+    }
+
+    function onCampaignSelected(obj){
+        console.log('onCampaignSelected');
+        crudBaseRef.value.deselect();
+        let id = obj.obj==null? '' : obj.obj._id;
+        crudBaseRef.value.sortOrSearch({field:'ParentId', sort:false, search:id});
+    }
+
+    function onSessionSelected(obj){
+        console.log('onSessionSelected');
+        let id = obj.obj==null? '' : obj.obj.ParentId;
+        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
+    }
 </script>
 
 <template>
-    <CrudBase ref="crudBaseRef" api-url-end="characters" header-text="Character" @load-modal="loadModal" @submit-emit="submitModal">
+    <CrudBase ref="crudBaseRef" api-url-end="characters" header-text="Character" 
+            @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectCharacter">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Name">Name</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Race">Race</SortHeader>

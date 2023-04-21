@@ -5,6 +5,14 @@
     import Datepicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
     import SortHeader from '../tidbits/SortHeader.vue'
+
+    const emit = defineEmits({
+        selectSession: ({obj}) => {
+            return true;
+        }
+    });
+    defineExpose({onCampaignSelected,onCharacterSelected});
+
     const crudBaseRef = ref()
 
     const modalFormId = ref('')
@@ -44,10 +52,31 @@
         obj.PlayedWithoutCharacter = modalFormPlayedWithoutCharacter.value
         crudBaseRef.value.createOrUpdate(obj);
     }
+
+    function selectSession(obj){
+        console.log('selectSession');
+        emit('selectSession',obj);
+    }
+
+    function onCampaignSelected(obj){
+        console.log('onCampaignSelected');
+        crudBaseRef.value.deselect();
+        let id = obj.obj==null? '' : obj.obj._id;
+        crudBaseRef.value.sortOrSearch({field:'ParentId', sort:false, search:id});
+        //TODO this currently does not show sessions associated with characters in the campaign, only sessions I ran or played without character
+    }
+
+    function onCharacterSelected(obj){
+        console.log('onCharacterSelected');
+        crudBaseRef.value.deselect();
+        let id = obj.obj==null? '' : obj.obj._id;
+        crudBaseRef.value.sortOrSearch({field:'ParentId', sort:false, search:id});
+    }
 </script>
 
 <template>
-    <CrudBase ref="crudBaseRef" api-url-end="sessions" header-text="Session" @load-modal="loadModal" @submit-emit="submitModal">
+    <CrudBase ref="crudBaseRef" api-url-end="sessions" header-text="Session" 
+            @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectSession">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="Date">Date</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="ShortSession">Short Session</SortHeader>
