@@ -62,6 +62,7 @@
         let id = obj.obj==null? '' : obj.obj.ParentId;
         crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
         //TODO this currently does not show the campaign associated with the character for the session, only campaigns I ran or played without character
+        //which this leads to a problem when a session gets selected then deselected
     }
 </script>
 
