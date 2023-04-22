@@ -46,6 +46,7 @@ mongodb.connect(prop.get('mongodb.url'))
     .then(client => {
         console.log('mongo done')
         require('./routes/crud')({ client, server })
+        require('./routes/aggregation')({ client, server })
     
         server.listen(3300, function() {
             console.log('%s listening at %s', server.name, server.url);
