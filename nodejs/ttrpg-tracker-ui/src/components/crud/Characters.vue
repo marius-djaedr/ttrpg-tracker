@@ -12,6 +12,8 @@
 
     const crudBaseRef = ref()
 
+    const selectedParentId = ref('')
+
     const modalFormId = ref('')
     const modalFormParentId = ref('')
     const modalFormName = ref('')
@@ -27,8 +29,13 @@
 
     function loadModal(obj){
         if(obj.obj.parentId==null || obj.obj.parentId == ''){
-            alert("You must select a parent first");
-            crudBaseRef.value.cancelModal();
+            //if not update, check if create
+            if(selectedParentId.value == null || selectedParentId.value == ''){
+                alert("You must select a parent first");
+                crudBaseRef.value.cancelModal();
+            }else{
+                modalFormParentId.value = selectedParentId.value
+            }
         }else{
             modalFormId.value = obj.obj._id
             modalFormParentId.value = obj.obj.parentId
@@ -55,21 +62,20 @@
     }
 
     function selectCharacter(obj){
-        console.log('selectCharacter');
         emit('selectCharacter',obj);
     }
 
     function onCampaignSelected(obj){
-        console.log('onCampaignSelected');
         crudBaseRef.value.deselect();
         let id = obj.obj==null? '' : obj.obj._id;
+        selectedParentId.value = id;
         crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
     }
 
     function onSessionSelected(obj){
-        console.log('onSessionSelected');
-        let id = obj.obj==null? '' : obj.obj.parentId;
-        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
+        console.warn('Currently no support for up-filtering on select');
+//        let id = obj.obj==null? '' : obj.obj.parentId;
+//        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
     }
 </script>
 

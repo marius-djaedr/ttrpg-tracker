@@ -47,20 +47,19 @@
     }
 
     function selectCampaign(obj){
-        console.log('selectCampaign');
         emit('selectCampaign',obj);
     }
 
     function onCharacterSelected(obj){
-        console.log('onCharacterSelected');
-        let id = obj.obj==null? '' : obj.obj.parentId;
-        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
+        console.warn('Currently no support for up-filtering on select');
+        // let id = obj.obj==null? '' : obj.obj.parentId;
+        // crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
     }
 
     function onSessionSelected(obj){
-        console.log('onSessionSelected');
-        let id = obj.obj==null? '' : obj.obj.parentId;
-        crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
+        console.warn('Currently no support for up-filtering on select');
+        // let id = obj.obj==null? '' : obj.obj.parentId;
+        // crudBaseRef.value.sortOrSearch({field:'_id', sort:false, search:id});
         //TODO this currently does not show the campaign associated with the character for the session, only campaigns I ran or played without character
         //which this leads to a problem when a session gets selected then deselected
     }

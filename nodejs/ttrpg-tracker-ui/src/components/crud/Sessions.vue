@@ -15,6 +15,8 @@
 
     const crudBaseRef = ref()
 
+    const selectedParentId = ref('')
+
     const modalFormId = ref('')
     const modalFormParentId = ref('')
     const modalFormDate = ref('')
@@ -32,8 +34,13 @@
 
     function loadModal(obj){
         if(obj.obj.parentId==null || obj.obj.parentId == ''){
-            alert("You must select a parent first");
-            crudBaseRef.value.cancelModal();
+            //if not update, check if create
+            if(selectedParentId.value == null || selectedParentId.value == ''){
+                alert("You must select a parent first");
+                crudBaseRef.value.cancelModal();
+            }else{
+                modalFormParentId.value = selectedParentId.value
+            }
         }else{
             modalFormId.value = obj.obj._id
             modalFormParentId.value = obj.obj.parentId
@@ -54,22 +61,21 @@
     }
 
     function selectSession(obj){
-        console.log('selectSession');
         emit('selectSession',obj);
     }
 
     function onCampaignSelected(obj){
-        console.log('onCampaignSelected');
         crudBaseRef.value.deselect();
         let id = obj.obj==null? '' : obj.obj._id;
+        selectedParentId.value = id;
         crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
         //TODO this currently does not show sessions associated with characters in the campaign, only sessions I ran or played without character
     }
 
     function onCharacterSelected(obj){
-        console.log('onCharacterSelected');
         crudBaseRef.value.deselect();
         let id = obj.obj==null? '' : obj.obj._id;
+        selectedParentId.value = id;
         crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
     }
 </script>
