@@ -49,11 +49,15 @@
             fetch(apiUrl.value+`run`,{
                 method: 'POST'
             }).then(res => {
-                let con = confirm('The aggregation is complete. Reload?');
-                if(con){
-                    loadData();
+                if(res.ok){
+                    let con = confirm('The aggregation is complete. Reload?');
+                    if(con){
+                        loadData();
+                    }
+                }else{
+                    alert('Aggregation failed: '+res.statusText);
                 }
-            })
+            });
         }
     }
 
@@ -161,7 +165,7 @@
             <tbody>
                 <tr v-for="agg in pagedData">
                     <td>
-                        <button class="btn btn-info btn-sm" @click="selectAgg(agg._id)">Show</button>
+                        <button class="btn btn-info btn-sm" @click="selectAgg(agg.id)">Show</button>
                     </td>
                     <td>{{ agg.name }}</td>
                     <td>{{ agg.chartTypeReadable }}</td>
