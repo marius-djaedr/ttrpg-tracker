@@ -1,28 +1,16 @@
+const timeBar = require('../reference/timeBarCategorized');
 
 module.exports = function() {
     this.aggregate = async function(aggInput) {
-        return getDummyAgg();
+        return [getDummyAgg()];
     }
 
     
     function getDummyAgg(){
-        let dummy = {
-            name: 'GM - Campaign - Completed',
-            chartTypeReadable: 'Time Bar',
-            chartTypeGoogle: 'Timeline',
-            options: {},
-            settings: {
-                packages: ['timeline']
-            },
-            columnDefinitions: [
-                {type:'string',id:'Row Label',label:'Row Label'},
-                {type:'string',id:'Bar Label',label:'Bar Label'},
-                {type:'string',id:'Tooltip',label:'Tooltip',role:'tooltip'},
-                {type:'string',id:'style',label:'style',role:'style'},
-                {type:'date',id:'Start',label:'Start'},
-                {type:'date',id:'End',label:'End'}
-            ],
-            rows: [
+        const dummy = timeBar.getBaseEntity();
+
+        dummy.name = 'GM - Campaign - Completed';
+        dummy.rows = [
                 ['Bruce Brown','Masters','<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Masters</span></li></ul><div class="google-visualization-tooltip-separator"></div><ul class="google-visualization-tooltip-action-list"><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Bruce Brown: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">2010-09-08 - 2010-12-09</span></li><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Completed: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">Yes</span></li></ul>','#6E3E98','Date(2010, 8, 8)','Date(2010, 11, 9)'],
                 ['Bruce Brown','Masters','<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Masters</span></li></ul><div class="google-visualization-tooltip-separator"></div><ul class="google-visualization-tooltip-action-list"><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Bruce Brown: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">2011-09-08 - 2011-12-09</span></li><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Completed: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">Yes</span></li></ul>','#6E3E98','Date(2011, 8, 8)','Date(2011, 11, 9)'],
                 ['Bruce Brown','Masters','<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Masters</span></li></ul><div class="google-visualization-tooltip-separator"></div><ul class="google-visualization-tooltip-action-list"><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Bruce Brown: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">2012-01-24 - 2012-12-09</span></li><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Completed: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">Yes</span></li></ul>','#6E3E98','Date(2012, 0, 24)','Date(2012, 11, 9)'],
@@ -159,8 +147,7 @@ module.exports = function() {
                 ['none','Golden Valley Prefecture','<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Golden Valley Prefecture</span></li></ul><div class="google-visualization-tooltip-separator"></div><ul class="google-visualization-tooltip-action-list"><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">none: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">2020-08-05 - 2020-08-20</span></li><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Completed: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">Yes</span></li></ul>','#6E3E98','Date(2020, 7, 5)','Date(2020, 7, 20)'],
                 ['none','A little fall of Floafluka','<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">A little fall of Floafluka</span></li></ul><div class="google-visualization-tooltip-separator"></div><ul class="google-visualization-tooltip-action-list"><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">none: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">2020-09-08 - 2020-10-07</span></li><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Completed: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">Yes</span></li></ul>','#6E3E98','Date(2020, 8, 8)','Date(2020, 9, 7)'],
                 ['none','Fiasco: arctic research','<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Fiasco: arctic research</span></li></ul><div class="google-visualization-tooltip-separator"></div><ul class="google-visualization-tooltip-action-list"><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">none: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">2017-10-12 - 2017-10-25</span></li><li data-logicalname="action#" class="google-visualization-tooltip-action"><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">Completed: </span><span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">Yes</span></li></ul>','#6E3E98','Date(2017, 9, 12)','Date(2017, 9, 25)']
-            ]
-        };
+            ];
         return dummy;
     }
 }
