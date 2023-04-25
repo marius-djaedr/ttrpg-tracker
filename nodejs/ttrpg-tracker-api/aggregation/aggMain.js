@@ -68,7 +68,13 @@ module.exports = function(ctx) {
 
     async function buildAggInput(collection){
         //TODO query the database and build ID mappings for each of the types
-        return {};
+        return {
+            campaigns: {campId1:camp1,campId2:camp2},
+            characters: {charId1:char1,charId2:char2},
+            sessions: {sesId1:ses1,sesId2:ses2},
+            charactersForParent: {campId1:[char1,char2]},
+            sessionsForParent: {campId1:[ses1,ses2],charId1:[ses1,ses2]}
+        };
     }
 
 }

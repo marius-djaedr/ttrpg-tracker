@@ -1,4 +1,4 @@
-const timeBar = require('../reference/timeBarCategorized');
+const timeBarCategorized = require('../reference/timeBarCategorized');
 
 module.exports = function() {
     this.aggregate = async function(aggInput) {
@@ -7,7 +7,7 @@ module.exports = function() {
 
     
     function getDummyAgg(){
-        const dummy = timeBar.getBaseEntity();
+        const dummy = timeBarCategorized.getBaseEntity();
 
         dummy.name = 'GM - Campaign - Completed';
         dummy.rows = [

@@ -1,3 +1,14 @@
+
+module.exports = function(params) {
+    this.timeBar = require('../reference/timeBar').default(params);
+    
+    this.categoryName = params.categoryName;
+    this.bar_CategoryFunc = params.bar_CategoryFunc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+//OLD
+
 const BASE_ENTITY = {
     chartTypeReadable: 'Time Bar',
     chartTypeGoogle: 'Timeline',
