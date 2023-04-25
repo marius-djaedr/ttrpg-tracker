@@ -31,7 +31,7 @@ export function getBaseEntity() {
 }
 
 export function buildDatumRow(datum) {
-    return [datum.row, datum.bar, getTooltipString(datum), datum.color, buildDateFunctionString(datum.startDate), buildDateFunctionString(datum.endDate)]
+    return [datum.row, datum.bar, getTooltipString(datum), getColorString(datum), buildDateFunctionString(datum.startDate), buildDateFunctionString(datum.endDate)]
 }
 
 function buildDateFunctionString(date){

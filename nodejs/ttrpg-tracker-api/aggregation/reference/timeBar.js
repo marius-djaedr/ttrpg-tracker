@@ -16,6 +16,8 @@ module.exports = function(params) {
         for(const session of aggInput.sessions){
             processSession(session, aggInput, categoryCountMap, row_bar_session_Map);
         }
+
+        const data = buildData(row_bar_session_Map);
         //TODO
     }
 
@@ -48,6 +50,93 @@ module.exports = function(params) {
             }
         }
     }
+
+    function buildData(row_bar_session_Map){
+        const data = [];
+        const rowNames = [...Object.keys(row_bar_session_Map)];
+        rowNames.sort();
+        for(const rowName of rowNames){
+            const rowMap = row_bar_session_Map[rowName];
+            const barNames = [...Object.keys(rowMap)];
+            barNames.sort();
+            for(const barName of barNames){
+                const barMap = rowMap[barName];
+
+                const sessionRanges = calculateSessionRanges(barMap.sessionDates);
+                for(const sessionRange of sessionRanges){
+                    data.push(buildDatumRow(rowName,barName,sessionRange.startDate,sessionRange.endDate,barMap.category));
+                }
+            }
+        }
+        return data;
+    }
+
+    function calculateSessionRanges(sessionDates){
+        //TODO
+        return [];
+    }
+
+
+    function buildDatumRow(row,bar,startDate,endDate,category) {
+        if(this.categoryName != null){
+            return [row, 
+                bar, 
+                getTooltipString(row,bar,startDate,endDate,category), 
+                getColorString(category), 
+                buildDateFunctionString(startDate), 
+                buildDateFunctionString(endDate)];
+        } else {
+            return [row, 
+                bar, 
+                buildDateFunctionString(startDate), 
+                buildDateFunctionString(endDate)];
+        }
+    }
+
+    
+    function getColorString(category){
+      //TODO
+      return '';
+    }
+    
+    function buildDateFunctionString(date){
+        return 'Date('+date.getFullYear()+', '+date.getMonth()+', '+date.getDate()+')';
+    }
+    
+    function getTooltipString(row,bar,startDate,endDate,category){
+        let retString =     '<ul class="google-visualization-tooltip-item-list">';
+        retString +=            '<li class="google-visualization-tooltip-item">';
+        retString +=                '<span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">';
+        retString += datum.bar;
+        retString +=                '</span>';
+        retString +=            '</li>';
+        retString +=        '</ul>';
+        retString +=        '<div class="google-visualization-tooltip-separator"></div>';
+        retString +=        '<ul class="google-visualization-tooltip-action-list">';
+        retString +=            '<li data-logicalname="action#" class="google-visualization-tooltip-action">';
+        retString +=                '<span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">';
+        retString += datum.row;
+        retString +=                    ': ';
+        retString +=                '</span>';
+        retString +=                '<span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">';
+        retString += datum.startDate.year+'-'+datum.startDate.month+'-'+datum.startDate.day;
+        retString +=                    ' - ';
+        retString += datum.endDate.year+'-'+datum.endDate.month+'-'+datum.endDate.day;
+        retString +=                '</span>';
+        retString +=            '</li>';
+        retString +=            '<li data-logicalname="action#" class="google-visualization-tooltip-action">';
+        retString +=                '<span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">';
+        retString += datum.categoryName;
+        retString +=                    ': ';
+        retString +=                '</span>';
+        retString +=                '<span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">';
+        retString += datum.category;
+        retString +=                '</span>';
+        retString +=            '</li>';
+        retString +=        '</ul>';
+        return retString;
+    }
+
 }
 
 //////////////////////////////////////////////////////////////////////////
