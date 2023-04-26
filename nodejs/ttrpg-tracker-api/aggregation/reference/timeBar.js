@@ -1,4 +1,4 @@
-
+const COLOR_ORDER = ['#6E3E98', '#A2CA7D', '#98413E', '#7DC8CA', '#A67DCA', '#69983E', '#CA807D', '#3E9598'];
 
 module.exports = function(params) {
     this.chartName = params.chartName;
@@ -13,12 +13,39 @@ module.exports = function(params) {
         const categoryCountMap = {};
         const row_bar_session_Map = {};
 
-        for(const session of aggInput.sessions){
+        for(const session of aggInput.SESSION){
             processSession(session, aggInput, categoryCountMap, row_bar_session_Map);
         }
 
-        const data = buildData(row_bar_session_Map);
-        //TODO
+        const categoryColorMap = buildColorMap(categoryCountMap);
+
+        const data = buildData(row_bar_session_Map,categoryColorMap);
+
+        const columnDefinitions = this.categoryName==null ? [
+            {type:'string',id:'Row Label',label:'Row Label'},
+            {type:'string',id:'Bar Label',label:'Bar Label'},
+            {type:'date',id:'Start',label:'Start'},
+            {type:'date',id:'End',label:'End'}
+        ] : [
+            {type:'string',id:'Row Label',label:'Row Label'},
+            {type:'string',id:'Bar Label',label:'Bar Label'},
+            {type:'string',id:'Tooltip',label:'Tooltip',role:'tooltip'},
+            {type:'string',id:'style',label:'style',role:'style'},
+            {type:'date',id:'Start',label:'Start'},
+            {type:'date',id:'End',label:'End'}
+        ];
+
+        return {
+            name: this.chartName,
+            chartTypeReadable: 'Time Bar',
+            chartTypeGoogle: 'Timeline',
+            options: {},
+            settings: {
+                packages: ['timeline']
+            },
+            columnDefinitions: columnDefinitions,
+            rows: data
+        };
     }
 
     function processSession(session, aggInput, categoryCountMap, row_bar_session_Map){
@@ -51,7 +78,18 @@ module.exports = function(params) {
         }
     }
 
-    function buildData(row_bar_session_Map){
+    function buildColorMap(categoryCountMap){
+        const categoryList = [...Object.keys(categoryCountMap)];
+        categoryList.sort(function(a,b){return categoryCountMap[b]-categoryCountMap[a]});
+
+        const colorMap = {};
+        for(let i=0;i<categoryList.length;i++){
+            colorMap[categoryList[i]] = COLOR_ORDER[i];
+        }
+        return colorMap;
+    }
+
+    function buildData(row_bar_session_Map,categoryColorMap){
         const data = [];
         const rowNames = [...Object.keys(row_bar_session_Map)];
         rowNames.sort();
@@ -64,7 +102,7 @@ module.exports = function(params) {
 
                 const sessionRanges = calculateSessionRanges(barMap.sessionDates);
                 for(const sessionRange of sessionRanges){
-                    data.push(buildDatumRow(rowName,barName,sessionRange.startDate,sessionRange.endDate,barMap.category));
+                    data.push(buildDatumRow(rowName,barName,sessionRange.startDate,sessionRange.endDate,barMap.category,categoryColorMap.category));
                 }
             }
         }
@@ -72,17 +110,44 @@ module.exports = function(params) {
     }
 
     function calculateSessionRanges(sessionDates){
-        //TODO
-        return [];
+        if(sessionDates == null || sessionDates.length == 0){
+            return [];
+        }
+        sessionDates.sort(function(a,b){return a.getTime()-b.getTime()});
+
+        let prevDate = sessionDates[0];
+        const rawRanges = [[prevDate]];
+        for(let i=1;i<sessionDates.length;i++){
+            const curDate = sessionDates[i];
+            if(curDate.getTime() - prevDate.getTime() < 0000){
+                rawRanges[rawRanges.length-1].push(curDate);
+            } else{
+                rawRanges.push([curDate]);
+            }
+            prevDate = curDate;
+        }
+
+        const toReturn = [];
+        for(const rawRange of rawRanges){
+            const obj = {startDate:rawRange[0]};
+            if(rawRange.length==1){
+                obj.endDate = new Date(rawRange[0]+86400000);
+            }else{
+                obj.endDate = rawRange[rawRange.length-1];
+            }
+            toReturn.push(obj);
+        }
+
+        return toReturn;
     }
 
 
-    function buildDatumRow(row,bar,startDate,endDate,category) {
+    function buildDatumRow(row,bar,startDate,endDate,category,color) {
         if(this.categoryName != null){
             return [row, 
                 bar, 
                 getTooltipString(row,bar,startDate,endDate,category), 
-                getColorString(category), 
+                getColorString(color), 
                 buildDateFunctionString(startDate), 
                 buildDateFunctionString(endDate)];
         } else {
@@ -93,11 +158,6 @@ module.exports = function(params) {
         }
     }
 
-    
-    function getColorString(category){
-      //TODO
-      return '';
-    }
     
     function buildDateFunctionString(date){
         return 'Date('+date.getFullYear()+', '+date.getMonth()+', '+date.getDate()+')';
@@ -138,33 +198,3 @@ module.exports = function(params) {
     }
 
 }
-
-//////////////////////////////////////////////////////////////////////////
-//OLD
-
-// const BASE_ENTITY = {
-//     chartTypeReadable: 'Time Bar',
-//     chartTypeGoogle: 'Timeline',
-//     options: {},
-//     settings: {
-//         packages: ['timeline']
-//     },
-//     columnDefinitions: [
-//         {type:'string',id:'Row Label',label:'Row Label'},
-//         {type:'string',id:'Bar Label',label:'Bar Label'},
-//         {type:'date',id:'Start',label:'Start'},
-//         {type:'date',id:'End',label:'End'}
-//     ]
-// };
-
-// export function getBaseEntity() {
-//     return JSON.parse(JSON.stringify(BASE_ENTITY));
-// }
-
-// export function buildDatumRow(datum) {
-//     return [datum.row, datum.bar, buildDateFunctionString(datum.startDate), buildDateFunctionString(datum.endDate)]
-// }
-
-// function buildDateFunctionString(date){
-//     return 'Date('+date.year+', '+(date.month-1)+', '+date.day+')';
-// }

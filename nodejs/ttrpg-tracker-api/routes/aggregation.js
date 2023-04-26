@@ -8,7 +8,7 @@ module.exports = function(ctx) {
 
     // assign collection to variable for further use
     const collection = client.db('TtrpgTracker').collection('Aggregation');
-    const aggregator = new aggMain({ collection });
+    const aggregator = new aggMain({ collection, client });
 
     
     server.get('/api/aggregation/mapping', (req, res, next) => {

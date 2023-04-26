@@ -3,6 +3,7 @@ const path = require( 'path' );
 
 module.exports = function(ctx) {
     this.collection = ctx.collection;
+    this.inputCollection = ctx.client.db('TtrpgTracker').collection('TtrpgTracker');
 
     this.runAggregation = async function(){
         const collection = this.collection;
@@ -63,18 +64,54 @@ module.exports = function(ctx) {
         });
         
     // console.log(mappingData)
-        return collection.insertOne({type: 'MAPPING', data: mappingData});
+        const insertMapResult = await collection.insertOne({type: 'MAPPING', data: mappingData});
+
+        //TODO also do physical output
     }
 
     async function buildAggInput(collection){
-        //TODO query the database and build ID mappings for each of the types
-        return {
-            campaigns: {campId1:camp1,campId2:camp2},
-            characters: {charId1:char1,charId2:char2},
-            sessions: {sesId1:ses1,sesId2:ses2},
-            charactersForParent: {campId1:[char1,char2]},
-            sessionsForParent: {campId1:[ses1,ses2],charId1:[ses1,ses2]}
-        };
+        const allRecords = await inputCollection.find().toArray();
+
+        const toReturn = {};
+        for(const record of allRecords){
+            let id = record._id;
+            let type = record.type;
+            if(!Object.keys(toReturn).includes(type)){
+                toReturn.type = {};
+            }
+            toReturn.type[id] = record;
+        }
+
+        const charactersForParent = {};
+        for(const character of toReturn['CHARACTER']){
+            let parentId = character.parentId;
+            if(!Object.keys(charactersForParent).includes(parentId)){
+                charactersForParent.parentId = [];
+            }
+            charactersForParent.parentId.push(character);
+        }
+        toReturn.charactersForParent = charactersForParent;
+
+        const sessionsForParent = {};
+        for(const session of toReturn['SESSION']){
+            let sessionParentId = session.parentId;
+            if(!Object.keys(sessionsForParent).includes(sessionParentId)){
+                sessionsForParent.sessionParentId = [];
+            }
+            sessionsForParent.sessionParentId.push(session);
+
+            if(Object.keys(toReturn['CHARACTER']).includes(sessionParentId)){
+                //if parent is a character, also add this session to the campaign
+                let characterParentId = toReturn['CHARACTER'].sessionParentId.parentId;
+                if(!Object.keys(sessionsForParent).includes(characterParentId)){
+                    sessionsForParent.characterParentId = [];
+                }
+                sessionsForParent.characterParentId.push(session);
+            }
+        }
+        toReturn.sessionsForParent = sessionsForParent;
+
+        return toReturn;
     }
 
 }

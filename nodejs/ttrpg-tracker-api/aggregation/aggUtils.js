@@ -10,5 +10,11 @@ export function convertBooleanToWord(bool) {
 }
 
 export function getCampaignFromSession(session, aggInput){
-
+    const PWC = session.playedWithoutCharacter;
+    if(PWC == null){
+        const character = aggInput['CHARACTER'][session.parentId];
+        return aggInput['CAMPAIGN'][character.parentId];
+    }else{
+        return aggInput['CAMPAIGN'][session.parentId];
+    }
 }
