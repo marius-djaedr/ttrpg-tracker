@@ -1,5 +1,5 @@
 
-export function convertBooleanToWord(bool) {
+exports.convertBooleanToWord = function(bool) {
     if(bool == null){
         return 'Unknown';
     }else if(bool || bool == 'true'){
@@ -9,12 +9,21 @@ export function convertBooleanToWord(bool) {
     }
 }
 
-export function getCampaignFromSession(session, aggInput){
+exports.getCampaignFromSession = function(session, aggInput){
     const PWC = session.playedWithoutCharacter;
     if(PWC == null){
         const character = aggInput['CHARACTER'][session.parentId];
         return aggInput['CAMPAIGN'][character.parentId];
     }else{
         return aggInput['CAMPAIGN'][session.parentId];
+    }
+}
+
+exports.getCharacterFromSession = function(session, aggInput){
+    const PWC = session.playedWithoutCharacter;
+    if(PWC == null){
+        return aggInput['CHARACTER'][session.parentId];
+    }else{
+        return {};
     }
 }

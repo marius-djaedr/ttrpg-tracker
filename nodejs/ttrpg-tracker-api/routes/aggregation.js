@@ -48,8 +48,8 @@ module.exports = function(ctx) {
                 next();
             })
             .catch(err => {
-                console.log('FAILED AGGREGATION ' + err);
-                res.send(500, err);
+                console.error(err);
+                res.send(500,`can't figure out how to send the error message, just check the logs`);
                 next();
             });
     })
