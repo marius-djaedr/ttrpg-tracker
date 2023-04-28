@@ -1,3 +1,4 @@
+const AggUtils = require('../aggUtils');
 const COLOR_ORDER = ['#6E3E98', '#A2CA7D', '#98413E', '#7DC8CA', '#A67DCA', '#69983E', '#CA807D', '#3E9598'];
 
 exports.processAll = function(aggInput,params){
@@ -140,20 +141,17 @@ function buildDatumRow(params, row,bar,startDate,endDate,category,color) {
             bar, 
             getTooltipString(params,row,bar,startDate,endDate,category), 
             color, 
-            buildDateFunctionString(startDate), 
-            buildDateFunctionString(endDate)];
+            AggUtils.buildDateFunctionString(startDate), 
+            AggUtils.buildDateFunctionString(endDate)];
     } else {
         return [row, 
             bar, 
-            buildDateFunctionString(startDate), 
-            buildDateFunctionString(endDate)];
+            AggUtils.buildDateFunctionString(startDate), 
+            AggUtils.buildDateFunctionString(endDate)];
     }
 }
 
 
-function buildDateFunctionString(date){
-    return 'Date('+date.getFullYear()+', '+date.getMonth()+', '+date.getDate()+')';
-}
 
 function getTooltipString(params,row,bar,startDate,endDate,category){
     let retString =     '<ul class="google-visualization-tooltip-item-list">';

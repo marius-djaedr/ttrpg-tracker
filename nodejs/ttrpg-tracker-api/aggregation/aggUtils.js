@@ -27,3 +27,8 @@ exports.getCharacterFromSession = function(session, aggInput){
         return {};
     }
 }
+
+
+exports.buildDateFunctionString = function(date){
+    return 'Date('+date.getFullYear()+', '+date.getMonth()+', '+date.getDate()+')';
+}
