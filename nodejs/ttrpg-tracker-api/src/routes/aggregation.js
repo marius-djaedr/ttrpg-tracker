@@ -7,7 +7,6 @@ module.exports = function(ctx) {
     const client = ctx.client;
     const server = ctx.server
 
-
     async function mongoWrapper(mongoFunc){
         try{
             const collection = client.db('TtrpgTracker').collection('Aggregation');
@@ -48,7 +47,7 @@ module.exports = function(ctx) {
     })
 
     server.post('/api/aggregation/run', (req, res, next) => {
-        mongoWrapper(collection => new aggMain({ collection, client }).runAggregation())
+        aggMain.runAggregation(client)
             .then((afterSend) => {
                 res.send(200);
                 next();
