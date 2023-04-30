@@ -17,8 +17,7 @@ exports.aggregate = async function(aggInput, aggOutputs){
     const aggregators = [];
     const aggFiles = await glob('./src/aggregation/nonDbAggs/**/*.js');
     aggFiles.forEach( function( file ) {
-        const aggClass = require(path.resolve(file));
-        aggregators.push(new aggClass());
+        aggregators.push(require(path.resolve(file)));
     });
     
     //start each aggregator

@@ -14,9 +14,11 @@ aggMain.runAggregation(client)
 function mockClient(){
     const findAllReturn = buildFromBackup();
     return {
-        close: ()=>{logger.info('CLOSE CALLED')},
+        close: ()=>{
+            // logger.info('CLOSE CALLED')
+        },
         db: (a)=>{
-            logger.info('OPENING CONNECTION');
+            // logger.info('OPENING CONNECTION');
             return {
                 collection: (b)=>{
                     return {

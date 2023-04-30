@@ -25,8 +25,7 @@ exports.runAggregation = async function(client){
     const aggregators = [];
     const aggFiles = await glob('./src/aggregation/aggregators/**/*.js');
     aggFiles.forEach( function( file ) {
-        const aggClass = require(path.resolve(file));
-        aggregators.push(new aggClass());
+        aggregators.push(require(path.resolve(file)));
     });
 
     //start each aggregator
