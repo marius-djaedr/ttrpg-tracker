@@ -32,3 +32,15 @@ exports.getCharacterFromSession = function(session, aggInput){
 exports.buildDateFunctionString = function(date){
     return 'Date('+date.getFullYear()+', '+date.getMonth()+', '+date.getDate()+')';
 }
+
+exports.getSessionWeightedCount = function(sessions){
+    let count = 0.0;
+    for(const session of sessions){
+        if(session.shortSession==null || session.shortSession === 'false' || session.shortSession === false){
+            count += 1.0;
+        }else{
+            count += 0.5;
+        }
+    }
+    return count;
+}

@@ -1,0 +1,65 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"System","label":"System"})
+data.addColumn({"type":"number","id":"sessions/CAMPAIGN","label":"sessions/CAMPAIGN"})
+data.addRows([
+[`A Quiet Year`,1.75,],
+[`Anima`,3,],
+[`Avatar Legends`,2,],
+[`Big Eyes Small Mouth 2.5`,10,],
+[`Big Eyes Small Mouth 4`,19,],
+[`Blades in the Dark`,5.5,],
+[`Burning Wheel`,3,],
+[`D&D 3.5`,4.8,],
+[`D&D 4`,12.433333333333334,],
+[`D&D 5`,15,],
+[`Deathwatch`,1,],
+[`Dread`,1,],
+[`Dungeon World`,5.4,],
+[`FATE`,15,],
+[`Feng Shui`,1,],
+[`Fiasco`,1,],
+[`Follow`,1.6666666666666667,],
+[`Godbound`,7.25,],
+[`Golden Sky Stories`,1,],
+[`Kingdom`,2.142857142857143,],
+[`Lasers & Felines`,0.5,],
+[`Masks`,1,],
+[`Microscope`,3.3333333333333335,],
+[`Mutants and Masterminds`,8.5,],
+[`Paranoia`,1,],
+[`Pathfinder`,13.4,],
+[`Pathfinder 2e`,1,],
+[`Scum and Villainy`,16,],
+[`Serenity`,3.5,],
+[`Shadowrun`,5,],
+[`Starfinder`,5,],
+[`Stars Without Number`,2.5,],
+]);
+
+// Set chart options
+var options = {"width":1200,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
