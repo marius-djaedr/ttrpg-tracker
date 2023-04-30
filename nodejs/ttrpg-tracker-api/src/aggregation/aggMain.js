@@ -1,5 +1,7 @@
 const glob = require( 'glob' ).glob;
 const path = require( 'path' );
+const logger = require('../logger');
+const physicalAgg = require('./physicalAgg');
 
 module.exports = function(ctx) {
     this.collection = ctx.collection;
@@ -7,23 +9,23 @@ module.exports = function(ctx) {
     this.inputCollection = this.client.db('TtrpgTracker').collection('TtrpgTracker');
 
     this.runAggregation = async function(){
-// console.log('start')
+        logger.info('delete prior aggregation')
         const collection = this.collection;
         const inputCollection = this.inputCollection;
 
         //first, delete all the aggregation stuff currently in the database
         const deleteResult = await collection.deleteMany({});
+        logger.info('delete complete, start aggregation')
         //currently don't do anything with the result
         
         //find all aggregator files
         const aggregators = [];
-        const aggFiles = await glob('./aggregation/aggregators/**/*.js');
+        const aggFiles = await glob('./src/aggregation/aggregators/**/*.js');
         aggFiles.forEach( function( file ) {
             const aggClass = require(path.resolve(file));
             aggregators.push(new aggClass());
         });
 
-// console.log(aggregators)
         //start each aggregator
         const aggInput = await buildAggInput(inputCollection);
         const allAggPromises = [];
@@ -34,7 +36,7 @@ module.exports = function(ctx) {
         //collect the output from each aggregator. NOTE: a single aggregator can produce multiple aggregations
         const aggOutputs = [];
         const allAggPromisesResult = await Promise.allSettled(allAggPromises);
-// console.log(allAggPromisesResult)
+        
         allAggPromisesResult.forEach((result) => {
             if(result.status === 'fulfilled'){
                 const aggList = result.value;
@@ -42,12 +44,12 @@ module.exports = function(ctx) {
                     aggOutputs.push(...aggList);
                 }
             }else{
-                console.error(result.reason);
+                logger.error(result.reason);
             }
         });
-
-//  console.log(aggOutputs)
+        
         //start each insertion
+        logger.info( 'Aggregation complete, starting save to DB')
         const allInsertPromises = [];
         for(const aggOutput of aggOutputs){
             allInsertPromises.push(
@@ -60,7 +62,6 @@ module.exports = function(ctx) {
 
         //collect the output from each insertion
         const allInsertPromisesResult = await Promise.allSettled(allInsertPromises);
-// console.log(allInsertPromisesResult)
         const mappingData = [];
         allInsertPromisesResult.forEach((result) => {
             if(result.status === 'fulfilled'){
@@ -68,10 +69,12 @@ module.exports = function(ctx) {
             }
         });
         
-// console.log(mappingData)
         const insertMapResult = await collection.insertOne({type: 'MAPPING', data: mappingData});
+        logger.info( 'DB insert complete')
 
-        //TODO also do physical output
+        return () =>{
+            physicalAgg.preserve(aggInput, aggOutputs);
+        };
     }
 
     async function buildAggInput(inputCollection){

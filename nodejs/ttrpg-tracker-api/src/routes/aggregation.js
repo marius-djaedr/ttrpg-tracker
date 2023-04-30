@@ -1,5 +1,6 @@
 const ObjectId = require('mongodb').ObjectId;
 const aggMain = require('../aggregation/aggMain');
+const logger = require('../logger');
 
 module.exports = function(ctx) {
     // extract context from passed in object
@@ -43,12 +44,13 @@ module.exports = function(ctx) {
 
     server.post('/api/aggregation/run', (req, res, next) => {
         aggregator.runAggregation()
-            .then(() => {
+            .then((afterSend) => {
                 res.send(200);
                 next();
+                afterSend();
             })
             .catch(err => {
-                console.error(err);
+                logger.error(err);
                 res.send(500,`can't figure out how to send the error message, just check the logs`);
                 next();
             });
