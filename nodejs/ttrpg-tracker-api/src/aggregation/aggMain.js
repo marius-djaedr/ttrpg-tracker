@@ -73,7 +73,7 @@ module.exports = function(ctx) {
         logger.info( 'DB insert complete')
 
         return () =>{
-            physicalAgg.preserve(aggInput, aggOutputs);
+            physicalAgg.aggregate(aggInput, aggOutputs).catch(err=>{logger.error(err)})
         };
     }
 
