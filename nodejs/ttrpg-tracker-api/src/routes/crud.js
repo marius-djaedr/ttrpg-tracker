@@ -5,9 +5,6 @@ module.exports = function(ctx) {
     const client = ctx.client;
     const server = ctx.server
 
-    // assign collection to variable for further use
-    const collection = client.db('TtrpgTracker').collection('TtrpgTracker')
-
     //type conversion function
     const typeMap = {'frameworks':'FRAMEWORK','systems':'SYSTEM','campaigns':'CAMPAIGN','characters':'CHARACTER','sessions':'SESSION'};
     function convertType(rawType, res, next){
@@ -30,12 +27,22 @@ module.exports = function(ctx) {
         }
     }
 
+    async function mongoWrapper(mongoFunc){
+        try{
+            const collection = client.db('TtrpgTracker').collection('TtrpgTracker');
+            return mongoFunc(collection);
+        }finally{
+            await client.close();
+        }
+    }
+
 
     //get all entities
     server.get('/api/:type', (req, res, next) => {
         const type = convertType(req.params.type, res, next);
         if(!type)return;
-        collection.find({type:type}).toArray()
+
+        mongoWrapper(collection => collection.find({type:type}).toArray())
             .then(docs => {
                 res.send(200, docs);
                 next();
@@ -52,7 +59,7 @@ module.exports = function(ctx) {
         if(!type)return;
         const id = convertId(req.params.id, res, next);
         if(!id)return;
-        collection.findOne({_id: id,type:type})
+        mongoWrapper(collection => collection.findOne({_id: id,type:type}))
             .then(docs => {
                 res.send(200, docs);
                 next();
@@ -71,7 +78,7 @@ module.exports = function(ctx) {
         if(!childType)return;
         const id = convertId(req.params.id, res, next);
         if(!id)return;
-        collection.find({type:childType,parentId: id}).toArray()
+        mongoWrapper(collection => collection.find({type:childType,parentId: id}).toArray())
             .then(docs => {
                 res.send(200, docs);
                 next();
@@ -91,7 +98,7 @@ module.exports = function(ctx) {
             type: type
         });
 
-        collection.insertOne(data)
+        mongoWrapper(collection => collection.insertOne(data))
             .then(doc => {
                 res.send(200, {_id:doc.insertedId});
                 next();
@@ -114,7 +121,7 @@ module.exports = function(ctx) {
         delete data.Type;
         
         // find and update document based on passed in id (via route)
-        collection.updateOne({_id: id, type: type}, { $set: data })
+        mongoWrapper(collection => collection.updateOne({_id: id, type: type}, { $set: data }))
             .then(doc => {
                 res.send(200);
                 next();
@@ -133,7 +140,7 @@ module.exports = function(ctx) {
         if(!id)return;
 
         // remove one document based on passed in id (via route)
-        collection.deleteOne({ _id: id,type: type })
+        mongoWrapper(collection => collection.deleteOne({ _id: id,type: type }))
             .then(doc => {
                 res.send(200);
                 next();

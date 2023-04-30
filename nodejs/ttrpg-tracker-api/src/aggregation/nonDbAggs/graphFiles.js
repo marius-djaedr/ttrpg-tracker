@@ -55,7 +55,7 @@ module.exports = function() {
                 if(field==null){
                     line += 'null';
                 }else if(type === 'string'){
-                    line += "'"+field+"'";
+                    line += '`'+field+'`';
                 }else if(type === 'date'){
                     line += 'new '+field;
                 }else{

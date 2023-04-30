@@ -4,17 +4,22 @@ const logger = require('../logger');
 const physicalAgg = require('./physicalAgg');
 
 module.exports = function(ctx) {
-    this.collection = ctx.collection;
     this.client = ctx.client;
-    this.inputCollection = this.client.db('TtrpgTracker').collection('TtrpgTracker');
+
+    async function mongoWrapper(mongoFunc, collectionName){
+        try{
+            const collection = client.db('TtrpgTracker').collection(collectionName);
+            return mongoFunc(collection);
+        }finally{
+            await client.close();
+        }
+    }
 
     this.runAggregation = async function(){
         logger.info('delete prior aggregation')
-        const collection = this.collection;
-        const inputCollection = this.inputCollection;
 
         //first, delete all the aggregation stuff currently in the database
-        const deleteResult = await collection.deleteMany({});
+        const deleteResult = await mongoWrapper(collection => collection.deleteMany({}), 'Aggregation')
         logger.info('delete complete, start aggregation')
         //currently don't do anything with the result
         
@@ -27,7 +32,7 @@ module.exports = function(ctx) {
         });
 
         //start each aggregator
-        const aggInput = await buildAggInput(inputCollection);
+        const aggInput = await buildAggInput();
         const allAggPromises = [];
         for(const aggregator of aggregators){
             allAggPromises.push(aggregator.aggregate(aggInput));
@@ -53,7 +58,7 @@ module.exports = function(ctx) {
         const allInsertPromises = [];
         for(const aggOutput of aggOutputs){
             allInsertPromises.push(
-                collection.insertOne({type: 'AGGREGATION', data: aggOutput})
+                mongoWrapper(collection => collection.insertOne({type: 'AGGREGATION', data: aggOutput}), 'Aggregation')
                     .then(doc => {
                         return {id:doc.insertedId, name:aggOutput.name, chartTypeReadable:aggOutput.chartTypeReadable}
                     })
@@ -69,7 +74,7 @@ module.exports = function(ctx) {
             }
         });
         
-        const insertMapResult = await collection.insertOne({type: 'MAPPING', data: mappingData});
+        const insertMapResult = await mongoWrapper(collection => collection.insertOne({type: 'MAPPING', data: mappingData}), 'Aggregation');
         logger.info( 'DB insert complete')
 
         return () =>{
@@ -77,8 +82,8 @@ module.exports = function(ctx) {
         };
     }
 
-    async function buildAggInput(inputCollection){
-        const allRecords = await inputCollection.find().toArray();
+    async function buildAggInput(){
+        const allRecords = await mongoWrapper(collection => collection.find().toArray(), 'TtrpgTracker');
 
         const toReturn = {};
         for(const record of allRecords){
