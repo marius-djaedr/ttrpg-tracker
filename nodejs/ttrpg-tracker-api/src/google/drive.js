@@ -3,6 +3,8 @@ const logger = require('../logger');
 const {google} = require('googleapis');
 const path = require('path');
 const process = require('process');
+const mime = require('mime');
+const fs = require('fs/promises');
 
 const TOKEN_PATH = path.join(process.cwd(),'tokens','token-drive.json');
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
@@ -77,4 +79,28 @@ async function createFolder(service, parent, name) {
     });
 
     return response.data.id;
+}
+
+async function uploadOne(service, parentId, localFileLocation){
+    const file = await fs.open(localFileLocation)
+
+    const requestBody = {
+        name: path.basename(localFileLocation)
+    };
+    const media = {
+        mimeType: mime.getType(localFileLocation),
+        body: file.createReadStream(),
+    };
+
+    try{
+        await service.files.create({
+            requestBody,
+            media: media,
+        });
+    }catch(err){
+        throw err
+    }finally{
+        file.close()
+    }
+
 }
