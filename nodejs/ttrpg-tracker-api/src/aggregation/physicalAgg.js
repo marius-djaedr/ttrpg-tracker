@@ -40,8 +40,10 @@ exports.aggregate = async function(aggInput, aggOutputs){
         }
     });
     logger.info('Non-DB aggregation complete, folder: '+folderName);
+    await uploadToDrive(filesToUpload)
+}
 
-    
+async function uploadToDrive(filesToUpload){
+    logger.info('Starting drive upload');
     console.log("\n\nTODO\n\nUPLOAD TO DRIVE\n\n")
-    
 }
