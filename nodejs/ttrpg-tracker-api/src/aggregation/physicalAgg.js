@@ -1,4 +1,5 @@
 const logger = require('../logger');
+const drive = require('../google/drive');
 const glob = require( 'glob' ).glob;
 const path = require( 'path' );
 const fs = require('fs/promises');
@@ -40,10 +41,8 @@ exports.aggregate = async function(aggInput, aggOutputs){
         }
     });
     logger.info('Non-DB aggregation complete, folder: '+folderName);
-    await uploadToDrive(filesToUpload)
+
+    logger.info('Starting drive upload');
+    await drive.directoryReplace(filesToUpload, ['TTRPG','TEMP-latest-aggregation'])
 }
 
-async function uploadToDrive(filesToUpload){
-    logger.info('Starting drive upload');
-    console.log("\n\nTODO\n\nUPLOAD TO DRIVE\n\n")
-}
