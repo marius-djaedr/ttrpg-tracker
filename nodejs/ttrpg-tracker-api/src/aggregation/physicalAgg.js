@@ -39,9 +39,9 @@ exports.aggregate = async function(aggInput, aggOutputs){
             logger.error(result.reason);
         }
     });
-
     logger.info('Non-DB aggregation complete, folder: '+folderName);
 
-    //TODO upload to google drive
-    //TODO create non db agg for export to google sheet
+    
+    console.log("\n\nTODO\n\nUPLOAD TO DRIVE\n\n")
+    
 }
