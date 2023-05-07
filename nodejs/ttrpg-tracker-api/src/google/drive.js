@@ -9,7 +9,6 @@ const fs = require('fs/promises');
 const TOKEN_PATH = path.join(process.cwd(),'tokens','token-drive.json');
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
-//values is 2d array
 exports.directoryReplace = async function(filesToUpload, folderChain){
     const auth = await googleCommon.buildAuth(SCOPES, TOKEN_PATH);
     const service = google.drive({version: 'v3', auth});
@@ -17,11 +16,8 @@ exports.directoryReplace = async function(filesToUpload, folderChain){
     logger.info("Finding directory for folder chain "+folderChain);
     const folderId = await drillIntoFolder(service, folderChain, true);
 
-    logger.info("Building batch");
-    //https://developers.google.com/drive/api/guides/manage-uploads#multipart
-    //const list = copyAllFiles(parentDir, folderId);
     logger.info("Executing batch");
-    //batchExecute(list);
+    await copyAllFiles(service, folderId, filesToUpload);
 }
 
 
@@ -81,11 +77,40 @@ async function createFolder(service, parent, name) {
     return response.data.id;
 }
 
-async function uploadOne(service, parentId, localFileLocation){
+async function copyAllFiles(service, folderId, filesToUpload){
+    let queue = [...filesToUpload]
+    let promiseMap = {};
+    let count = 0;
+    while(queue.length > 0){
+        while(Object.keys(promiseMap).length <= 20){
+            let localFileLocation = queue.pop();
+            let id = count++;
+            logger.info(id+' - '+localFileLocation)
+            promiseMap[id] = uploadOne(id, service, folderId, localFileLocation)
+        }
+        let finishedId = await Promise.any(Object.values(promiseMap))
+        logger.info(finishedId+' - finished')
+        delete promiseMap[finishedId]
+    }
+
+    const allResponses = await Promise.allSettled(Object.values(promiseMap))
+    allResponses.forEach((result) => {
+        if(result.status === 'fulfilled'){
+            logger.info(result.value+' - finished')
+        }else{
+            logger.error(result.reason);
+        }
+    });
+
+}
+
+async function uploadOne(threadId, service, folderId, localFileLocation){
+    //https://developers.google.com/drive/api/guides/manage-uploads#multipart
     const file = await fs.open(localFileLocation)
 
     const requestBody = {
-        name: path.basename(localFileLocation)
+        name: path.basename(localFileLocation),
+        parents: [folderId]
     };
     const media = {
         mimeType: mime.getType(localFileLocation),
@@ -98,9 +123,10 @@ async function uploadOne(service, parentId, localFileLocation){
             media: media,
         });
     }catch(err){
-        throw err
+        logger.info('Problem with file '+localFileLocation)
+        logger.error(err)
     }finally{
         file.close()
     }
-
+    return threadId;
 }

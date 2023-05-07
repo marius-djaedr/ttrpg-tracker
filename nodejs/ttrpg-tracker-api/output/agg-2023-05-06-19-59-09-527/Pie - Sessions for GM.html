@@ -1,0 +1,48 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"GM","label":"GM"})
+data.addColumn({"type":"number","id":"sessions","label":"sessions"})
+data.addRows([
+[`Bruce Brown`,182,],
+[`Colby Woods`,2,],
+[`David Hobson`,15,],
+[`John Meyers`,3,],
+[`Josh Horner`,194.5,],
+[`Katie Peterson`,2,],
+[`Kyle Warrick`,21,],
+[`ME`,287.5,],
+[`Oscar Medina`,8,],
+[`Richard Rudd`,10,],
+[`Ryan Boenigk`,6,],
+[`Ryan Womack`,2,],
+[`Sean Faulkner`,7,],
+[`Thomas Villareal`,12,],
+[`none`,38.5,],
+]);
+
+// Set chart options
+var options = {"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
