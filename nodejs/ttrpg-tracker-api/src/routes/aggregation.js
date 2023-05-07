@@ -6,18 +6,12 @@ module.exports = function(ctx) {
     // extract context from passed in object
     const client = ctx.client;
     const server = ctx.server
+    const aggCollection = client.db('TtrpgTracker').collection('Aggregation');
+    const dataCollection = client.db('TtrpgTracker').collection('TtrpgTracker');
 
-    async function mongoWrapper(mongoFunc){
-        try{
-            const collection = client.db('TtrpgTracker').collection('Aggregation');
-            return mongoFunc(collection);
-        }finally{
-            await client.close();
-        }
-    }
     
     server.get('/api/aggregation/mapping', (req, res, next) => {
-        mongoWrapper(collection => collection.findOne({type:'MAPPING'}))
+        aggCollection.findOne({type:'MAPPING'})
             .then(docs => {
                 res.send(200, docs);
                 next();
@@ -31,7 +25,7 @@ module.exports = function(ctx) {
     server.get('/api/aggregation/:id', (req, res, next) => {
         const rawId = req.params.id
         if(ObjectId.isValid(rawId)){
-            mongoWrapper(collection => collection.findOne({_id: new ObjectId(rawId),type:'AGGREGATION'}))
+            aggCollection.findOne({_id: new ObjectId(rawId),type:'AGGREGATION'})
             .then(docs => {
                 res.send(200, docs);
                 next();
@@ -47,7 +41,7 @@ module.exports = function(ctx) {
     })
 
     server.post('/api/aggregation/run', (req, res, next) => {
-        aggMain.runAggregation(client)
+        aggMain.runAggregation(aggCollection, dataCollection)
             .then((afterSend) => {
                 res.send(200);
                 next();

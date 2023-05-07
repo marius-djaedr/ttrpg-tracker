@@ -4,20 +4,11 @@ const logger = require('../logger');
 const physicalAgg = require('./physicalAgg');
 
 
-async function mongoWrapper(client, mongoFunc, collectionName){
-    try{
-        const collection = client.db('TtrpgTracker').collection(collectionName);
-        return mongoFunc(collection);
-    }finally{
-        await client.close();
-    }
-}
-
-exports.runAggregation = async function(client){
+exports.runAggregation = async function(aggCollection, dataCollection){
     logger.info('delete prior aggregation')
 
     //first, delete all the aggregation stuff currently in the database
-    const deleteResult = await mongoWrapper(client,collection => collection.deleteMany({}), 'Aggregation')
+    const deleteResult = await aggCollection.deleteMany({})
     logger.info('delete complete, start aggregation')
     //currently don't do anything with the result
     
@@ -29,7 +20,7 @@ exports.runAggregation = async function(client){
     });
 
     //start each aggregator
-    const aggInput = await buildAggInput(client);
+    const aggInput = await buildAggInput(dataCollection);
     const allAggPromises = [];
     for(const aggregator of aggregators){
         allAggPromises.push(aggregator.aggregate(aggInput));
@@ -55,7 +46,7 @@ exports.runAggregation = async function(client){
     const allInsertPromises = [];
     for(const aggOutput of aggOutputs){
         allInsertPromises.push(
-            mongoWrapper(client,collection => collection.insertOne({type: 'AGGREGATION', data: aggOutput}), 'Aggregation')
+            aggCollection.insertOne({type: 'AGGREGATION', data: aggOutput})
                 .then(doc => {
                     return {id:doc.insertedId, name:aggOutput.name, chartTypeReadable:aggOutput.chartTypeReadable}
                 })
@@ -71,7 +62,7 @@ exports.runAggregation = async function(client){
         }
     });
     
-    const insertMapResult = await mongoWrapper(client,collection => collection.insertOne({type: 'MAPPING', data: mappingData}), 'Aggregation');
+    const insertMapResult = await aggCollection.insertOne({type: 'MAPPING', data: mappingData})
     logger.info( 'DB insert complete')
 
     return () =>{
@@ -79,8 +70,8 @@ exports.runAggregation = async function(client){
     };
 }
 
-async function buildAggInput(client){
-    const allRecords = await mongoWrapper(client,collection => collection.find().toArray(), 'TtrpgTracker');
+async function buildAggInput(dataCollection){
+    const allRecords = await dataCollection.find().toArray()
 
     const toReturn = {};
     for(const record of allRecords){

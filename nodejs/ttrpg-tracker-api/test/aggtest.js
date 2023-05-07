@@ -3,41 +3,29 @@ const aggMain = require('../src/aggregation/aggMain');
 const logger = require('../src/logger');
 const fs = require('fs');
 
-const client = mockClient();
+const aggCollection = mockCollection([]);
+const dataCollection = mockCollection(buildFromBackup());
 
-aggMain.runAggregation(client)
+aggMain.runAggregation(aggCollection, dataCollection)
     .then((afterSend) => {
         logger.info('BACK IN TEST');
         afterSend();
     }).catch(err => {logger.error(err)});
 
-function mockClient(){
-    const findAllReturn = buildFromBackup();
+function mockCollection(findAllReturn){
     return {
-        close: ()=>{
-            // logger.info('CLOSE CALLED')
+        deleteMany: (c)=>{
+            return {};
         },
-        db: (a)=>{
-            // logger.info('OPENING CONNECTION');
+        find: (d)=>{
             return {
-                collection: (b)=>{
-                    return {
-                        deleteMany: (c)=>{
-                            return {};
-                        },
-                        find: (d)=>{
-                            return {
-                                toArray: (e)=>{
-                                    return findAllReturn;
-                                }
-                            };
-                        },
-                        insertOne: (f)=>{
-                            return {};
-                        }
-                    };
+                toArray: (e)=>{
+                    return findAllReturn;
                 }
             };
+        },
+        insertOne: async function(f){
+            return {};
         }
     };
 }

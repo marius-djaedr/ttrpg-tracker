@@ -11,7 +11,7 @@ exports.convertBooleanToWord = function(bool) {
 
 exports.getCampaignFromSession = function(session, aggInput){
     const PWC = session.playedWithoutCharacter;
-    if(PWC == null){
+    if(PWC == null || PWC === ''){
         const character = aggInput['CHARACTER'][session.parentId];
         return aggInput['CAMPAIGN'][character.parentId];
     }else{
@@ -21,7 +21,7 @@ exports.getCampaignFromSession = function(session, aggInput){
 
 exports.getCharacterFromSession = function(session, aggInput){
     const PWC = session.playedWithoutCharacter;
-    if(PWC == null){
+    if(PWC == null || PWC === ''){
         return aggInput['CHARACTER'][session.parentId];
     }else{
         return {};

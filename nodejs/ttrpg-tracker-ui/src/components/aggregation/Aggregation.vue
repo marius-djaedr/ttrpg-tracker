@@ -1,10 +1,12 @@
 <script setup>
-    import { ref } from 'vue'
+    import { ref, resolveDirective } from 'vue'
     import {GChart} from 'vue-google-charts'
     import SortHeader from '../tidbits/SortHeader.vue'
 
     const apiUrl = ref(`http://localhost:3300/api/aggregation/`);
+    const gChartKey = ref('');
     const chartSelected = ref(false);
+    const chartName = ref('');
     const chartTypeGoogle = ref('');
     const chartData = ref([]);
     const chartOptions = ref({});
@@ -31,6 +33,17 @@
         fetch(apiUrl.value+id)
         .then(res => res.json())
         .then(res => {
+            chartSelected.value = false;
+
+            chartName.value = null;
+            chartTypeGoogle.value = null;
+            chartOptions.value = null;
+            chartSettings.value = null;
+            chartData.value = null;
+
+            gChartKey.value = ''+new Date();
+
+            chartName.value = res.data.chartTypeReadable + ' - '+res.data.name;
             chartTypeGoogle.value = res.data.chartTypeGoogle;
             chartOptions.value = res.data.options;
             chartSettings.value = res.data.settings;
@@ -39,6 +52,9 @@
             chartOptions.value.height = 500;
             
             chartSelected.value = true;
+        })
+        .catch(err =>{
+            console.error(err)
         })
     }
 
@@ -143,7 +159,9 @@
     <button class="btn btn-warning btn-block"  @click="rerunAgg">Rerun Aggregation</button> 
     <hr>
     <div v-if="chartSelected">
+        <h1>{{ chartName }}</h1>
         <GChart
+            :key="gChartKey"
             :type="chartTypeGoogle"
             :data="chartData"
             :options="chartOptions"

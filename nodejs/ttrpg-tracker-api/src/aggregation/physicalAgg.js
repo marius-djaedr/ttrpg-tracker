@@ -44,5 +44,6 @@ exports.aggregate = async function(aggInput, aggOutputs){
 
     logger.info('Starting drive upload');
     await drive.directoryReplace(filesToUpload, ['TTRPG','latest-aggregation'])
+    logger.info('Drive upload finished');
 }
 
