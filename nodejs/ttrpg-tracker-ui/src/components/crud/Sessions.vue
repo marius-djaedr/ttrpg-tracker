@@ -94,7 +94,7 @@
             <td>{{shortSession}}</td>
             <td>
                 <!-- TODO double check logic-->
-                <span v-if="playedWithoutCharacter == null || playedWithoutCharacter == '' || playedWithoutCharacter == true">Played</span>
+                <span v-if="playedWithoutCharacter === null || playedWithoutCharacter === '' || playedWithoutCharacter === true">Played</span>
                 <span v-else>Ran</span>
             </td>
         </template>

@@ -7,7 +7,7 @@ module.exports = function(ctx) {
     
     const collection = client.db('TtrpgTracker').collection('TtrpgTracker');
     //type conversion function
-    const typeMap = {'frameworks':'FRAMEWORK','systems':'SYSTEM','campaigns':'CAMPAIGN','characters':'CHARACTER','sessions':'SESSION'};
+    const typeMap = {'systems':'SYSTEM','campaigns':'CAMPAIGN','characters':'CHARACTER','sessions':'SESSION'};
     function convertType(rawType, res, next){
         if(Object.keys(typeMap).includes(rawType)){
             return typeMap[rawType];
