@@ -63,9 +63,9 @@ const paramList = [
 ];
 
 function processSession(playMap, runMap, session){
-    const toAdd = (session.shortSession != null && session.shortSession == true)? 0.5 : 1.0;
+    const toAdd = AggUtils.getSessionWeightedCount([session]);
     const date = session.date;
-    if(session.playedWithoutCharacter == null || session.playedWithoutCharacter == true){
+    if(session.playedWithoutCharacter == null || session.playedWithoutCharacter === '' || session.playedWithoutCharacter == true){
         manipulateMap(playMap,date,toAdd);
     }else{
         manipulateMap(runMap,date,toAdd);
