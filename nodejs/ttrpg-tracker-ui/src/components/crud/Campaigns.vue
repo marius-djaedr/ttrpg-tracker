@@ -78,11 +78,12 @@
             <td>{{name}}</td>
             <td>{{system}}</td>
             <td>{{gm}}</td>
+            <!-- <td>{{completed}}</td> -->
             <td>
                 <!-- TODO double check logic-->
-                <span v-if="completed == null || completed == ''">ongoing</span>
-                <span v-else-if="completed == true || completed == 'true'">completed</span>
-                <span v-else>abandoned</span>
+                <span v-if="completed === false || completed === 'false'">abandoned</span>
+                <span v-else-if="completed === true || completed === 'true'">completed</span>
+                <span v-else>ongoing</span>
             </td>
         </template>
         <template v-slot:modal-form>
