@@ -198,3 +198,9 @@
 	background-color: var(--color-background-mute);
 }
 </style>
+
+<style>
+.google-visualization-atl {
+  color: var(--vt-c-text-light-1);
+}
+</style>
