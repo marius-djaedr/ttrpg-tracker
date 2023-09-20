@@ -26,9 +26,9 @@
 </script>
 
 <template>
-    <th>
-        <input v-model="searchValue" @keyup.enter="searchEnter" size="5"/>
-        <button @click="sortClick">{{sortText}}</button><br>
+    <th class="form-inline">
+        <input class="form-control" v-model="searchValue" @keyup.enter="searchEnter" size="5"/>
+        <button class="btn btn-default btn-xs" @click="sortClick">{{sortText}}</button><br>
         <slot />
     </th>
 </template>

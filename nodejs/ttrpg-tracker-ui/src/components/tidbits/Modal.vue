@@ -16,7 +16,7 @@
                 <slot name="header">
                     This is the default title!
                 </slot>
-                <button type="button" class="btn btn-basic btn-sm btn-close" @click="cancel">x</button>
+                <button type="button" class="btn btn-default btn-sm btn-close" @click="cancel">x</button>
             </header>
 
             <section class="modal-body">
@@ -50,7 +50,7 @@
   }
 
   .modal {
-    background: #FFFFFF;
+    background: var(--color-background);
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
     display: flex;

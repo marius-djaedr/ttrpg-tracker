@@ -87,10 +87,10 @@
             </td>
         </template>
         <template v-slot:modal-form>
-            <input v-model="modalFormName" placeholder="Name">
-            <input v-model="modalFormSystem" placeholder="System">
-            <input v-model="modalFormGm" placeholder="GM">
-            <select v-model="modalFormStatus">
+            <input class="form-control" v-model="modalFormName" placeholder="Name">
+            <input class="form-control" v-model="modalFormSystem" placeholder="System">
+            <input class="form-control" v-model="modalFormGm" placeholder="GM">
+            <select class="form-control" v-model="modalFormStatus">
                 <option value="">ongoing</option>
                 <option value="true">completed</option>
                 <option value="false">abandoned</option>

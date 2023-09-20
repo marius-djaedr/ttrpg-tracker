@@ -62,12 +62,12 @@
             <td>{{designer}}</td>
         </template>
         <template v-slot:modal-form>
-            <input v-model="modalFormName" placeholder="Name">
-            <input v-model="modalFormDice" placeholder="Dice">
-            <input v-model="modalFormClassed" placeholder="Classed">
-            <input v-model="modalFormFramework" placeholder="Framework">
-            <input v-model="modalFormPublisher" placeholder="Publisher">
-            <input v-model="modalFormDesigner" placeholder="Designer">
+            <input class="form-control" v-model="modalFormName" placeholder="Name">
+            <input class="form-control" v-model="modalFormDice" placeholder="Dice">
+            <input class="form-control" v-model="modalFormClassed" placeholder="Classed">
+            <input class="form-control" v-model="modalFormFramework" placeholder="Framework">
+            <input class="form-control" v-model="modalFormPublisher" placeholder="Publisher">
+            <input class="form-control" v-model="modalFormDesigner" placeholder="Designer">
         </template>
     </CrudBase>
 </template>

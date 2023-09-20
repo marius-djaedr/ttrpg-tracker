@@ -216,8 +216,8 @@
 <template>
     <div class="box">
         <h3>{{props.headerText}} List</h3>
-        <button class="btn btn-basic btn-sm"  @click="prevPage">Previous</button> 
-        <button class="btn btn-basic btn-sm"  @click="nextPage">Next</button>
+        <button class="btn btn-default btn-sm"  @click="prevPage">Previous</button> 
+        <button class="btn btn-default btn-sm"  @click="nextPage">Next</button>
 
         <table class="table table-striped">
             <thead>
@@ -250,7 +250,9 @@
     <Modal v-show="isModalVisible" @cancel="cancelModal" @submit="submitModal">
         <template v-slot:header>{{modalTitle}}</template>
         <template v-slot:body>
-            <slot name="modal-form"></slot>
+            <div class="form-inline">
+                <slot name="modal-form"></slot>
+            </div>
         </template>
         <template v-slot:footer></template>
     </Modal>
@@ -258,7 +260,7 @@
 
 <style scoped>
   .box {
-                background-color: #fff;
+                background-color: var(--color-background-soft);
                 margin-top: 25px;
                 padding: 20px;
                 -webkit-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
@@ -269,4 +271,7 @@
                 -webkit-border-radius: 10px 10px 10px 10px;
                 border: 0px solid #000000;
             }
+.table-striped>tbody>tr:nth-child(odd) {
+	background-color: var(--color-background);
+}
 </style>

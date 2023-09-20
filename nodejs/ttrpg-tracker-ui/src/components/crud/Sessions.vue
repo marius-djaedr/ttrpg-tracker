@@ -100,11 +100,11 @@
         </template>
         <template v-slot:modal-form>
             <Datepicker v-model="modalFormDate" />
-            <select v-model="modalFormShortSession">
+            <select class="form-control" v-model="modalFormShortSession">
                 <option value="true">Short</option>
                 <option value="false">Regular</option>
             </select>
-            <select v-model="modalFormPlayedWithoutCharacter">
+            <select class="form-control" v-model="modalFormPlayedWithoutCharacter">
                 <option value="true">Play No Character</option>
                 <option value="">Play Character</option>
                 <option value="false">Ran</option>

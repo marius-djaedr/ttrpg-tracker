@@ -99,16 +99,16 @@
             <td>{{diedInGame}}</td>
         </template>
         <template v-slot:modal-form>
-            <input v-model="modalFormName" placeholder="Name">
-            <input v-model="modalFormRace" placeholder="Race">
-            <input v-model="modalFormClassRole" placeholder="Class/Role">
-            <input v-model="modalFormGender" placeholder="Gender">
-            <select v-model="modalFormTragicStory">
+            <input class="form-control" v-model="modalFormName" placeholder="Name">
+            <input class="form-control" v-model="modalFormRace" placeholder="Race">
+            <input class="form-control" v-model="modalFormClassRole" placeholder="Class/Role">
+            <input class="form-control" v-model="modalFormGender" placeholder="Gender">
+            <select class="form-control" v-model="modalFormTragicStory">
                 <option value="">unknown</option>
                 <option value="true">Tragic Story</option>
                 <option value="false">Not Tragic</option>
             </select>
-            <select v-model="modalFormDiedInGame">
+            <select class="form-control" v-model="modalFormDiedInGame">
                 <option value="">unknown</option>
                 <option value="true">Died In Game</option>
                 <option value="false">Lived</option>

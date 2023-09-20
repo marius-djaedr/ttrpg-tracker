@@ -170,8 +170,8 @@
         <hr>
     </div>
     <div>
-        <button class="btn btn-basic btn-sm"  @click="prevPage">Previous</button> 
-        <button class="btn btn-basic btn-sm"  @click="nextPage">Next</button>
+        <button class="btn btn-default btn-sm"  @click="prevPage">Previous</button> 
+        <button class="btn btn-default btn-sm"  @click="nextPage">Next</button>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -192,3 +192,9 @@
         </table>
     </div>
 </template>
+
+<style scoped>
+.table-striped>tbody>tr:nth-child(odd) {
+	background-color: var(--color-background-mute);
+}
+</style>

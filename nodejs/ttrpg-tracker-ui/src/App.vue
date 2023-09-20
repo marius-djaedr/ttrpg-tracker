@@ -5,7 +5,7 @@ import { ref, computed } from 'vue'
 
 <template>
   <header>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
               <router-link class="navbar-brand" to="/">TTRPG Tracker</router-link>
