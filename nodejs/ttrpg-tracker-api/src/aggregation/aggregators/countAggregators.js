@@ -48,10 +48,10 @@ const paramList = [
         categoryGetter: (character) => character.race
     },
     {
-        name:'Gender',
+        name:'Pronouns',
         elementType: 'CHARACTER',
         include:{sessionPie:true,element:true,ratio:true},
-        categoryGetter: (character) => character.gender
+        categoryGetter: (character) => character.pronouns
     },
     {
         name:'Tragic Backstory',

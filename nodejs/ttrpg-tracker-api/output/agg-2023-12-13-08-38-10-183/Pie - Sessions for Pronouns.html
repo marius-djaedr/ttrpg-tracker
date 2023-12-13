@@ -11,15 +11,15 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 // Create the data table.
 var data = new google.visualization.DataTable();
-data.addColumn({"type":"string","id":"Gender","label":"Gender"})
-data.addColumn({"type":"number","id":"CHARACTER","label":"CHARACTER"})
+data.addColumn({"type":"string","id":"Pronouns","label":"Pronouns"})
+data.addColumn({"type":"number","id":"sessions","label":"sessions"})
 data.addRows([
-[`female`,27,],
-[`her`,0.5,],
-[`male`,54,],
-[`none (lean female)`,3,],
-[`none (lean male)`,1,],
-[`she`,0.5,],
+[`he`,170.5,],
+[`her`,78.25,],
+[`him`,170.5,],
+[`she`,77.75,],
+[`them`,18,],
+[`they`,18.5,],
 ]);
 
 // Set chart options

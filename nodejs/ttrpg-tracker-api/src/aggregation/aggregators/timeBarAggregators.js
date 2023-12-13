@@ -19,7 +19,7 @@ const fnCampCompleted = (session, aggInput) => AggUtils.convertBooleanToWord(Agg
 const fnCharName = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).name;
 const fnCharRace = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).race;
 const fnCharClass = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).classRole;
-const fnCharGender = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).gender;
+const fnCharPronouns = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).pronouns;
 const fnCharDied = (session, aggInput) => AggUtils.convertBooleanToWord(AggUtils.getCharacterFromSession(session, aggInput).diedInGame);
 const fnCharTragic = (session, aggInput) => AggUtils.convertBooleanToWord(AggUtils.getCharacterFromSession(session, aggInput).tragicStory);
 
@@ -64,11 +64,11 @@ const paramList = [
         session_barNameFunc: fnCharName,
     },
     {
-        chartName: 'Race - Character - Gender',
-        categoryName: 'Gender',
+        chartName: 'Race - Character - Pronouns',
+        categoryName: 'Pronouns',
         session_rowNameFunc: fnCharRace,
         session_barNameFunc: fnCharName,
-        session_categoryFunc: fnCharGender
+        session_categoryFunc: fnCharPronouns
     },
     {
         chartName: 'Race - Character - Died',
@@ -85,11 +85,11 @@ const paramList = [
         session_categoryFunc: fnCharTragic
     },
     {
-        chartName: 'Class - Character - Gender',
-        categoryName: 'Gender',
+        chartName: 'Class - Character - Pronouns',
+        categoryName: 'Pronouns',
         session_rowNameFunc: fnCharClass,
         session_barNameFunc: fnCharName,
-        session_categoryFunc: fnCharGender
+        session_categoryFunc: fnCharPronouns
     },
     {
         chartName: 'Class - Character - Died',
@@ -106,25 +106,25 @@ const paramList = [
         session_categoryFunc: fnCharTragic
     },
     {
-        chartName: 'Gender - Character - Died',
+        chartName: 'Pronouns - Character - Died',
         categoryName: 'Died',
-        session_rowNameFunc: fnCharGender,
+        session_rowNameFunc: fnCharPronouns,
         session_barNameFunc: fnCharName,
         session_categoryFunc: fnCharDied
     },
     {
-        chartName: 'Gender - Character - Tragic',
+        chartName: 'Pronouns - Character - Tragic',
         categoryName: 'Tragic',
-        session_rowNameFunc: fnCharGender,
+        session_rowNameFunc: fnCharPronouns,
         session_barNameFunc: fnCharName,
         session_categoryFunc: fnCharTragic
     },
     {
-        chartName: 'Died - Character - Gender',
-        categoryName: 'Gender',
+        chartName: 'Died - Character - Pronouns',
+        categoryName: 'Pronouns',
         session_rowNameFunc: fnCharDied,
         session_barNameFunc: fnCharName,
-        session_categoryFunc: fnCharGender
+        session_categoryFunc: fnCharPronouns
     },
     {
         chartName: 'Died - Character - Tragic',
@@ -134,11 +134,11 @@ const paramList = [
         session_categoryFunc: fnCharTragic
     },
     {
-        chartName: 'Tragic - Character - Gender',
-        categoryName: 'Gender',
+        chartName: 'Tragic - Character - Pronouns',
+        categoryName: 'Pronouns',
         session_rowNameFunc: fnCharTragic,
         session_barNameFunc: fnCharName,
-        session_categoryFunc: fnCharGender
+        session_categoryFunc: fnCharPronouns
     },
     {
         chartName: 'Tragic - Character - Died',

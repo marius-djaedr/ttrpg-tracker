@@ -19,7 +19,7 @@
     const modalFormName = ref('')
     const modalFormRace = ref('')
     const modalFormClassRole = ref('')
-    const modalFormGender = ref('')
+    const modalFormPronouns = ref('')
     const modalFormTragicStory = ref('')
     const modalFormDiedInGame = ref('')
 
@@ -42,7 +42,7 @@
             modalFormName.value = obj.obj.name
             modalFormRace.value = obj.obj.race
             modalFormClassRole.value = obj.obj.classRole
-            modalFormGender.value = obj.obj.gender
+            modalFormPronouns.value = obj.obj.pronouns
             modalFormTragicStory.value = obj.obj.tragicStory
             modalFormDiedInGame.value = obj.obj.diedInGame
         }
@@ -55,7 +55,7 @@
         obj.name = modalFormName.value
         obj.race = modalFormRace.value
         obj.classRole = modalFormClassRole.value
-        obj.gender = modalFormGender.value
+        obj.pronouns = modalFormPronouns.value
         obj.tragicStory = modalFormTragicStory.value
         obj.diedInGame = modalFormDiedInGame.value
         crudBaseRef.value.createOrUpdate(obj);
@@ -86,15 +86,15 @@
             <SortHeader @submit-field="sortOrSearch" header-data-field="name">Name</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="race">Race</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="classRole">Class/Role</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="gender">Gender</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="pronouns">Pronouns</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="tragicStory">Tragic Backstory</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="diedInGame">Died in Game</SortHeader>
         </template>
-        <template v-slot:table-data="{name, race, classRole, gender, tragicStory, diedInGame}">
+        <template v-slot:table-data="{name, race, classRole, pronouns, tragicStory, diedInGame}">
             <td>{{name}}</td>
             <td>{{race}}</td>
             <td>{{classRole}}</td>
-            <td>{{gender}}</td>
+            <td>{{pronouns}}</td>
             <td>{{tragicStory}}</td>
             <td>{{diedInGame}}</td>
         </template>
@@ -102,7 +102,7 @@
             <input class="form-control" v-model="modalFormName" placeholder="Name">
             <input class="form-control" v-model="modalFormRace" placeholder="Race">
             <input class="form-control" v-model="modalFormClassRole" placeholder="Class/Role">
-            <input class="form-control" v-model="modalFormGender" placeholder="Gender">
+            <input class="form-control" v-model="modalFormPronouns" placeholder="Pronouns">
             <select class="form-control" v-model="modalFormTragicStory">
                 <option value="">unknown</option>
                 <option value="true">Tragic Story</option>

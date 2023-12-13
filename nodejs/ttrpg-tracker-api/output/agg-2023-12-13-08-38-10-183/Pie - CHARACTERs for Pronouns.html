@@ -11,22 +11,22 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 // Create the data table.
 var data = new google.visualization.DataTable();
-data.addColumn({"type":"string","id":"Gender","label":"Gender"})
-data.addColumn({"type":"number","id":"sessions/CHARACTER","label":"sessions/CHARACTER"})
+data.addColumn({"type":"string","id":"Pronouns","label":"Pronouns"})
+data.addColumn({"type":"number","id":"CHARACTER","label":"CHARACTER"})
 data.addRows([
-[`female`,5.685185185185185,],
-[`her`,2,],
-[`male`,6.314814814814815,],
-[`none (lean female)`,10.666666666666666,],
-[`none (lean male)`,5,],
-[`she`,2,],
+[`he`,27,],
+[`her`,14.5,],
+[`him`,27,],
+[`she`,14,],
+[`them`,1.5,],
+[`they`,2,],
 ]);
 
 // Set chart options
-var options = {"width":1200,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50},"height":800}
+var options = {"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"},"height":800}
 
 // Instantiate and draw our chart, passing in some options.
-var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 chart.draw(data, options);
 }
 </script>
