@@ -11,6 +11,7 @@ import { ref, computed } from 'vue'
               <router-link class="navbar-brand" to="/">TTRPG Tracker</router-link>
             </div>
             <ul class="nav navbar-nav">
+                <li><router-link to="/calendar">Calendar</router-link></li>
                 <li><router-link to="/data">Data</router-link></li>
                 <li><router-link to="/aggregation">Aggregation</router-link></li>
                 <li><router-link to="/system-ref">System Reference</router-link></li>

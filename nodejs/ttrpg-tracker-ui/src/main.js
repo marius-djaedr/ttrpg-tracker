@@ -5,6 +5,7 @@ import App from './App.vue'
 import './assets/main.css'
 
 import TheWelcome from './components/welcome/TheWelcome.vue'
+import CalendarMain from './components/calendar/CalendarMain.vue'
 import Data from './components/crud/Data.vue'
 import SystemRef from './components/crud/SystemRef.vue'
 import Aggregation from './components/aggregation/Aggregation.vue'
@@ -12,6 +13,7 @@ import NotFound from './components/NotFound.vue'
 
 const routes = [
     {path:'/', component: TheWelcome},
+    {path:'/calendar', component: CalendarMain},
     {path:'/data', component: Data},
     {path:'/aggregation', component: Aggregation},
     {path:'/system-ref', component: SystemRef},
