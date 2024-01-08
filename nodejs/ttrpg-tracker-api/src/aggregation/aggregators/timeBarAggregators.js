@@ -20,8 +20,8 @@ const fnCharName = (session, aggInput) => AggUtils.getCharacterFromSession(sessi
 const fnCharRace = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).race;
 const fnCharClass = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).classRole;
 const fnCharPronouns = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).pronouns;
-const fnCharDied = (session, aggInput) => AggUtils.convertBooleanToWord(AggUtils.getCharacterFromSession(session, aggInput).diedInGame);
-const fnCharTragic = (session, aggInput) => AggUtils.convertBooleanToWord(AggUtils.getCharacterFromSession(session, aggInput).tragicStory);
+const fnCharDied = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).diedInGame;
+const fnCharTragic = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).tragicStory;
 
 const paramList = [
     {

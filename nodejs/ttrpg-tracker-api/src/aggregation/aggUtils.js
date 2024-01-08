@@ -1,14 +1,4 @@
 
-exports.convertBooleanToWord = function(bool) {
-    if(bool == null || bool === ''){
-        return 'Unknown';
-    }else if(bool || bool == 'true'){
-        return 'Yes';
-    }else{
-        return 'No';
-    }
-}
-
 exports.getCampaignFromSession = function(session, aggInput){
     if(session.played === 'Played'){
         const character = aggInput['CHARACTER'][session.parentId];

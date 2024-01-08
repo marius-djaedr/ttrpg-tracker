@@ -104,14 +104,13 @@
             <input class="form-control" v-model="modalFormClassRole" placeholder="Class/Role">
             <input class="form-control" v-model="modalFormPronouns" placeholder="Pronouns">
             <select class="form-control" v-model="modalFormTragicStory">
-                <option value="">unknown</option>
-                <option value="true">Tragic Story</option>
-                <option value="false">Not Tragic</option>
+                <option value="Tragic">Tragic</option>
+                <option value="Not Tragic">Not Tragic</option>
             </select>
             <select class="form-control" v-model="modalFormDiedInGame">
-                <option value="">unknown</option>
-                <option value="true">Died In Game</option>
-                <option value="false">Lived</option>
+                <option value="Alive For Now">Alive For Now</option>
+                <option value="Died">Died</option>
+                <option value="Lived">Lived</option>
             </select>
         </template>
     </CrudBase>

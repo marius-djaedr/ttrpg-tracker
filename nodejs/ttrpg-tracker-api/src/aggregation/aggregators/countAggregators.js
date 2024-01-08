@@ -57,12 +57,12 @@ const paramList = [
         name:'Tragic Backstory',
         elementType: 'CHARACTER',
         include:{sessionPie:true,element:true,ratio:true},
-        categoryGetter: (character) => AggUtils.convertBooleanToWord(character.tragicStory)
+        categoryGetter: (character) => character.tragicStory
     },
     {
         name:'Died in Game',
         elementType: 'CHARACTER',
         include:{sessionPie:true,element:true,ratio:true},
-        categoryGetter: (character) => AggUtils.convertBooleanToWord(character.diedInGame)
+        categoryGetter: (character) => character.diedInGame
     }
 ];
