@@ -30,11 +30,11 @@ function processCampaign(dataMapping, campaign, aggInput){
     }
     const systemObj = dataMapping.system[campaign.system];
 
-    if(campaign.completed==null || campaign.completed===''){
+    if(campaign.completed==='ongoing'){
         granularObj.ongoing++
         gmObj.ongoing++
         systemObj.ongoing++
-    }else if (campaign.completed===false || campaign.completed==='false'){
+    }else if (campaign.completed==='abandoned'){
         granularObj.abandoned++
         gmObj.abandoned++
         systemObj.abandoned++

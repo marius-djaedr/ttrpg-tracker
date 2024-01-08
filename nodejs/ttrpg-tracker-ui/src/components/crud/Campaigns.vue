@@ -22,11 +22,6 @@
         crudBaseRef.value.sortOrSearch(obj);
     }
 
-    function statusSortOrSearch(obj){
-        //TODO map from search field to true/false/null
-        crudBaseRef.value.sortOrSearch(obj);
-    }
-
     function loadModal(obj){
         modalFormId.value = obj.obj._id
         modalFormName.value = obj.obj.name
@@ -72,28 +67,22 @@
             <SortHeader @submit-field="sortOrSearch" header-data-field="name">Name</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="system">System</SortHeader>
             <SortHeader @submit-field="sortOrSearch" header-data-field="gm">Gm</SortHeader>
-            <SortHeader @submit-field="statusSortOrSearch" header-data-field="completed">Status</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="completed">Status</SortHeader>
         </template>
         <template v-slot:table-data="{name, system, gm, completed}">
             <td>{{name}}</td>
             <td>{{system}}</td>
             <td>{{gm}}</td>
-            <!-- <td>{{completed}}</td> -->
-            <td>
-                <!-- TODO double check logic-->
-                <span v-if="completed === false || completed === 'false'">abandoned</span>
-                <span v-else-if="completed === true || completed === 'true'">completed</span>
-                <span v-else>ongoing</span>
-            </td>
+            <td>{{completed}}</td>
         </template>
         <template v-slot:modal-form>
             <input class="form-control" v-model="modalFormName" placeholder="Name">
             <input class="form-control" v-model="modalFormSystem" placeholder="System">
             <input class="form-control" v-model="modalFormGm" placeholder="GM">
             <select class="form-control" v-model="modalFormStatus">
-                <option value="">ongoing</option>
-                <option value="true">completed</option>
-                <option value="false">abandoned</option>
+                <option value="ongoing">ongoing</option>
+                <option value="completed">completed</option>
+                <option value="abandoned">abandoned</option>
             </select>
         </template>
     </CrudBase>

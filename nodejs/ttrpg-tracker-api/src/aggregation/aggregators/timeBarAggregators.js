@@ -14,7 +14,7 @@ exports.aggregate = async function(aggInput){
 const fnCampName = (session, aggInput) => AggUtils.getCampaignFromSession(session, aggInput).name;
 const fnCampGm = (session, aggInput) => AggUtils.getCampaignFromSession(session, aggInput).gm;
 const fnCampSystem = (session, aggInput) => AggUtils.getCampaignFromSession(session, aggInput).system;
-const fnCampCompleted = (session, aggInput) => AggUtils.convertBooleanToWord(AggUtils.getCampaignFromSession(session, aggInput).completed);
+const fnCampCompleted = (session, aggInput) => AggUtils.getCampaignFromSession(session, aggInput).completed;
 
 const fnCharName = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).name;
 const fnCharRace = (session, aggInput) => AggUtils.getCharacterFromSession(session, aggInput).race;

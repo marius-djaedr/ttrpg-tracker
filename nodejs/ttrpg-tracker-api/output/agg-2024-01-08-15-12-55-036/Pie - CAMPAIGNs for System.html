@@ -1,0 +1,70 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"System","label":"System"})
+data.addColumn({"type":"number","id":"CAMPAIGN","label":"CAMPAIGN"})
+data.addRows([
+[`Anima: Beyond Fantasy`,2,],
+[`Avatar Legends`,2,],
+[`Big Eyes, Small Mouth - Fourth Edition`,1,],
+[`Big Eyes, Small Mouth - Revised Second Edition`,3,],
+[`Blades in the Dark`,2,],
+[`Burning Wheel`,2,],
+[`Coyote and Crow`,1,],
+[`Deathwatch`,1,],
+[`Dread`,1,],
+[`Dungeon World`,5,],
+[`Dungeons and Dragons - 3.5th Edition`,5,],
+[`Dungeons and Dragons - 4th Edition`,15,],
+[`Dungeons and Dragons - 5th Edition`,14,],
+[`FATE`,1,],
+[`Fabula Ultima`,1,],
+[`Feng Shui`,1,],
+[`Fiasco`,5,],
+[`Follow`,3,],
+[`Godbound`,2,],
+[`Golden Sky Stories`,1,],
+[`Kingdom`,7,],
+[`Lasers & Feelings`,1,],
+[`Lasers & Felines`,1,],
+[`Lasers and Felines`,1,],
+[`Masks`,1,],
+[`Microscope`,3,],
+[`Mutants and Masterminds`,2,],
+[`Paranoia`,1,],
+[`Pathfinder`,10,],
+[`Pathfinder - Second Edition`,4,],
+[`Scum and Villainy`,1,],
+[`Serenity`,2,],
+[`Shadowrun`,2,],
+[`Soth`,1,],
+[`Starfinder`,1,],
+[`Stars Without Number`,1,],
+[`The Quiet Year`,2,],
+]);
+
+// Set chart options
+var options = {"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>

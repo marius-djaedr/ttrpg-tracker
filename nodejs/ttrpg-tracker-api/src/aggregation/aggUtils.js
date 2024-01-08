@@ -10,8 +10,7 @@ exports.convertBooleanToWord = function(bool) {
 }
 
 exports.getCampaignFromSession = function(session, aggInput){
-    const PWC = session.playedWithoutCharacter;
-    if(PWC == null || PWC === ''){
+    if(session.played === 'Played'){
         const character = aggInput['CHARACTER'][session.parentId];
         return aggInput['CAMPAIGN'][character.parentId];
     }else{
@@ -20,8 +19,7 @@ exports.getCampaignFromSession = function(session, aggInput){
 }
 
 exports.getCharacterFromSession = function(session, aggInput){
-    const PWC = session.playedWithoutCharacter;
-    if(PWC == null || PWC === ''){
+    if(session.played === 'Played'){
         return aggInput['CHARACTER'][session.parentId];
     }else{
         return {};
@@ -36,7 +34,7 @@ exports.buildDateFunctionString = function(date){
 exports.getSessionWeightedCount = function(sessions){
     let count = 0.0;
     for(const session of sessions){
-        if(session.shortSession==null || session.shortSession==='' || session.shortSession === 'false' || session.shortSession === false){
+        if(session.duration==='Regular'){
             count += 1.0;
         }else{
             count += 0.5;

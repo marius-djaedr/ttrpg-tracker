@@ -65,10 +65,10 @@ const paramList = [
 function processSession(playMap, runMap, session){
     const toAdd = AggUtils.getSessionWeightedCount([session]);
     const date = session.date;
-    if(session.playedWithoutCharacter == null || session.playedWithoutCharacter === '' || session.playedWithoutCharacter == true){
-        manipulateMap(playMap,date,toAdd);
-    }else{
+    if(session.played === 'Ran'){
         manipulateMap(runMap,date,toAdd);
+    }else{
+        manipulateMap(playMap,date,toAdd);
     }
 }
 

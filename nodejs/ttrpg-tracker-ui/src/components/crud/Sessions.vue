@@ -20,15 +20,10 @@
     const modalFormId = ref('')
     const modalFormParentId = ref('')
     const modalFormDate = ref('')
-    const modalFormShortSession = ref('')
-    const modalFormPlayedWithoutCharacter = ref('')
+    const modalFormDuration = ref('')
+    const modalFormPlayed = ref('')
 
     function sortOrSearch(obj){
-        crudBaseRef.value.sortOrSearch(obj);
-    }
-
-    function playedSortOrSearch(obj){
-        //TODO map from search field to true/false/null
         crudBaseRef.value.sortOrSearch(obj);
     }
 
@@ -46,8 +41,8 @@
             modalFormId.value = obj.obj._id
             modalFormParentId.value = obj.obj.parentId
             modalFormDate.value = obj.obj.date
-            modalFormShortSession.value = obj.obj.shortSession
-            modalFormPlayedWithoutCharacter.value = obj.obj.playedWithoutCharacter
+            modalFormDuration.value = obj.obj.duration
+            modalFormPlayed.value = obj.obj.played
         }
     }
 
@@ -56,8 +51,8 @@
         obj._id = modalFormId.value
         obj.parentId = modalFormParentId.value
         obj.date = modalFormDate.value
-        obj.shortSession = modalFormShortSession.value
-        obj.playedWithoutCharacter = modalFormPlayedWithoutCharacter.value
+        obj.duration = modalFormDuration.value
+        obj.played = modalFormPlayed.value
         crudBaseRef.value.createOrUpdate(obj);
     }
 
@@ -86,28 +81,24 @@
             @load-modal="loadModal" @submit-emit="submitModal" @select-row="selectSession">
         <template v-slot:header-th>
             <SortHeader @submit-field="sortOrSearch" header-data-field="date">Date</SortHeader>
-            <SortHeader @submit-field="sortOrSearch" header-data-field="shortSession">Short Session</SortHeader>
-            <SortHeader @submit-field="playedSortOrSearch" header-data-field="playedWithoutCharacter">Play or Ran?</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="duration">Short Session</SortHeader>
+            <SortHeader @submit-field="sortOrSearch" header-data-field="played">Play or Ran?</SortHeader>
         </template>
-        <template v-slot:table-data="{date, shortSession, playedWithoutCharacter}">
+        <template v-slot:table-data="{date, duration, played}">
             <td>{{moment(date).format("YYYY-MM-DD")}}</td>
-            <td>{{shortSession}}</td>
-            <td>
-                <!-- TODO double check logic-->
-                <span v-if="playedWithoutCharacter === null || playedWithoutCharacter === '' || playedWithoutCharacter === true">Played</span>
-                <span v-else>Ran</span>
-            </td>
+            <td>{{duration}}</td>
+            <td>{{played}}</td>
         </template>
         <template v-slot:modal-form>
             <Datepicker v-model="modalFormDate" />
-            <select class="form-control" v-model="modalFormShortSession">
-                <option value="true">Short</option>
-                <option value="false">Regular</option>
+            <select class="form-control" v-model="modalFormDuration">
+                <option value="Regular">Regular</option>
+                <option value="Short">Short</option>
             </select>
-            <select class="form-control" v-model="modalFormPlayedWithoutCharacter">
-                <option value="true">Play No Character</option>
-                <option value="">Play Character</option>
-                <option value="false">Ran</option>
+            <select class="form-control" v-model="modalFormPlayed">
+                <option value="Ran">Ran</option>
+                <option value="Played">Played</option>
+                <option value="Played (no character)">Played (no character)</option>
             </select>
         </template>
     </CrudBase>
