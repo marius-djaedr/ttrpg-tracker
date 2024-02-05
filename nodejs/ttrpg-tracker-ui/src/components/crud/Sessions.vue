@@ -2,7 +2,7 @@
     import { ref } from 'vue'
     import CrudBase from './CrudBase.vue'
     import moment from 'moment'
-    import Datepicker from '@vuepic/vue-datepicker';
+    import VueDatepicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
     import SortHeader from '../tidbits/SortHeader.vue'
 
@@ -40,17 +40,19 @@
             console.info(obj)
             modalFormId.value = obj.obj._id
             modalFormParentId.value = obj.obj.parentId
-            modalFormDate.value = obj.obj.date
+            modalFormDate.value = moment(obj.obj.date)
             modalFormDuration.value = obj.obj.duration
             modalFormPlayed.value = obj.obj.played
         }
     }
 
     function submitModal(){
+        console.log(modalFormDate.value)
+        console.log(moment(modalFormDate.value))
         let obj = {};
         obj._id = modalFormId.value
         obj.parentId = modalFormParentId.value
-        obj.date = modalFormDate.value
+        obj.date = moment(modalFormDate.value).format("YYYY-MM-DD")
         obj.duration = modalFormDuration.value
         obj.played = modalFormPlayed.value
         crudBaseRef.value.createOrUpdate(obj);
@@ -74,6 +76,10 @@
         selectedParentId.value = id;
         crudBaseRef.value.sortOrSearch({field:'parentId', sort:false, search:id});
     }
+
+    function format(date){
+        return moment(date).format("YYYY-MM-DD")
+    }
 </script>
 
 <template>
@@ -90,7 +96,7 @@
             <td>{{played}}</td>
         </template>
         <template v-slot:modal-form>
-            <Datepicker v-model="modalFormDate" />
+            <VueDatepicker v-model="modalFormDate" :enable-time-picker="false" :format="format" />
             <select class="form-control" v-model="modalFormDuration">
                 <option value="Regular">Regular</option>
                 <option value="Short">Short</option>
