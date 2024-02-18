@@ -1,0 +1,73 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"System","label":"System"})
+data.addColumn({"type":"number","id":"sessions/CAMPAIGN","label":"sessions/CAMPAIGN"})
+data.addRows([
+[`Anima: Beyond Fantasy`,3,],
+[`Avatar Legends`,2,],
+[`Big Eyes, Small Mouth - Fourth Edition`,19,],
+[`Big Eyes, Small Mouth - Revised Second Edition`,10,],
+[`Blades in the Dark`,5.5,],
+[`Burning Wheel`,3,],
+[`Coyote and Crow`,1,],
+[`Deathwatch`,1,],
+[`Dread`,1,],
+[`Dungeon World`,5.4,],
+[`Dungeons and Dragons - 3.5th Edition`,4.8,],
+[`Dungeons and Dragons - 4th Edition`,13.366666666666667,],
+[`Dungeons and Dragons - 5th Edition`,17.285714285714285,],
+[`FATE`,15,],
+[`Fabula Ultima`,14,],
+[`Feng Shui`,1,],
+[`Fiasco`,1,],
+[`Follow`,1.6666666666666667,],
+[`Glitter Hearts`,1,],
+[`Godbound`,10.25,],
+[`Golden Sky Stories`,1,],
+[`Kids on Brooms`,1,],
+[`Kingdom`,2.142857142857143,],
+[`Lasers & Feelings`,0.5,],
+[`Lasers & Felines`,0.5,],
+[`MCDM Playtest 1`,1,],
+[`Masks`,1,],
+[`Microscope`,3.3333333333333335,],
+[`Mutants and Masterminds`,8.5,],
+[`Paranoia`,1,],
+[`Pathfinder`,13.4,],
+[`Pathfinder - Second Edition`,4.75,],
+[`Scum and Villainy`,16,],
+[`Serenity`,3.5,],
+[`Shadowrun`,5,],
+[`Soth`,1,],
+[`Starfinder`,5,],
+[`Stars Without Number`,2.5,],
+[`Teens in Space`,1,],
+[`The Quiet Year`,1.75,],
+]);
+
+// Set chart options
+var options = {"width":1200,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
