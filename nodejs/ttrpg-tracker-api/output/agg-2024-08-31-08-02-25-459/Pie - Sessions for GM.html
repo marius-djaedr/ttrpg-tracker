@@ -12,34 +12,34 @@ function drawChart() {
 // Create the data table.
 var data = new google.visualization.DataTable();
 data.addColumn({"type":"string","id":"GM","label":"GM"})
-data.addColumn({"type":"number","id":"sessions/CAMPAIGN","label":"sessions/CAMPAIGN"})
+data.addColumn({"type":"number","id":"sessions","label":"sessions"})
 data.addRows([
 [`?Urban Komando`,1,],
-[`Bruce Brown`,18.807692307692307,],
+[`Alyss Horner`,221.5,],
+[`Bruce Brown`,244.5,],
 [`Colby Woods`,2,],
-[`David Hobson`,3.75,],
+[`David Hobson`,15,],
 [`Jarrod Hehr`,1,],
 [`John Meyers`,3,],
-[`Josh Horner`,8.51923076923077,],
 [`Katie Peterson`,2,],
 [`Kyle Warrick`,21,],
-[`ME`,8.304878048780488,],
-[`Misha ???`,1,],
+[`ME`,340.5,],
+[`Misha ???`,2,],
 [`Oscar Medina`,8,],
-[`Richard Rudd`,5,],
+[`Richard Rudd`,10,],
 [`Rob ???`,1,],
 [`Ryan Boenigk`,6,],
 [`Ryan Womack`,2,],
-[`Sean Faulkner`,3.5,],
+[`Sean Faulkner`,7,],
 [`Thomas Villareal`,12,],
-[`none`,1.925,],
+[`none`,38.5,],
 ]);
 
 // Set chart options
-var options = {"width":1200,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50},"height":800}
+var options = {"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"},"height":800}
 
 // Instantiate and draw our chart, passing in some options.
-var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 chart.draw(data, options);
 }
 </script>
