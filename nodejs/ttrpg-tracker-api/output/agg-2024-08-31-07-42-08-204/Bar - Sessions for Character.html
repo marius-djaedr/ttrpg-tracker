@@ -1,0 +1,122 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"Character","label":"Character"})
+data.addColumn({"type":"number","id":"sessions","label":"sessions"})
+data.addRows([
+[`Amathal Freanighymn`,2,],
+[`Arad Ira'kidiam`,1,],
+[`Astraf I'bezebeze`,15,],
+[`Auneari`,10,],
+[`Balyax`,7,],
+[`Barbara Blackwood`,1,],
+[`Barnacle`,1,],
+[`Breag Ferguson`,1,],
+[`Brugbip`,1,],
+[`Corisar`,6.5,],
+[`Daemoira Wolfkin`,5,],
+[`Damien "The Rampart" Drake`,1,],
+[`Darang Perunggular'aga`,9,],
+[`Delgril Hornbringer`,42,],
+[`Desakallu`,7,],
+[`Die Waschbaer`,8,],
+[`Dinendal`,47,],
+[`Disenengu`,2.5,],
+[`Doc Grainneog`,13,],
+[`Dr Francis DuPoint`,1,],
+[`Eamilia`,10,],
+[`Eli'kanini`,10,],
+[`Envavius Qhordae`,2,],
+[`Eugene`,1,],
+[`Frawd`,1,],
+[`Fulbert Burrowes`,2,],
+[`Gardle Blegstendt Gon-Blurglesvick IV (Gar)`,2,],
+[`General Seere Ohtar`,2,],
+[`Geni`,16.5,],
+[`Glarblug`,5,],
+[`Groumwalda`,1,],
+[`Heianoupqrf`,2,],
+[`Ira Nyscu`,11,],
+[`Istan Ansrisar`,22,],
+[`Jaxtom Atticus`,2,],
+[`Jeb Ming-wei, Jr`,6,],
+[`Jerent Durpton`,1,],
+[`Jom Smiff`,1,],
+[`Kaiho Muchinoshidai`,1.5,],
+[`Karine Durant`,4,],
+[`Kavacam Atimai`,40.5,],
+[`Kazmuk Blackaxe`,9,],
+[`Kecil`,12,],
+[`Kepenguinan`,7,],
+[`Kimi`,1,],
+[`Krunk`,2,],
+[`Kuma`,1,],
+[`Kyoko Notori`,3,],
+[`Lan`,1,],
+[`Linobi`,2,],
+[`Loin`,1,],
+[`Lucas Antigonus Linwood`,3,],
+[`Lyarkai of Freyalise`,5.5,],
+[`Lyras Hydromech`,18.5,],
+[`Maedh'shti Akul'li kon Ach'ali`,6,],
+[`Maidika Ridara`,4,],
+[`Malruil Hieron IV`,2,],
+[`Mardred`,2,],
+[`Marius D'jaed'r`,14,],
+[`Mathas`,3,],
+[`Meidhbhin Mhic Cahan`,3,],
+[`Mekeleya of Vulriel`,4,],
+[`Merisiel`,4,],
+[`Missy Dubouis`,1,],
+[`Munru`,5,],
+[`Nafsi from Aleaql`,2,],
+[`Nemial`,1,],
+[`Niomoii "Screws" Kor`,16,],
+[`Parnasse Eldon Gerbo Leaffound Scheppen-Pock`,1.5,],
+[`Qahr Aetaq`,3,],
+[`Quierk`,12,],
+[`Remorin Wolfkin`,11,],
+[`Ruri Tiaryl Itryn'tyrghymn`,5,],
+[`Ruth`,1,],
+[`Sennof-re`,3,],
+[`Spheniscidae`,2,],
+[`Taighde Ollamh`,22,],
+[`Tek I'bezebeze`,1,],
+[`Thezier "Aid" Miller`,14.5,],
+[`Thravrox the Wizened`,2,],
+[`Tinchentafanalophous`,6,],
+[`Treytarmi-R-NOT-1`,1,],
+[`UNKNOWN - fiasco arctic cruise`,1,],
+[`UNKNOWN - fiasco wild west`,1,],
+[`UNKNOWN - fiasco work arctic`,1,],
+[`UNKNOWN - my first`,2,],
+[`UNKNOWN - oscar's work campaign`,8,],
+[`Uthatril`,9.5,],
+[`Valara Kailar`,19,],
+]);
+
+// Set chart options
+var options = {"width":1200,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
