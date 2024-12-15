@@ -1,0 +1,52 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"GM","label":"GM"})
+data.addColumn({"type":"number","id":"sessions/CAMPAIGN","label":"sessions/CAMPAIGN"})
+data.addRows([
+[`?Urban Komando`,1,],
+[`Alyss Horner`,8.51923076923077,],
+[`Bruce Brown`,19.576923076923077,],
+[`Colby Woods`,2,],
+[`David Hobson`,3.75,],
+[`Jarrod Hehr`,1,],
+[`John Meyers`,3,],
+[`Katie Peterson`,2,],
+[`Kyle Warrick`,21,],
+[`ME`,8.069767441860465,],
+[`Misha ???`,1,],
+[`Oscar Medina`,8,],
+[`Richard Rudd`,5,],
+[`Rob ???`,1,],
+[`Ryan Boenigk`,6,],
+[`Ryan Womack`,2,],
+[`Sean Faulkner`,3.5,],
+[`Thomas Villareal`,12,],
+[`none`,1.925,],
+]);
+
+// Set chart options
+var options = {"width":1200,"vAxis":{"textStyle":{"fontSize":10}},"chartArea":{"top":50},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
