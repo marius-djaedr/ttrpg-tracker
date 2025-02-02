@@ -20,7 +20,6 @@ exports.aggregate = async function(aggInput) {
     }
     return toReturn;
 }
-const monthDayArray = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const paramList = [
     {
@@ -148,7 +147,8 @@ function buildDataMapping(playMap, runMap){
                 const playMap_month = playMap_year[m] == null? {} : playMap_year[m];
                 const runMap_month = runMap_year[m] == null? {} : runMap_year[m];
                 
-                const maxD = (y == currentYear && m == currentMonth) ? currentDate : monthDayArray[m];
+                const lastDateOfMonth = new Date(y,m+1,0);
+                const maxD = (y == currentYear && m == currentMonth) ? currentDate : lastDateOfMonth.getDate();
                 for(let d=1; d <= maxD; d++){
                     let playValue = playMap_month[d] == null? 0.0 : playMap_month[d];
                     let runValue = runMap_month[d] == null? 0.0 : runMap_month[d];
@@ -167,14 +167,14 @@ function buildDataMapping(playMap, runMap){
                 }
                 let totalMonth = ranMonth+playedMonth;
                 dataMapping['Monthly'].push([AggUtils.buildDateFunctionString(new Date(y, m, 1)), ranMonth, playedMonth, totalMonth]);
-                dataMapping['Monthly'].push([AggUtils.buildDateFunctionString(new Date(y, m, monthDayArray[m])), ranMonth, playedMonth, totalMonth]);
+                dataMapping['Monthly'].push([AggUtils.buildDateFunctionString(lastDateOfMonth), ranMonth, playedMonth, totalMonth]);
                 
                 ranQuarter += ranMonth;
                 playedQuarter += playedMonth;
             }
             let totalQuarter = ranQuarter+playedQuarter;
             dataMapping['Quarterly'].push([AggUtils.buildDateFunctionString(new Date(y, q*3, 1)), ranQuarter, playedQuarter, totalQuarter]);
-            dataMapping['Quarterly'].push([AggUtils.buildDateFunctionString(new Date(y, q*3+2, monthDayArray[q*3+2])), ranQuarter, playedQuarter, totalQuarter]);
+            dataMapping['Quarterly'].push([AggUtils.buildDateFunctionString(new Date(y, q*3+3, 0)), ranQuarter, playedQuarter, totalQuarter]);
             
             ranYear += ranQuarter;
             playedYear += playedQuarter;

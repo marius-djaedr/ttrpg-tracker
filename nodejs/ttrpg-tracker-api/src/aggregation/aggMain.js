@@ -98,7 +98,7 @@ async function buildAggInput(dataCollection){
     for(const sessionId of Object.keys(toReturn['SESSION'])){
         let session = toReturn['SESSION'][sessionId];
         //not really a better place to do this conversion
-        session.date = new Date(session.date);
+        session.date = new Date(session.date+"T00:00:00.000");
 
         let sessionParentId = session.parentId;
         if(!Object.keys(sessionsForParent).includes(sessionParentId)){
