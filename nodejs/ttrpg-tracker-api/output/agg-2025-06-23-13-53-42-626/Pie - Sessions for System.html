@@ -1,0 +1,80 @@
+<html>
+<head>
+<!--https://developers.google.com/chart/interactive/docs/quick_start-->
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {"packages":["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({"type":"string","id":"System","label":"System"})
+data.addColumn({"type":"number","id":"sessions","label":"sessions"})
+data.addRows([
+[`Anima: Beyond Fantasy`,6,],
+[`Avatar Legends`,4,],
+[`Big Eyes, Small Mouth - Fourth Edition`,19,],
+[`Big Eyes, Small Mouth - Revised Second Edition`,30,],
+[`Blades in the Dark`,11,],
+[`Brindlewood Bay`,1,],
+[`Burning Wheel`,6,],
+[`City of Mists`,10,],
+[`Coyote and Crow`,1,],
+[`Daggerhearts Beta`,3,],
+[`Deathwatch`,1,],
+[`Draw Steel Playtest`,2,],
+[`Dread`,1,],
+[`Dungeon World`,31,],
+[`Dungeons and Dragons - 3.5th Edition`,24,],
+[`Dungeons and Dragons - 4th Edition`,207,],
+[`Dungeons and Dragons - 5th Edition`,260.5,],
+[`FATE`,15,],
+[`Fabula Ultima`,23,],
+[`Feng Shui`,1,],
+[`Fiasco`,5,],
+[`Follow`,5,],
+[`Garbage and Glory`,1,],
+[`Glitter Hearts`,1,],
+[`Godbound`,20.5,],
+[`Golden Sky Stories`,1,],
+[`Kids on Brooms`,1,],
+[`Kingdom`,15,],
+[`Lasers & Feelings`,1,],
+[`Lasers & Felines`,3,],
+[`Maid`,1,],
+[`Masks`,14,],
+[`Microscope`,10,],
+[`Mutants and Masterminds`,17,],
+[`Paranoia`,1,],
+[`Pathfinder`,134,],
+[`Pathfinder - Second Edition`,34,],
+[`Scum and Villainy`,16,],
+[`Serenity`,7,],
+[`Shadowdark`,1,],
+[`Shadowrun`,10,],
+[`Soth`,1,],
+[`Starfinder`,5,],
+[`Stars Without Number`,2.5,],
+[`Teens in Space`,18,],
+[`The One Ring 2e`,1,],
+[`The Quiet Year`,3.5,],
+]);
+
+// Set chart options
+var options = {"chartArea":{"top":50,"height":400,"bottom":0},"legend":{"alignment":"center"},"height":800}
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+</script>
+</head>
+
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+</body>
+</html>
