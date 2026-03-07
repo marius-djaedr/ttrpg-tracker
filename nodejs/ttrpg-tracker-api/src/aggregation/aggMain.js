@@ -65,8 +65,8 @@ exports.runAggregation = async function(aggCollection, dataCollection){
     const insertMapResult = await aggCollection.insertOne({type: 'MAPPING', data: mappingData})
     logger.info( 'DB insert complete')
 
-    return () =>{
-        physicalAgg.aggregate(aggInput, aggOutputs).catch(err=>{logger.error(err)})
+    return async () =>{
+        await physicalAgg.aggregate(aggInput, aggOutputs).catch(err=>{logger.error(err)})
     };
 }
 
