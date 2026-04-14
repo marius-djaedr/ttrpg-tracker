@@ -9,29 +9,26 @@ const fs = require('fs/promises');
 const TOKEN_PATH = path.join(process.cwd(),'tokens','token-drive.json');
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
-exports.directoryReplace = async function(filesToUpload, folderChain){
+exports.directoryReplace = async function(filesToUpload, folderChain, fuzzyLast){
     const auth = await googleCommon.buildAuth(SCOPES, TOKEN_PATH);
     const service = google.drive({version: 'v3', auth});
 
     logger.info("Finding directory for folder chain "+folderChain);
-    const folderId = await drillIntoFolder(service, folderChain, true);
+    const lastEl = folderChain.pop();
+    const folderId = await drillIntoFolder(service, folderChain, lastEl, true);
 
     logger.info("Executing batch");
     await copyAllFiles(service, folderId, filesToUpload);
 }
 
 
-async function drillIntoFolder(service, folderChain, wipeIfExisting) {
-    let previousParent = null;
-    let currentParent = 'root';
-    let finalName = null;
-    let createdNew = false;
+async function drillIntoFolder(service, folderChain, lastEl, wipeIfExisting) {
+    let currentParent = 'root';    
+    let finalName = lastEl + new Date().toISOString().replaceAll(':','.').replaceAll('Z','');
 
     for(const link of folderChain) {
-        previousParent = currentParent;
-
         const response = await service.files.list({
-            q: "mimeType = 'application/vnd.google-apps.folder' and name = '" + link + "' and '" + currentParent + "' in parents and trashed = false",
+            q: `mimeType = 'application/vnd.google-apps.folder' and name = '${link}' and '${currentParent}' in parents and trashed = false`,
             spaces: 'drive',
             fields: 'files(id,name,parents)',
         });
@@ -39,26 +36,37 @@ async function drillIntoFolder(service, folderChain, wipeIfExisting) {
         const foundFiles = response.data.files;
 
         if(foundFiles.length > 1) {
-            throw new IllegalArgumentException("Multiple folders found with name " + link + " in parent " + currentParent);
+            throw new Error("Multiple folders found with name " + link + " in parent " + currentParent);
         } else if(foundFiles.length == 0) {
             currentParent = await createFolder(service, currentParent, link);
-            createdNew = true;
         } else {
             currentParent = foundFiles[0].id;
         }
-        finalName = link;
+    }
+    
+    const response = await service.files.list({
+        q: `mimeType = 'application/vnd.google-apps.folder' and name contains '${lastEl}' and '${currentParent}' in parents and trashed = false`,
+        spaces: 'drive',
+        fields: 'files(id,name,parents)',
+    });
+
+    const foundFiles = response.data.files;
+    if(foundFiles.length > 1) {
+        throw new Error("Multiple folders found with name containing " + lastEl + " in parent " + currentParent);
+    } else if(foundFiles.length == 1) {
+        const foundId = foundFiles[0].id;
+        if(wipeIfExisting){
+            logger.info("Wiping out all existing in folder id ["+foundId+"]");
+            await service.files.delete({
+                fileId:foundId
+            });        
+        } else {
+            return foundId;
+        }
     }
 
-    if(wipeIfExisting && !createdNew) {
-        logger.info("Wiping out all existing in folder id ["+currentParent+"]");
-        await service.files.delete({
-            fileId:currentParent
-        });
-        currentParent = await createFolder(service, previousParent, finalName);
-    }
-    return currentParent;
+    return await createFolder(service, currentParent, finalName);
 }
-
 
 async function createFolder(service, parent, name) {
     logger.info("Creating new folder ["+name+"] in folder id ["+parent+"]");

@@ -43,7 +43,9 @@ exports.aggregate = async function(aggInput, aggOutputs){
     logger.info('Non-DB aggregation complete, folder: '+folderName);
 
     logger.info('Starting drive upload');
-    await drive.directoryReplace(filesToUpload, ['TTRPG','latest-aggregation'])
+    //TODO have timestamp as part of folder name
+    // - will need a looser query to find it. Maybe wildcard?
+    await drive.directoryReplace(filesToUpload, ['TTRPG','latest-aggregation'], true);
     logger.info('Drive upload finished');
 }
 
