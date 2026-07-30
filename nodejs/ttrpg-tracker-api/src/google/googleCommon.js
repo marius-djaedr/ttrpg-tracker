@@ -7,11 +7,11 @@ const process = require('process');
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials-google.json');
 
 exports.buildAuth = async function(scopes, tokenPath){
-    let client = await loadSavedCredentialsIfExist(tokenPath);
-    if (client) {
-        return client;
-    }
-    client = await authenticate({
+//    let client = await loadSavedCredentialsIfExist(tokenPath);
+//    if (client) {
+//        return client;
+//    }
+    let client = await authenticate({
         scopes: scopes,
         keyfilePath: CREDENTIALS_PATH,
     });
