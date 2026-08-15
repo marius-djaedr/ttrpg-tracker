@@ -21,7 +21,8 @@ exports.buildDateFunctionString = function(date){
     return 'Date('+date.getFullYear()+', '+date.getMonth()+', '+date.getDate()+')';
 }
 
-exports.getSessionWeightedCount = function(sessions){
+exports.getSessionWeightedCount = function(sessionsIn){
+    let sessions = sessionsIn ?? [];
     let count = 0.0;
     for(const session of sessions){
         if(session.duration==='Regular'){

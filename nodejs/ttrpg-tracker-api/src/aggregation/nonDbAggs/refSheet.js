@@ -44,8 +44,8 @@ function addRow(data, campaign, characterName, sessions){
     datum.push(campaign.gm)
     datum.push(campaign.system)
     datum.push(characterName)
-    datum.push(sessions.first)
-    datum.push(sessions.last)
+    datum.push(sessions.first ?? ``)
+    datum.push(sessions.last ?? ``)
     datum.push(sessions.total)
     datum.push('')
     datum.push('')
@@ -56,7 +56,8 @@ function addRow(data, campaign, characterName, sessions){
     data.push(datum);
 }
 
-function calculateSessions(sessions){
+function calculateSessions(sessionsIn){
+    let sessions = sessionsIn ?? [];
     const total = AggUtils.getSessionWeightedCount(sessions)
 
     const sessionDates = [];
