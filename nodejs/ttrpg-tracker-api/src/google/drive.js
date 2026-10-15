@@ -90,7 +90,7 @@ async function copyAllFiles(service, folderId, filesToUpload){
     let promiseMap = {};
     let count = 0;
     while(queue.length > 0){
-        while(Object.keys(promiseMap).length <= 1){
+        while(Object.keys(promiseMap).length <= 5){
             let localFileLocation = queue.pop();
             let id = count++;
             logger.info(id+' - '+localFileLocation)
